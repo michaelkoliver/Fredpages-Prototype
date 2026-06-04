@@ -104,10 +104,11 @@ export default function MapView({ rows, cat, hoverId, onOpen }) {
       style={{ width: '100%', height: '100%' }}
     >
       <TileLayer
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        subdomains="abc"
+        url={`https://api.mapbox.com/styles/v1/mapbox/light-v11/tiles/{z}/{x}/{y}?access_token=${import.meta.env.VITE_MAPBOX_TOKEN}`}
+        tileSize={512}
+        zoomOffset={-1}
         maxZoom={19}
-        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        attribution='&copy; <a href="https://www.mapbox.com/about/maps/">Mapbox</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
       />
       <ZoomControl position="topright" />
       <MapBehavior rows={rows} cat={cat} hoverId={hoverId} markerRefs={markerRefs} />
