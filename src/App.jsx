@@ -68,7 +68,7 @@ export default function App() {
     <div className="app">
       {/* nav */}
       <nav className="nav"><div className="inner">
-        <div className="brand" onClick={() => go('list')}><span className="mark">F</span>Fredericksburg</div>
+        <div className="brand" onClick={() => go('list')}>Fredpages</div>
         <div className="searchbox">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#8b938f" strokeWidth="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3" strokeLinecap="round"/></svg>
           <input
