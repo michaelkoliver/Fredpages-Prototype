@@ -7,9 +7,9 @@ const NAV_H = 58;
 function getSnaps() {
   const browse = window.innerHeight - NAV_H;
   return [
-    148,                        // peek  — handle + pills visible
-    Math.round(browse * 0.52), // half  — default, map visible above
-    Math.round(browse * 0.88), // full  — list-first, map nearly hidden
+    148,
+    Math.round(browse * 0.52),
+    Math.round(browse * 0.88),
   ];
 }
 
@@ -28,29 +28,46 @@ export default function ListPanel({ list, cat, onCat, hoverId, onHover, onOpen, 
     onHover(null);
   };
 
-  // bottom-sheet height driven by drag
   const [sheetH, setSheetH]     = useState(() => typeof window !== 'undefined' ? getSnaps()[1] : 420);
   const [snapping, setSnapping] = useState(false);
-  const drag = useRef({ active: false, startY: 0, startH: 0 });
+  const drag      = useRef({ active: false, startY: 0, startH: 0 });
+  const handleRef = useRef(null);
+  const sheetHRef = useRef(sheetH);
+  sheetHRef.current = sheetH;
 
-  const onTouchStart = e => {
-    drag.current = { active: true, startY: e.touches[0].clientY, startH: sheetH };
-    setSnapping(false);
-  };
-  const onTouchMove = e => {
-    if (!drag.current.active) return;
-    e.preventDefault();
-    const dy  = drag.current.startY - e.touches[0].clientY;
-    const max = window.innerHeight - NAV_H - 12;
-    setSheetH(Math.max(100, Math.min(max, drag.current.startH + dy)));
-  };
-  const onTouchEnd = () => {
-    drag.current.active = false;
-    setSnapping(true);
-    setSheetH(h => nearest(h));
-  };
+  // Attach touchmove as non-passive so we can preventDefault and stop the map from also scrolling
+  useEffect(() => {
+    const el = handleRef.current;
+    if (!el) return;
 
-  // re-snap to half on window resize (orientation change)
+    const onStart = e => {
+      drag.current = { active: true, startY: e.touches[0].clientY, startH: sheetHRef.current };
+      setSnapping(false);
+    };
+    const onMove = e => {
+      if (!drag.current.active) return;
+      e.preventDefault();
+      const dy  = drag.current.startY - e.touches[0].clientY;
+      const max = window.innerHeight - NAV_H - 12;
+      setSheetH(Math.max(100, Math.min(max, drag.current.startH + dy)));
+    };
+    const onEnd = () => {
+      drag.current.active = false;
+      setSnapping(true);
+      setSheetH(h => nearest(h));
+    };
+
+    el.addEventListener('touchstart', onStart, { passive: true });
+    el.addEventListener('touchmove',  onMove,  { passive: false }); // must be non-passive to preventDefault
+    el.addEventListener('touchend',   onEnd,   { passive: true });
+    return () => {
+      el.removeEventListener('touchstart', onStart);
+      el.removeEventListener('touchmove',  onMove);
+      el.removeEventListener('touchend',   onEnd);
+    };
+  }, []);
+
+  // re-snap to half on orientation change
   useEffect(() => {
     const handler = () => { setSnapping(false); setSheetH(getSnaps()[1]); };
     window.addEventListener('resize', handler);
@@ -62,13 +79,7 @@ export default function ListPanel({ list, cat, onCat, hoverId, onHover, onOpen, 
       className={'list-panel' + (snapping ? ' snapping' : '')}
       style={{ height: sheetH }}
     >
-      {/* drag handle */}
-      <div
-        className="sheet-handle"
-        onTouchStart={onTouchStart}
-        onTouchMove={onTouchMove}
-        onTouchEnd={onTouchEnd}
-      >
+      <div ref={handleRef} className="sheet-handle">
         <div className="sheet-handle-pill" />
       </div>
 
