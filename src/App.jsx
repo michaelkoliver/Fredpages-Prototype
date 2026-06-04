@@ -93,6 +93,8 @@ export default function App() {
             hoverId={hoverId}
             onHover={setHoverId}
             onOpen={open}
+            onClaim={() => { setClaimTargetId(null); go('claim'); }}
+            onAdmin={() => { setAtab('listings'); go('admin'); }}
           />
         </div>
       </div>

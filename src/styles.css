@@ -253,7 +253,8 @@ img{display:block;}
 
 @media(max-width:600px){
   .browse{height:calc(100vh - var(--nav-h));}
-  .nav .btn-primary{display:none;}
+  .searchbox{display:none;}
+  .nav .btn-primary{display:flex;}
 
   /* ── Bottom sheet — map fills screen, panel floats over the bottom ── */
   .list-panel{
@@ -328,4 +329,27 @@ img{display:block;}
   .dhead h1{font-size:21px;}
   .center h1{font-size:23px;}
   .page-wrap{padding:0 14px;}
+}
+
+/* ── sheet footer (mobile only, inside list-scroll) ── */
+.sheet-footer{
+  display:none;
+}
+@media(max-width:600px){
+  .sheet-footer{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:18px 2px 24px;
+    border-top:1px solid var(--line-2);
+    margin-top:8px;
+  }
+  .sheet-footer-cta{
+    background:none;border:none;padding:0;
+    font-size:13px;font-weight:600;color:var(--brand);
+  }
+  .sheet-footer-link{
+    background:none;border:none;padding:0;
+    font-size:12px;font-weight:500;color:var(--text-3);
+  }
 }

@@ -17,7 +17,7 @@ function nearest(h) {
   return getSnaps().reduce((a, b) => Math.abs(b - h) < Math.abs(a - h) ? b : a);
 }
 
-export default function ListPanel({ list, cat, onCat, hoverId, onHover, onOpen }) {
+export default function ListPanel({ list, cat, onCat, hoverId, onHover, onOpen, onClaim, onAdmin }) {
   const hoverTimer = useRef(null);
   const handleEnter = id => {
     clearTimeout(hoverTimer.current);
@@ -130,6 +130,10 @@ export default function ListPanel({ list, cat, onCat, hoverId, onHover, onOpen }
             </div>
           </div>
         ))}
+        <div className="sheet-footer">
+          <button className="sheet-footer-cta" onClick={onClaim}>List your business →</button>
+          <button className="sheet-footer-link" onClick={onAdmin}>Admin</button>
+        </div>
       </div>
     </div>
   );
