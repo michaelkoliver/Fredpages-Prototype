@@ -21,20 +21,22 @@ function popupHTML(r) {
   return `<div class="pop"><div class="pop-head" style="background:${tone(r.color)}">${r.name[0]}</div><div class="pop-b"><div class="pop-name">${r.name}</div><div class="pop-meta">${r.cat} · ${r.hood}</div>${rate}</div></div>`;
 }
 
-function MapBehavior({ rows, cat, hoverId, mobileTab, markerRefs }) {
+function MapBehavior({ rows, cat, hoverId, markerRefs }) {
   const map = useMap();
 
-  // fitBounds when cat/rows/mobileTab changes
+  // fitBounds when cat/rows changes
   useEffect(() => {
     const visible = cat === 'All' ? rows : rows.filter(r => r.cat === cat);
     const pts = visible.filter(r => r.coords).map(r => r.coords);
     if (pts.length) {
-      const pad = mobileTab === 'map' ? 16 : 384;
+      const mobile = window.innerWidth <= 600;
+      const padLeft   = mobile ? 16  : 384; // desktop: clear the sidebar panel
+      const padBottom = mobile ? 220 : 40;  // mobile: clear the bottom sheet at half-height
       try {
-        map.fitBounds(pts, { paddingTopLeft: [pad, 30], paddingBottomRight: [40, 40], animate: false });
+        map.fitBounds(pts, { paddingTopLeft: [padLeft, 30], paddingBottomRight: [40, padBottom], animate: false });
       } catch (e) {}
     }
-  }, [map, rows, cat, mobileTab]);
+  }, [map, rows, cat]);
 
   // pan/popup when hoverId changes
   useEffect(() => {
@@ -88,7 +90,7 @@ function PinMarker({ row, onOpen, isHovered, markerRefs }) {
   );
 }
 
-export default function MapView({ rows, cat, hoverId, onOpen, mobileTab }) {
+export default function MapView({ rows, cat, hoverId, onOpen }) {
   const markerRefs = useRef({});
   const visible = cat === 'All' ? rows : rows.filter(r => r.cat === cat);
   const mappable = visible.filter(r => r.coords);
@@ -108,7 +110,7 @@ export default function MapView({ rows, cat, hoverId, onOpen, mobileTab }) {
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
       />
       <ZoomControl position="topright" />
-      <MapBehavior rows={rows} cat={cat} hoverId={hoverId} mobileTab={mobileTab} markerRefs={markerRefs} />
+      <MapBehavior rows={rows} cat={cat} hoverId={hoverId} markerRefs={markerRefs} />
       {mappable.map(row => (
         <PinMarker
           key={row.id}

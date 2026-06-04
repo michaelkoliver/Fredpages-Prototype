@@ -252,67 +252,72 @@ img{display:block;}
 }
 
 @media(max-width:600px){
-  /* browse fills full remaining height — no offset for a separate tab bar */
   .browse{height:calc(100vh - var(--nav-h));}
-
-  /* hide claim button in nav on mobile */
   .nav .btn-primary{display:none;}
 
-  /*
-   * The list panel becomes a full-screen bottom sheet that slides over the map.
-   * When mobileTab === "map" we translate it fully off the bottom so the map
-   * shows through — this keeps a visual connection between the tabs and the
-   * content that's being revealed.
-   */
+  /* ── Bottom sheet — map fills screen, panel floats over the bottom ── */
   .list-panel{
-    top:0; left:0; right:0; bottom:0;
-    width:auto; border-radius:0; border:none;
-    box-shadow:none; backdrop-filter:none; -webkit-backdrop-filter:none;
+    position:fixed;
+    bottom:0;left:0;right:0;
+    top:auto;
+    width:auto;
+    border-radius:22px 22px 0 0;
+    border:none;
+    border-top:1px solid var(--line-2);
     background:var(--surface);
-    transform:translateY(0);
-    transition:transform .28s cubic-bezier(.4,0,.2,1);
-  }
-  .list-panel.mob-map{
-    transform:translateY(100%);
-  }
-
-  /* tab strip sits at the top of the panel on mobile */
-  .panel-tabs{
-    display:flex;
-    border-bottom:1px solid var(--line);
-    flex-shrink:0;
-    background:var(--surface);
-  }
-  .panel-tabs button{
-    flex:1; background:none; border:none;
-    padding:13px; font-size:13.5px; font-weight:700;
-    color:var(--text-2);
-    border-bottom:2px solid transparent;
-    font-family:inherit;
-  }
-  .panel-tabs button.on{color:var(--brand);border-bottom-color:var(--brand);}
-
-  /*
-   * "Show list" FAB — appears over the map when the panel is slid away.
-   * Fades in with a slight delay so it doesn't clash with the slide animation.
-   */
-  .map-fab{
-    position:absolute; bottom:24px; left:50%; transform:translateX(-50%);
+    box-shadow:0 -6px 32px rgba(16,24,20,.16);
+    backdrop-filter:none;-webkit-backdrop-filter:none;
+    /* height driven by JS inline style */
+    overflow:hidden;
     z-index:20;
-    background:var(--surface); border:1px solid var(--line);
-    border-radius:24px; padding:10px 20px;
-    font-size:13.5px; font-weight:700; color:var(--text);
-    box-shadow:0 4px 18px rgba(16,24,20,.22);
-    display:none;
-    white-space:nowrap;
-    cursor:pointer;
   }
-  .show-map-fab .map-fab{
-    display:block;
-    animation:fabIn .22s .18s both ease-out;
+  .list-panel.snapping{
+    transition:height .3s cubic-bezier(.4,0,.2,1);
   }
-  @keyframes fabIn{from{opacity:0;transform:translateX(-50%) translateY(8px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}
 
+  /* Drag handle pill */
+  .sheet-handle{
+    display:flex;align-items:center;justify-content:center;
+    padding:10px 0 6px;
+    flex-shrink:0;
+    cursor:grab;
+    user-select:none;-webkit-user-select:none;
+    touch-action:none;
+  }
+  .sheet-handle-pill{
+    width:38px;height:4px;
+    background:#d4d2cb;
+    border-radius:4px;
+    pointer-events:none;
+  }
+
+  /* filter pills: tighter spacing under the handle */
+  .filters-bar .pills{padding:4px 14px 12px;}
+
+  /* hide old List/Map tab strip and FAB — sheet drag is the affordance now */
+  .panel-tabs{display:none!important;}
+  .map-fab{display:none!important;}
+
+  /* ── Mobile card redesign ── */
+  .card{
+    border:none;
+    background:#fff;
+    box-shadow:0 1px 4px rgba(16,24,20,.07),0 0 0 1px rgba(16,24,20,.04);
+    border-radius:14px;
+    padding:12px;
+    gap:12px;
+    margin-bottom:8px;
+  }
+  .card:hover{transform:none;box-shadow:0 3px 12px rgba(16,24,20,.11),0 0 0 1px rgba(16,24,20,.06);}
+  .card.hl{box-shadow:0 0 0 2px var(--brand),0 4px 16px rgba(21,102,63,.14);}
+  .thumb{width:64px;height:64px;border-radius:10px;}
+  .thumb-ph{font-size:22px;}
+  .bizname{font-size:14px;}
+  .metaline{font-size:11.5px;}
+  /* strip claim/svc chips on mobile — too noisy at a glance */
+  .claimchip,.svcchip{display:none;}
+
+  /* ── other page fixes ── */
   .panel{grid-template-columns:1fr;}
   .side{border-right:none;border-bottom:1px solid var(--line);display:flex;gap:6px;overflow-x:auto;padding:10px;-webkit-overflow-scrolling:touch;}
   .side .who{display:none;}

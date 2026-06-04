@@ -25,7 +25,6 @@ export default function App() {
   const [pay,           setPay]           = useState(null);
   const [vrf,           setVrf]           = useState(null);
   const [hoverId,       setHoverId]       = useState(null);
-  const [mobileTab,     setMobileTab]     = useState('list');
 
   const active = rows.find(r => r.id === activeId);
   const biz    = rows.find(r => r.id === claimedId);
@@ -83,20 +82,10 @@ export default function App() {
 
       {/* ── BROWSE — always mounted so the map never unmounts ── */}
       <div style={{ display: view === 'list' ? 'block' : 'none' }}>
-        <div className={'browse' + (mobileTab === 'map' ? ' show-map-fab' : '')}>
+        <div className="browse">
           <div id="fxbg-map" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', background: '#e8e6df', zIndex: 1 }}>
-            <MapView
-              rows={rows}
-              cat={cat}
-              hoverId={hoverId}
-              onOpen={open}
-              mobileTab={mobileTab}
-            />
+            <MapView rows={rows} cat={cat} hoverId={hoverId} onOpen={open} />
           </div>
-
-          {/* FAB that appears over the map on mobile when the list is slid away */}
-          <button className="map-fab" onClick={() => setMobileTab('list')}>≡ Show list</button>
-
           <ListPanel
             list={list}
             cat={cat}
@@ -104,8 +93,6 @@ export default function App() {
             hoverId={hoverId}
             onHover={setHoverId}
             onOpen={open}
-            mobileTab={mobileTab}
-            onMobileTab={setMobileTab}
           />
         </div>
       </div>

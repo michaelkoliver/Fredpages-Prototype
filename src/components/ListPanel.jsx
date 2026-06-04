@@ -1,8 +1,23 @@
-import { useRef } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import Check from './Check';
 import { stars, tone, CATS, PLACE_CATS } from '../data';
 
-export default function ListPanel({ list, cat, onCat, hoverId, onHover, onOpen, mobileTab, onMobileTab }) {
+const NAV_H = 58;
+
+function getSnaps() {
+  const browse = window.innerHeight - NAV_H;
+  return [
+    148,                        // peek  — handle + pills visible
+    Math.round(browse * 0.52), // half  — default, map visible above
+    Math.round(browse * 0.88), // full  — list-first, map nearly hidden
+  ];
+}
+
+function nearest(h) {
+  return getSnaps().reduce((a, b) => Math.abs(b - h) < Math.abs(a - h) ? b : a);
+}
+
+export default function ListPanel({ list, cat, onCat, hoverId, onHover, onOpen }) {
   const hoverTimer = useRef(null);
   const handleEnter = id => {
     clearTimeout(hoverTimer.current);
@@ -13,12 +28,48 @@ export default function ListPanel({ list, cat, onCat, hoverId, onHover, onOpen, 
     onHover(null);
   };
 
+  // bottom-sheet height driven by drag
+  const [sheetH, setSheetH]     = useState(() => typeof window !== 'undefined' ? getSnaps()[1] : 420);
+  const [snapping, setSnapping] = useState(false);
+  const drag = useRef({ active: false, startY: 0, startH: 0 });
+
+  const onTouchStart = e => {
+    drag.current = { active: true, startY: e.touches[0].clientY, startH: sheetH };
+    setSnapping(false);
+  };
+  const onTouchMove = e => {
+    if (!drag.current.active) return;
+    e.preventDefault();
+    const dy  = drag.current.startY - e.touches[0].clientY;
+    const max = window.innerHeight - NAV_H - 12;
+    setSheetH(Math.max(100, Math.min(max, drag.current.startH + dy)));
+  };
+  const onTouchEnd = () => {
+    drag.current.active = false;
+    setSnapping(true);
+    setSheetH(h => nearest(h));
+  };
+
+  // re-snap to half on window resize (orientation change)
+  useEffect(() => {
+    const handler = () => { setSnapping(false); setSheetH(getSnaps()[1]); };
+    window.addEventListener('resize', handler);
+    return () => window.removeEventListener('resize', handler);
+  }, []);
+
   return (
-    <div className={'list-panel' + (mobileTab === 'map' ? ' mob-map' : '')}>
-      {/* tab strip lives inside the panel on mobile */}
-      <div className="panel-tabs">
-        <button className={mobileTab === 'list' ? 'on' : ''} onClick={() => onMobileTab('list')}>List</button>
-        <button className={mobileTab === 'map' ? 'on' : ''} onClick={() => onMobileTab('map')}>Map</button>
+    <div
+      className={'list-panel' + (snapping ? ' snapping' : '')}
+      style={{ height: sheetH }}
+    >
+      {/* drag handle */}
+      <div
+        className="sheet-handle"
+        onTouchStart={onTouchStart}
+        onTouchMove={onTouchMove}
+        onTouchEnd={onTouchEnd}
+      >
+        <div className="sheet-handle-pill" />
       </div>
 
       <div className="filters-bar">
