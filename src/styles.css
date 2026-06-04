@@ -253,8 +253,7 @@ img{display:block;}
 
 @media(max-width:600px){
   .browse{height:calc(100vh - var(--nav-h));}
-  .searchbox{display:none;}
-  .nav .btn-primary{display:flex;}
+  .nav .btn-primary{display:none;}
 
   /* ── Bottom sheet — map fills screen, panel floats over the bottom ── */
   .list-panel{
