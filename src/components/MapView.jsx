@@ -24,31 +24,30 @@ function popupHTML(r) {
 function MapBehavior({ rows, cat, hoverId, markerRefs }) {
   const map = useMap();
 
-  // fitBounds when cat/rows changes
+  // fitBounds only when category filter changes, not on every data update
   useEffect(() => {
     const visible = cat === 'All' ? rows : rows.filter(r => r.cat === cat);
     const pts = visible.filter(r => r.coords).map(r => r.coords);
     if (pts.length) {
       const mobile = window.innerWidth <= 600;
-      const padLeft   = mobile ? 16  : 384; // desktop: clear the sidebar panel
-      const padBottom = mobile ? 220 : 40;  // mobile: clear the bottom sheet at half-height
+      const padLeft   = mobile ? 16  : 384;
+      const padBottom = mobile ? 220 : 40;
       try {
         map.fitBounds(pts, { paddingTopLeft: [padLeft, 30], paddingBottomRight: [40, padBottom], animate: false });
       } catch (e) {}
     }
-  }, [map, rows, cat]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [map, cat]);
 
-  // pan/popup when hoverId changes
+  // open/close popup on hover — no auto-pan
   useEffect(() => {
     if (hoverId != null) {
-      const r = rows.find(x => x.id === hoverId);
       const mk = markerRefs.current[hoverId];
-      if (r && r.coords) map.panTo(r.coords, { animate: true, duration: 0.4 });
       if (mk) mk.openPopup();
     } else {
       map.closePopup();
     }
-  }, [map, hoverId, rows, markerRefs]);
+  }, [map, hoverId, markerRefs]);
 
   return null;
 }
