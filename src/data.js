@@ -273,17 +273,6 @@ export const TRAIL_PATHS = {
       geometry: {
         type: 'LineString',
         coordinates: [
-          // way 1348152177 — road crossing (crossing=marked, crossing:markings=ladder)
-          [-77.4684980,38.3158383],[-77.4684571,38.3157907],[-77.4684097,38.3157354],
-        ],
-      },
-    },
-    {
-      type: 'Feature',
-      properties: { id: 20, name: 'Heritage Trail', kind: 'crosswalk', color: '#3a7a5a' },
-      geometry: {
-        type: 'LineString',
-        coordinates: [
           // way 1003271411 — road crossing (crossing=uncontrolled, crossing:markings=ladder)
           [-77.4656501,38.3111023],[-77.4656869,38.3110789],[-77.4657381,38.3110463],
         ],
