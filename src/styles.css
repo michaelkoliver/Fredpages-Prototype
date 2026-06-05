@@ -254,6 +254,7 @@ img{display:block;}
 @media(max-width:600px){
   .browse{height:calc(100vh - var(--nav-h));}
   .nav .btn-primary{display:none;}
+  .leaflet-control-zoom{display:none;}
 
   /* ── Bottom sheet — map fills screen, panel floats over the bottom ── */
   .list-panel{
