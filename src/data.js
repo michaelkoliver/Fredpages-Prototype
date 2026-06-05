@@ -152,6 +152,14 @@ export const DATA = [
     hours:[["Daily","Dawn – Dusk"]], todayIdx:0,
     offers:[], events:[] },
 
+  { id:26, name:"Lafayette Boulevard Trail", cat:"Trail", hood:"Lafayette", color:"#2a5a7a",
+    rating:0, reviews:0, open:true, until:"Dusk", status:"auto",
+    coords:[38.2855,-77.4788],
+    about:"An unnamed multi-use cycleway running along the Lafayette Boulevard corridor from Trestle Lane south through the Lafayette neighborhood to Twin Lakes Drive.",
+    addr:"Lafayette Blvd, Fredericksburg", phone:"", web:"",
+    hours:[["Daily","Dawn – Dusk"]], todayIdx:0,
+    offers:[], events:[] },
+
   { id:14, name:"Kenmore Plantation", cat:"Historic Site", hood:"Washington Ave", color:"#8a6b4a",
     rating:0, reviews:0, open:true, until:"5:00 PM", status:"auto",
     coords:[38.3044,-77.4636],
@@ -165,7 +173,7 @@ export const CATS = ["All","Restaurant","Coffee & Tea","Brewery","Antiques","Boo
 export const PLACE_CATS = new Set(["Library","Transit","Park","Trail","Historic Site"]);
 
 // Trail IDs rendered as line paths on the map (not pins)
-export const TRAIL_PATH_IDS = new Set([13, 20, 21, 22, 23, 24, 25]);
+export const TRAIL_PATH_IDS = new Set([13, 20, 21, 22, 23, 24, 25, 26]);
 
 // GeoJSON path geometries for trails — coordinates from OpenStreetMap (Relations 9735871, 12931914, way IDs listed)
 export const TRAIL_PATHS = {
@@ -359,6 +367,35 @@ export const TRAIL_PATHS = {
           [-77.4810454,38.3012288],[-77.4810201,38.3012399],
           // way 938257517 — eastern terminus (Rappahannock Ave connection)
           [-77.4806690,38.3013932],
+        ],
+      },
+    },
+    {
+      type: 'Feature',
+      properties: { id: 26, name: 'Lafayette Boulevard Trail', kind: 'multi-use', color: '#2a5a7a' },
+      geometry: {
+        type: 'LineString',
+        coordinates: [
+          // way 1180478352 — northern terminus (Trestle Lane area)
+          [-77.4760166,38.2884496],[-77.4759818,38.2884393],[-77.4759752,38.2884274],
+          // way 1180478355
+          [-77.4759745,38.2884050],[-77.4759722,38.2883354],[-77.4759714,38.2883109],
+          // way 1180478356
+          [-77.4760066,38.2882948],[-77.4759873,38.2882653],[-77.4759845,38.2882536],[-77.4759862,38.2882352],[-77.4759931,38.2882074],[-77.4760107,38.2881554],[-77.4760677,38.2880419],[-77.4760766,38.2880281],[-77.4761243,38.2879539],[-77.4761794,38.2878903],[-77.4764786,38.2875589],[-77.4770732,38.2869029],[-77.4771470,38.2868351],[-77.4772282,38.2867649],[-77.4773158,38.2867053],[-77.4774822,38.2866074],[-77.4776678,38.2864854],[-77.4777928,38.2864050],[-77.4778187,38.2863916],[-77.4778465,38.2863858],[-77.4778708,38.2863858],[-77.4778991,38.2863877],[-77.4779040,38.2863571],
+          // way 1180478362 (crossing)
+          [-77.4779056,38.2863301],[-77.4779067,38.2863132],
+          // way 1180478363
+          [-77.4779101,38.2863002],[-77.4779174,38.2862906],[-77.4779364,38.2862730],[-77.4779462,38.2862677],[-77.4779598,38.2862642],
+          // way 1180478364 (crossing)
+          [-77.4779821,38.2862594],[-77.4780057,38.2862543],
+          // way 1180478365
+          [-77.4780455,38.2862513],[-77.4780515,38.2862217],[-77.4780617,38.2862041],[-77.4780783,38.2861835],[-77.4781090,38.2861582],[-77.4781529,38.2861280],[-77.4783537,38.2859803],[-77.4788280,38.2856318],
+          // way 1418059825
+          [-77.4790204,38.2854542],[-77.4792009,38.2852994],[-77.4794006,38.2850740],[-77.4794944,38.2849496],[-77.4796897,38.2846775],[-77.4797594,38.2845986],[-77.4798454,38.2845024],
+          // way 1418059826
+          [-77.4799972,38.2842539],[-77.4802065,38.2839506],[-77.4805052,38.2835086],
+          // way 1418059827 — southern terminus (Twin Lakes Dr area)
+          [-77.4806520,38.2832061],[-77.4808400,38.2829316],[-77.4810273,38.2826559],[-77.4811721,38.2824737],
         ],
       },
     },
