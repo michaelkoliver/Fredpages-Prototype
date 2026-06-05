@@ -1,125 +1,103 @@
-import { useEffect, useRef } from 'react';
-import { MapContainer, TileLayer, ZoomControl, Marker, Popup, useMap } from 'react-leaflet';
-import L from 'leaflet';
+import { useRef, useCallback, useEffect } from 'react';
+import Map, { Marker, Popup, NavigationControl } from 'react-map-gl/mapbox';
 import { tone, PLACE_CATS } from '../data';
+import 'mapbox-gl/dist/mapbox-gl.css';
 
-function makeIcon(row, selected) {
-  const coin = `<div class="coin${PLACE_CATS.has(row.cat) ? ' sq' : ''}" style="background:${tone(row.color)}">${row.name[0]}</div>`;
-  return L.divIcon({
-    html: `<div class="pin${selected ? ' sel' : ''}">${coin}</div>`,
-    className: '',
-    iconSize: [46, 46],
-    iconAnchor: [23, 23],
-    popupAnchor: [0, -18],
-  });
-}
+const TOKEN = import.meta.env.VITE_MAPBOX_TOKEN;
+const CENTER = { longitude: -77.4605, latitude: 38.3016, zoom: 13 };
 
-function popupHTML(r) {
-  const rate = r.rating > 0
-    ? `<div class="pop-rate">★ ${r.rating} · ${r.reviews} reviews</div>`
-    : '';
-  return `<div class="pop"><div class="pop-head" style="background:${tone(r.color)}">${r.name[0]}</div><div class="pop-b"><div class="pop-name">${r.name}</div><div class="pop-meta">${r.cat} · ${r.hood}</div>${rate}</div></div>`;
-}
-
-function MapBehavior({ rows, cat, hoverId, markerRefs }) {
-  const map = useMap();
-
-  // fitBounds only when category filter changes, not on every data update
-  useEffect(() => {
-    const visible = cat === 'All' ? rows : rows.filter(r => r.cat === cat);
-    const pts = visible.filter(r => r.coords).map(r => r.coords);
-    if (pts.length) {
-      const mobile = window.innerWidth <= 600;
-      const padLeft   = mobile ? 16  : 384;
-      const padBottom = mobile ? 220 : 40;
-      try {
-        map.fitBounds(pts, { paddingTopLeft: [padLeft, 30], paddingBottomRight: [40, padBottom], animate: false });
-      } catch (e) {}
-    }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [map, cat]);
-
-  // open/close popup on hover — no auto-pan
-  useEffect(() => {
-    if (hoverId != null) {
-      const mk = markerRefs.current[hoverId];
-      if (mk) mk.openPopup();
-    } else {
-      map.closePopup();
-    }
-  }, [map, hoverId, markerRefs]);
-
-  return null;
-}
-
-function PinMarker({ row, onOpen, isHovered, markerRefs }) {
-  const markerRef = useRef(null);
-
-  useEffect(() => {
-    const mk = markerRef.current;
-    if (!mk) return;
-    mk.setIcon(makeIcon(row, isHovered));
-  }, [isHovered, row]);
-
-  const popupContent = popupHTML(row);
-
+function Pin({ row, selected, onClick }) {
+  const bg = tone(row.color);
+  const isPlace = PLACE_CATS.has(row.cat);
   return (
     <Marker
-      ref={el => {
-        markerRef.current = el;
-        if (el) markerRefs.current[row.id] = el;
-      }}
-      position={row.coords}
-      icon={makeIcon(row, isHovered)}
-      eventHandlers={{
-        click: () => onOpen(row),
-        popupopen: e => {
-          const el = e.popup.getElement();
-          if (el) {
-            const pop = el.querySelector('.pop');
-            if (pop) pop.onclick = () => onOpen(row);
-          }
-        },
-      }}
+      longitude={row.coords[1]}
+      latitude={row.coords[0]}
+      anchor="center"
+      onClick={e => { e.originalEvent.stopPropagation(); onClick(row); }}
     >
-      <Popup closeButton={false} offset={[0, 4]}>
-        <div dangerouslySetInnerHTML={{ __html: popupContent }} />
-      </Popup>
+      <div className={`pin${selected ? ' sel' : ''}`}>
+        <div className={`coin${isPlace ? ' sq' : ''}`} style={{ background: bg }}>
+          {row.name[0]}
+        </div>
+      </div>
     </Marker>
   );
 }
 
 export default function MapView({ rows, cat, hoverId, onOpen }) {
-  const markerRefs = useRef({});
-  const visible = cat === 'All' ? rows : rows.filter(r => r.cat === cat);
+  const mapRef = useRef(null);
+  const visible  = cat === 'All' ? rows : rows.filter(r => r.cat === cat);
   const mappable = visible.filter(r => r.coords);
+  const hovered  = hoverId != null ? rows.find(r => r.id === hoverId) : null;
+
+  // fitBounds when category changes
+  const fitVisible = useCallback((map) => {
+    if (!mappable.length) return;
+    const lngs = mappable.map(r => r.coords[1]);
+    const lats = mappable.map(r => r.coords[0]);
+    const mobile = window.innerWidth <= 600;
+    map.fitBounds(
+      [[Math.min(...lngs), Math.min(...lats)], [Math.max(...lngs), Math.max(...lats)]],
+      {
+        padding: {
+          top: 30,
+          left:   mobile ? 16  : 384,
+          right:  40,
+          bottom: mobile ? 220 : 40,
+        },
+        animate: false,
+      }
+    );
+  }, [cat]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  useEffect(() => {
+    const map = mapRef.current?.getMap();
+    if (map) fitVisible(map);
+  }, [fitVisible]);
 
   return (
-    <MapContainer
-      center={[38.3016, -77.4605]}
-      zoom={13}
-      zoomControl={false}
-      attributionControl={true}
+    <Map
+      ref={mapRef}
+      mapboxAccessToken={TOKEN}
+      initialViewState={CENTER}
       style={{ width: '100%', height: '100%' }}
+      mapStyle="mapbox://styles/mapbox/light-v11"
+      onLoad={e => fitVisible(e.target)}
+      cooperativeGestures={false}
     >
-      <TileLayer
-        url={`https://api.mapbox.com/styles/v1/mapbox/light-v11/tiles/{z}/{x}/{y}?access_token=${import.meta.env.VITE_MAPBOX_TOKEN}`}
-        tileSize={512}
-        zoomOffset={-1}
-        maxZoom={19}
-        attribution='&copy; <a href="https://www.mapbox.com/about/maps/">Mapbox</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-      />
-      <ZoomControl position="topright" />
-      <MapBehavior rows={rows} cat={cat} hoverId={hoverId} markerRefs={markerRefs} />
+      <NavigationControl position="top-right" showCompass={false} />
+
       {mappable.map(row => (
-        <PinMarker
+        <Pin
           key={row.id}
           row={row}
-          onOpen={onOpen}
-          isHovered={hoverId === row.id}
-          markerRefs={markerRefs}
+          selected={hoverId === row.id}
+          onClick={onOpen}
         />
       ))}
-    </MapContainer>
+
+      {hovered && hovered.coords && (
+        <Popup
+          longitude={hovered.coords[1]}
+          latitude={hovered.coords[0]}
+          anchor="bottom"
+          offset={18}
+          closeButton={false}
+          closeOnClick={false}
+        >
+          <div className="pop" onClick={() => onOpen(hovered)} style={{ cursor: 'pointer' }}>
+            <div className="pop-head" style={{ background: tone(hovered.color) }}>{hovered.name[0]}</div>
+            <div className="pop-b">
+              <div className="pop-name">{hovered.name}</div>
+              <div className="pop-meta">{hovered.cat} · {hovered.hood}</div>
+              {hovered.rating > 0 && (
+                <div className="pop-rate">★ {hovered.rating} · {hovered.reviews} reviews</div>
+              )}
+            </div>
+          </div>
+        </Popup>
+      )}
+    </Map>
   );
 }

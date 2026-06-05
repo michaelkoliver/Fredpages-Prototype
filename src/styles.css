@@ -1,4 +1,3 @@
-@import 'leaflet/dist/leaflet.css';
 @import url('https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&display=swap');
 
 :root{
@@ -254,7 +253,7 @@ img{display:block;}
 @media(max-width:600px){
   .browse{height:calc(100vh - var(--nav-h));}
   .nav .btn-primary{display:none;}
-  .leaflet-control-zoom{display:none;}
+  .mapboxgl-ctrl-zoom-in,.mapboxgl-ctrl-zoom-out{display:none;}
 
   /* ── Bottom sheet — map fills screen, panel floats over the bottom ── */
   .list-panel{
