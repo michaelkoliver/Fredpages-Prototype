@@ -26,6 +26,14 @@ const TRAIL_NATURE = {
   paint: { 'line-color': ['get', 'color'], 'line-width': 3, 'line-opacity': 0.9, 'line-dasharray': [3, 2] },
 };
 
+const TRAIL_CROSSWALK = {
+  id: 'trails-crosswalk',
+  type: 'line',
+  filter: ['==', ['get', 'kind'], 'crosswalk'],
+  layout: { 'line-cap': 'butt', 'line-join': 'miter' },
+  paint: { 'line-color': ['get', 'color'], 'line-width': 4.5, 'line-opacity': 0.9, 'line-dasharray': [1.5, 1.5] },
+};
+
 const TOKEN = import.meta.env.VITE_MAPBOX_TOKEN;
 const CENTER = { longitude: -77.4605, latitude: 38.3016, zoom: 13 };
 
@@ -107,6 +115,7 @@ export default function MapView({ rows, cat, hoverId, onOpen }) {
         <Layer {...TRAIL_CASING} />
         <Layer {...TRAIL_MULTIUSE} />
         <Layer {...TRAIL_NATURE} />
+        <Layer {...TRAIL_CROSSWALK} />
       </Source>
 
       {pinnable.map(row => (
