@@ -384,10 +384,8 @@ export const TRAIL_PATHS = {
       geometry: {
         type: 'LineString',
         coordinates: [
-          // way 1180478352 — northern terminus (Trestle Lane area)
-          [-77.4760166,38.2884496],[-77.4759818,38.2884393],[-77.4759752,38.2884274],
-          // way 1180478355
-          [-77.4759745,38.2884050],[-77.4759722,38.2883354],[-77.4759714,38.2883109],
+          // shared junction with Trestle Lane Trail (SW side of Trestle Ln / Lafayette Blvd intersection)
+          [-77.4761380,38.2883704],[-77.4759714,38.2883109],
           // way 1180478356
           [-77.4760066,38.2882948],[-77.4759873,38.2882653],[-77.4759845,38.2882536],[-77.4759862,38.2882352],[-77.4759931,38.2882074],[-77.4760107,38.2881554],[-77.4760677,38.2880419],[-77.4760766,38.2880281],[-77.4761243,38.2879539],[-77.4761794,38.2878903],[-77.4764786,38.2875589],[-77.4770732,38.2869029],[-77.4771470,38.2868351],[-77.4772282,38.2867649],[-77.4773158,38.2867053],[-77.4774822,38.2866074],[-77.4776678,38.2864854],[-77.4777928,38.2864050],[-77.4778187,38.2863916],[-77.4778465,38.2863858],[-77.4778708,38.2863858],[-77.4778991,38.2863877],[-77.4779040,38.2863571],
           // way 1180478362 (crossing)
@@ -413,9 +411,9 @@ export const TRAIL_PATHS = {
       geometry: {
         type: 'LineString',
         coordinates: [
-          // southern terminus — shared junction with Lafayette Blvd Trail
-          [-77.4760166,38.2884496],
-          // intermediate nodes offset ~8m SW of Trestle Lane centerline (path runs on SW side)
+          // shared junction with Lafayette Blvd Trail (SW side of Trestle Ln / Lafayette Blvd intersection)
+          [-77.4761380,38.2883704],
+          // nodes offset ~8m SW of Trestle Lane centerline (path runs on SW side)
           [-77.4766233,38.2886326],[-77.4766647,38.2886617],[-77.4767006,38.2886951],[-77.4767241,38.2887248],[-77.4767503,38.2887577],
           [-77.4767972,38.2888524],[-77.4768472,38.2889971],[-77.4769636,38.2893029],[-77.4771751,38.2898828],
           // northern terminus — VCR Trail junction
