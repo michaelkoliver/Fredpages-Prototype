@@ -414,8 +414,8 @@ export const TRAIL_PATHS = {
           // nodes offset ~8m SW of Trestle Lane centerline (path runs on SW side)
           [-77.4766233,38.2886326],[-77.4766647,38.2886617],[-77.4767006,38.2886951],[-77.4767241,38.2887248],[-77.4767503,38.2887577],
           [-77.4767972,38.2888524],[-77.4768472,38.2889971],[-77.4769636,38.2893029],[-77.4771751,38.2898828],
-          // northern terminus — VCR Trail junction
-          [-77.4772092,38.2902777],
+          // northern terminus — offset node then VCR Trail junction
+          [-77.4772872,38.2902395],[-77.4772037,38.2903510],
         ],
       },
     },
