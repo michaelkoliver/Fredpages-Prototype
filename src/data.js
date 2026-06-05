@@ -152,6 +152,14 @@ export const DATA = [
     hours:[["Daily","Dawn – Dusk"]], todayIdx:0,
     offers:[], events:[] },
 
+  { id:27, name:"Trestle Lane Trail", cat:"Trail", hood:"Lafayette", color:"#4a7a3a",
+    rating:0, reviews:0, open:true, until:"Dusk", status:"auto",
+    coords:[38.2893,-77.4769],
+    about:"A newly built 8-foot multi-use pathway along the southwest side of Trestle Lane, connecting the Virginia Central Railway Trail to the Lafayette Boulevard Trail.",
+    addr:"Trestle Lane, Fredericksburg", phone:"", web:"",
+    hours:[["Daily","Dawn – Dusk"]], todayIdx:0,
+    offers:[], events:[] },
+
   { id:26, name:"Lafayette Boulevard Trail", cat:"Trail", hood:"Lafayette", color:"#2a5a7a",
     rating:0, reviews:0, open:true, until:"Dusk", status:"auto",
     coords:[38.2855,-77.4788],
@@ -173,7 +181,7 @@ export const CATS = ["All","Restaurant","Coffee & Tea","Brewery","Antiques","Boo
 export const PLACE_CATS = new Set(["Library","Transit","Park","Trail","Historic Site"]);
 
 // Trail IDs rendered as line paths on the map (not pins)
-export const TRAIL_PATH_IDS = new Set([13, 20, 21, 22, 23, 24, 25, 26]);
+export const TRAIL_PATH_IDS = new Set([13, 20, 21, 22, 23, 24, 25, 26, 27]);
 
 // GeoJSON path geometries for trails — coordinates from OpenStreetMap (Relations 9735871, 12931914, way IDs listed)
 export const TRAIL_PATHS = {
@@ -396,6 +404,21 @@ export const TRAIL_PATHS = {
           [-77.4799972,38.2842539],[-77.4802065,38.2839506],[-77.4805052,38.2835086],
           // way 1418059827 — southern terminus (Twin Lakes Dr area)
           [-77.4806520,38.2832061],[-77.4808400,38.2829316],[-77.4810273,38.2826559],[-77.4811721,38.2824737],
+        ],
+      },
+    },
+    {
+      type: 'Feature',
+      properties: { id: 27, name: 'Trestle Lane Trail', kind: 'multi-use', color: '#4a7a3a' },
+      geometry: {
+        type: 'LineString',
+        coordinates: [
+          // southern terminus — Lafayette Blvd Trail junction (OSM road way 1082204182)
+          [-77.4760600,38.2884086],
+          [-77.4765453,38.2886708],[-77.4765867,38.2886999],[-77.4766226,38.2887333],[-77.4766461,38.2887630],[-77.4766723,38.2887959],
+          [-77.4767192,38.2888906],[-77.4767692,38.2890353],[-77.4768856,38.2893411],[-77.4770971,38.2899210],
+          // northern terminus — VCR Trail junction
+          [-77.4772092,38.2902777],
         ],
       },
     },
