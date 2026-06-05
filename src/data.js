@@ -152,6 +152,14 @@ export const DATA = [
     hours:[["Daily","Dawn – Dusk"]], todayIdx:0,
     offers:[], events:[] },
 
+  { id:28, name:"Spring Wood Trail", cat:"Trail", hood:"Lafayette", color:"#7a5a2a",
+    rating:0, reviews:0, open:true, until:"Dusk", status:"auto",
+    coords:[38.2865,-77.4863],
+    about:"A short paved pathway connecting the northwest end of Spring Wood Drive to the Virginia Central Railway Trail.",
+    addr:"Spring Wood Dr, Fredericksburg", phone:"", web:"",
+    hours:[["Daily","Dawn – Dusk"]], todayIdx:0,
+    offers:[], events:[] },
+
   { id:27, name:"Trestle Lane Trail", cat:"Trail", hood:"Lafayette", color:"#4a7a3a",
     rating:0, reviews:0, open:true, until:"Dusk", status:"auto",
     coords:[38.2893,-77.4769],
@@ -181,7 +189,7 @@ export const CATS = ["All","Restaurant","Coffee & Tea","Brewery","Antiques","Boo
 export const PLACE_CATS = new Set(["Library","Transit","Park","Trail","Historic Site"]);
 
 // Trail IDs rendered as line paths on the map (not pins)
-export const TRAIL_PATH_IDS = new Set([13, 20, 21, 22, 23, 24, 25, 26, 27]);
+export const TRAIL_PATH_IDS = new Set([13, 20, 21, 22, 23, 24, 25, 26, 27, 28]);
 
 // GeoJSON path geometries for trails — coordinates from OpenStreetMap (Relations 9735871, 12931914, way IDs listed)
 export const TRAIL_PATHS = {
@@ -416,6 +424,21 @@ export const TRAIL_PATHS = {
           [-77.4767972,38.2888524],[-77.4768472,38.2889971],[-77.4769636,38.2893029],[-77.4771751,38.2898828],
           // northern terminus — SW side of Trestle Lane at VCR Trail
           [-77.4772872,38.2902395],
+        ],
+      },
+    },
+    {
+      type: 'Feature',
+      properties: { id: 28, name: 'Spring Wood Trail', kind: 'multi-use', color: '#7a5a2a' },
+      geometry: {
+        type: 'LineString',
+        coordinates: [
+          // southern terminus — Spring Wood Drive NW corner
+          [-77.4861559,38.2864338],
+          // way 117398044
+          [-77.4864702,38.2865426],[-77.4864920,38.2865612],
+          // northern terminus — VCR Trail junction
+          [-77.4865101,38.2866094],
         ],
       },
     },
