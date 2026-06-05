@@ -3,6 +3,7 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches: [claude/fredericksburg-directory-prototype-U6yW0]
+  workflow_dispatch:
 
 permissions:
   contents: write
@@ -20,7 +21,14 @@ jobs:
 
       - run: npm ci
 
-      - run: npm run build
+      - name: Check token and build
+        run: |
+          if [ -z "$VITE_MAPBOX_TOKEN" ]; then
+            echo "::error::VITE_MAPBOX_TOKEN secret is empty or not set"
+            exit 1
+          fi
+          echo "Token present (length ${#VITE_MAPBOX_TOKEN})"
+          npm run build
         env:
           VITE_MAPBOX_TOKEN: ${{ secrets.VITE_MAPBOX_TOKEN }}
 
