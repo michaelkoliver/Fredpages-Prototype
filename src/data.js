@@ -98,9 +98,25 @@ export const DATA = [
 
   { id:13, name:"Rappahannock River Trail", cat:"Trail", hood:"Riverfront", color:"#2a7a8a",
     rating:0, reviews:0, open:true, until:"Dusk", status:"auto",
-    coords:[38.2968,-77.4568],
+    coords:[38.2998,-77.4568],
     about:"A paved multi-use trail running along the Rappahannock River with views of the historic rail bridge. Popular with cyclists, runners, and walkers.",
     addr:"Sophia St riverfront", phone:"", web:"",
+    hours:[["Daily","Dawn – Dusk"]], todayIdx:0,
+    offers:[], events:[] },
+
+  { id:20, name:"Fall Hill Multi-Use Path", cat:"Trail", hood:"Fall Hill", color:"#3a7a5a",
+    rating:0, reviews:0, open:true, until:"Dusk", status:"auto",
+    coords:[38.3065,-77.4715],
+    about:"A paved multi-use path connecting the Fall Hill neighborhood to downtown Fredericksburg along Fall Hill Avenue. Shared by cyclists and pedestrians.",
+    addr:"Fall Hill Ave", phone:"", web:"",
+    hours:[["Daily","Dawn – Dusk"]], todayIdx:0,
+    offers:[], events:[] },
+
+  { id:21, name:"Dixon Park Nature Trail", cat:"Trail", hood:"Northwest Fredericksburg", color:"#5a7a3a",
+    rating:0, reviews:0, open:true, until:"Dusk", status:"auto",
+    coords:[38.3149,-77.4745],
+    about:"A natural-surface loop trail through Dixon Park's mature hardwood forest. Popular with dog walkers, trail runners, and birders.",
+    addr:"Dixon Park", phone:"", web:"",
     hours:[["Daily","Dawn – Dusk"]], todayIdx:0,
     offers:[], events:[] },
 
@@ -115,3 +131,60 @@ export const DATA = [
 
 export const CATS = ["All","Restaurant","Coffee & Tea","Brewery","Antiques","Bookstore","Services","Library","Transit","Park","Trail","Historic Site"];
 export const PLACE_CATS = new Set(["Library","Transit","Park","Trail","Historic Site"]);
+
+// Trail IDs rendered as line paths on the map (not pins)
+export const TRAIL_PATH_IDS = new Set([13, 20, 21]);
+
+// GeoJSON path geometries for trails
+export const TRAIL_PATHS = {
+  type: 'FeatureCollection',
+  features: [
+    {
+      type: 'Feature',
+      properties: { id: 13, name: 'Rappahannock River Trail', kind: 'multi-use', color: '#2a7a8a' },
+      geometry: {
+        type: 'LineString',
+        coordinates: [
+          [-77.4555, 38.2938],
+          [-77.4560, 38.2958],
+          [-77.4564, 38.2978],
+          [-77.4568, 38.2998],
+          [-77.4570, 38.3018],
+          [-77.4574, 38.3038],
+          [-77.4580, 38.3056],
+        ],
+      },
+    },
+    {
+      type: 'Feature',
+      properties: { id: 20, name: 'Fall Hill Multi-Use Path', kind: 'multi-use', color: '#3a7a5a' },
+      geometry: {
+        type: 'LineString',
+        coordinates: [
+          [-77.4638, 38.3045],
+          [-77.4675, 38.3055],
+          [-77.4715, 38.3065],
+          [-77.4755, 38.3075],
+          [-77.4795, 38.3088],
+        ],
+      },
+    },
+    {
+      type: 'Feature',
+      properties: { id: 21, name: 'Dixon Park Nature Trail', kind: 'nature', color: '#5a7a3a' },
+      geometry: {
+        type: 'LineString',
+        coordinates: [
+          [-77.4722, 38.3145],
+          [-77.4738, 38.3162],
+          [-77.4756, 38.3165],
+          [-77.4768, 38.3155],
+          [-77.4765, 38.3140],
+          [-77.4748, 38.3132],
+          [-77.4728, 38.3133],
+          [-77.4722, 38.3145],
+        ],
+      },
+    },
+  ],
+};
