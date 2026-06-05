@@ -413,8 +413,8 @@ export const TRAIL_PATHS = {
       geometry: {
         type: 'LineString',
         coordinates: [
-          // southern terminus — Lafayette Blvd Trail junction (OSM road way 1082204182)
-          [-77.4760600,38.2884086],
+          // southern terminus — shared junction with Lafayette Blvd Trail
+          [-77.4760166,38.2884496],
           [-77.4765453,38.2886708],[-77.4765867,38.2886999],[-77.4766226,38.2887333],[-77.4766461,38.2887630],[-77.4766723,38.2887959],
           [-77.4767192,38.2888906],[-77.4767692,38.2890353],[-77.4768856,38.2893411],[-77.4770971,38.2899210],
           // northern terminus — VCR Trail junction
