@@ -144,6 +144,14 @@ export const DATA = [
     hours:[["Daily","Dawn – Dusk"]], todayIdx:0,
     offers:[], events:[] },
 
+  { id:25, name:"College Heights Connector", cat:"Trail", hood:"College Heights", color:"#6a3a7a",
+    rating:0, reviews:0, open:true, until:"Dusk", status:"auto",
+    coords:[38.3000,-77.4817],
+    about:"An unnamed multi-use connector pathway linking the College Heights neighborhood along the Emancipation Hwy corridor to Old William Street and Rappahannock Avenue.",
+    addr:"Old William St, Fredericksburg", phone:"", web:"",
+    hours:[["Daily","Dawn – Dusk"]], todayIdx:0,
+    offers:[], events:[] },
+
   { id:14, name:"Kenmore Plantation", cat:"Historic Site", hood:"Washington Ave", color:"#8a6b4a",
     rating:0, reviews:0, open:true, until:"5:00 PM", status:"auto",
     coords:[38.3044,-77.4636],
@@ -157,7 +165,7 @@ export const CATS = ["All","Restaurant","Coffee & Tea","Brewery","Antiques","Boo
 export const PLACE_CATS = new Set(["Library","Transit","Park","Trail","Historic Site"]);
 
 // Trail IDs rendered as line paths on the map (not pins)
-export const TRAIL_PATH_IDS = new Set([13, 20, 21, 22, 23, 24]);
+export const TRAIL_PATH_IDS = new Set([13, 20, 21, 22, 23, 24, 25]);
 
 // GeoJSON path geometries for trails — coordinates from OpenStreetMap (Relations 9735871, 12931914, way IDs listed)
 export const TRAIL_PATHS = {
@@ -318,6 +326,39 @@ export const TRAIL_PATHS = {
           [-77.4891074,38.3061798],[-77.4883615,38.3055520],[-77.4883032,38.3055051],[-77.4876736,38.3049989],[-77.4875600,38.3049051],[-77.4874895,38.3048469],[-77.4871150,38.3044968],[-77.4869496,38.3043598],[-77.4865336,38.3040368],
           // way 938257530 — eastern terminus at Emancipation Hwy / US-1
           [-77.4863180,38.3039147],[-77.4862795,38.3038869],[-77.4852352,38.3030338],[-77.4844155,38.3023964],[-77.4843534,38.3023329],[-77.4842814,38.3022617],[-77.4842238,38.3022179],[-77.4837480,38.3018563],[-77.4833658,38.3016093],[-77.4832526,38.3015477],[-77.4828634,38.3013359],[-77.4821910,38.3010340],[-77.4821539,38.3010281],[-77.4821064,38.3010225],
+        ],
+      },
+    },
+    {
+      type: 'Feature',
+      properties: { id: 25, name: 'College Heights Connector', kind: 'multi-use', color: '#6a3a7a' },
+      geometry: {
+        type: 'LineString',
+        coordinates: [
+          // way 1499476217 — southern end (Old William / Rappahannock area)
+          [-77.4811122,38.2993419],[-77.4811627,38.2993186],[-77.4813737,38.2992214],[-77.4816733,38.2990759],[-77.4817340,38.2990521],
+          // way 1499476253
+          [-77.4817585,38.2990828],[-77.4817661,38.2990910],[-77.4817740,38.2990966],[-77.4817824,38.2991013],
+          // way 1499476218 (crossing)
+          [-77.4818215,38.2991320],[-77.4818591,38.2991615],
+          // way 1499476220 — north to junction
+          [-77.4818834,38.2991748],[-77.4819163,38.2991884],[-77.4819565,38.2992011],[-77.4819988,38.2992137],[-77.4820343,38.2992216],[-77.4820886,38.2992321],[-77.4822832,38.2992733],
+          // way 1499476222 — north along Emancipation corridor
+          [-77.4818202,38.3005210],
+          // way 1499476223 (crossing)
+          [-77.4817926,38.3005972],[-77.4817743,38.3006477],
+          // way 1499476224
+          [-77.4817325,38.3007651],[-77.4817233,38.3007954],[-77.4817208,38.3008070],[-77.4817177,38.3008277],[-77.4817157,38.3008544],[-77.4817131,38.3008684],[-77.4817101,38.3008788],[-77.4817076,38.3008858],
+          // way 1499476226 — east toward Old William St
+          [-77.4816906,38.3009200],[-77.4816795,38.3009350],[-77.4816676,38.3009492],[-77.4816565,38.3009582],[-77.4816375,38.3009731],[-77.4816167,38.3009849],[-77.4815999,38.3009936],[-77.4815809,38.3010016],[-77.4815234,38.3010221],
+          // way 1499476227 (crossing)
+          [-77.4814550,38.3010508],[-77.4814107,38.3010694],
+          // way 1499476254
+          [-77.4810872,38.3012105],
+          // way 1499476255 (crossing)
+          [-77.4810454,38.3012288],[-77.4810201,38.3012399],
+          // way 938257517 — eastern terminus (Rappahannock Ave connection)
+          [-77.4806690,38.3013932],
         ],
       },
     },
