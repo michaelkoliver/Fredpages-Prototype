@@ -321,6 +321,19 @@ export const TRAIL_PATHS = {
     },
     {
       type: 'Feature',
+      properties: { id: 22, name: 'Canal Path', kind: 'multi-use', color: '#2a6b9a' },
+      geometry: {
+        type: 'LineString',
+        coordinates: [
+          // way 275030463 — southern spur to Canal St / Prince Edward St
+          [-77.4667115,38.3084328],[-77.4666285,38.3084170],[-77.4665689,38.3083930],
+          [-77.4664978,38.3083341],[-77.4664522,38.3082772],[-77.4663874,38.3082201],
+          [-77.4662790,38.3081600],
+        ],
+      },
+    },
+    {
+      type: 'Feature',
       properties: { id: 23, name: 'Fall Hill Trail', kind: 'multi-use', color: '#6b7a2a' },
       geometry: {
         type: 'LineString',
