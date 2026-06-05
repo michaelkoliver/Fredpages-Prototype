@@ -152,6 +152,22 @@ export const DATA = [
     hours:[["Daily","Dawn – Dusk"]], todayIdx:0,
     offers:[], events:[] },
 
+  { id:29, name:"Mary Washington Trail", cat:"Trail", hood:"Canal Quarter", color:"#3a6a7a",
+    rating:0, reviews:0, open:true, until:"Dusk", status:"auto",
+    coords:[38.3070,-77.4860],
+    about:"A paved multi-use path starting at Hospital Drive and Cowan Boulevard, looping northeast around the roundabout and continuing southeast, ending near Sam Perry Boulevard.",
+    addr:"Hospital Dr, Fredericksburg", phone:"", web:"",
+    hours:[["Daily","Dawn – Dusk"]], todayIdx:0,
+    offers:[], events:[] },
+
+  { id:30, name:"Eagle Village Drive Trail", cat:"Trail", hood:"Canal Quarter", color:"#7a6a3a",
+    rating:0, reviews:0, open:true, until:"Dusk", status:"auto",
+    coords:[38.3081,-77.4825],
+    about:"A paved multi-use path running along the southwestern side of Eagle Village Drive.",
+    addr:"Eagle Village Dr, Fredericksburg", phone:"", web:"",
+    hours:[["Daily","Dawn – Dusk"]], todayIdx:0,
+    offers:[], events:[] },
+
   { id:28, name:"Spring Wood Trail", cat:"Trail", hood:"Lafayette", color:"#7a5a2a",
     rating:0, reviews:0, open:true, until:"Dusk", status:"auto",
     coords:[38.2865,-77.4863],
@@ -189,7 +205,7 @@ export const CATS = ["All","Restaurant","Coffee & Tea","Brewery","Antiques","Boo
 export const PLACE_CATS = new Set(["Library","Transit","Park","Trail","Historic Site"]);
 
 // Trail IDs rendered as line paths on the map (not pins)
-export const TRAIL_PATH_IDS = new Set([13, 20, 21, 22, 23, 24, 25, 26, 27, 28]);
+export const TRAIL_PATH_IDS = new Set([13, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30]);
 
 // GeoJSON path geometries for trails — coordinates from OpenStreetMap (Relations 9735871, 12931914, way IDs listed)
 export const TRAIL_PATHS = {
@@ -437,6 +453,37 @@ export const TRAIL_PATHS = {
           [-77.4864702,38.2865426],[-77.4864920,38.2865612],
           // northern terminus — VCR Trail junction
           [-77.4865101,38.2866094],
+        ],
+      },
+    },
+    {
+      type: 'Feature',
+      properties: { id: 29, name: 'Mary Washington Trail', kind: 'multi-use', color: '#3a6a7a' },
+      geometry: {
+        type: 'LineString',
+        coordinates: [
+          // way 938257529 — from Hospital Drive/Cowan Blvd NE around roundabout to Sam Perry Blvd
+          [-77.4888245,38.3063351],[-77.4885832,38.3065470],[-77.4883404,38.3067905],[-77.4881531,38.3070399],
+          [-77.4880316,38.3072151],[-77.4880264,38.3072227],[-77.4879497,38.3072953],[-77.4878549,38.3073108],
+          [-77.4877828,38.3072894],[-77.4874513,38.3071007],[-77.4873216,38.3070007],[-77.4872177,38.3069108],
+          [-77.4870447,38.3068108],[-77.4869407,38.3067602],[-77.4867139,38.3066953],[-77.4865189,38.3066720],
+          [-77.4863027,38.3066732],[-77.4860698,38.3067215],[-77.4858438,38.3067988],[-77.4856511,38.3069203],
+          [-77.4854705,38.3071042],[-77.4852998,38.3072912],[-77.4852232,38.3073692],[-77.4850684,38.3074954],
+          [-77.4849228,38.3075924],[-77.4847392,38.3076930],[-77.4845480,38.3077763],[-77.4842840,38.3078763],
+          [-77.4841732,38.3079168],
+        ],
+      },
+    },
+    {
+      type: 'Feature',
+      properties: { id: 30, name: 'Eagle Village Drive Trail', kind: 'multi-use', color: '#7a6a3a' },
+      geometry: {
+        type: 'LineString',
+        coordinates: [
+          // way 938257522 — SW side of Eagle Village Drive (Sam Perry Blvd), NW to SE
+          [-77.4832499,38.3085282],[-77.4826757,38.3082044],[-77.4825990,38.3081282],[-77.4824784,38.3078972],
+          [-77.4824048,38.3078049],[-77.4822842,38.3077382],[-77.4821416,38.3077073],[-77.4820041,38.3077191],
+          [-77.4819185,38.3077216],[-77.4818584,38.3077100],[-77.4818026,38.3076879],
         ],
       },
     },
