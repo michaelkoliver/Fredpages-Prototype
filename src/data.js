@@ -272,7 +272,8 @@ export const TRAIL_PATHS = {
         type: 'LineString',
         coordinates: [
           // way 1003271411 — road crossing (crossing=uncontrolled, crossing:markings=ladder)
-          [-77.4656501,38.3111023],[-77.4656869,38.3110789],[-77.4657381,38.3110463],
+          // way 1243859595 — terminus (connects to Canal Path at [-77.4657580,38.3110336])
+          [-77.4656501,38.3111023],[-77.4656869,38.3110789],[-77.4657381,38.3110463],[-77.4657580,38.3110336],
         ],
       },
     },
