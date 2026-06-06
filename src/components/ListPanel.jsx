@@ -33,7 +33,10 @@ export default function ListPanel({ list, cat, onCat, hoverId, onHover, onOpen, 
   const drag      = useRef({ active: false, startY: 0, startH: 0 });
   const handleRef = useRef(null);
   const sheetHRef = useRef(sheetH);
-  sheetHRef.current = sheetH;
+
+  useEffect(() => {
+    sheetHRef.current = sheetH;
+  }, [sheetH]);
 
   // Attach touchmove as non-passive so we can preventDefault and stop the map from also scrolling
   useEffect(() => {

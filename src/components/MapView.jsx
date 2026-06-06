@@ -30,8 +30,17 @@ const TRAIL_NATURE = {
 // where a fine dash pattern vanishes into the white road. So show a solid green
 // connector when zoomed out (never looks broken), and the ladder stripes only
 // once zoomed in close enough for them to read.
-const TRAIL_CROSSWALK = {
-  id: 'trails-crosswalk',
+
+const TRAIL_CROSSWALK_MASK = {
+  id: 'trails-crosswalk-mask',
+  type: 'line',
+  filter: ['==', ['get', 'kind'], 'crosswalk'],
+  layout: { 'line-cap': 'round', 'line-join': 'round' },
+  paint: { 'line-color': '#ffffff', 'line-width': 7, 'line-opacity': 0.85 },
+};
+
+const TRAIL_CROSSWALK_SOLID = {
+  id: 'trails-crosswalk-solid',
   type: 'line',
   filter: ['==', ['get', 'kind'], 'crosswalk'],
   maxzoom: 17,
@@ -129,7 +138,8 @@ export default function MapView({ rows, cat, hoverId, onOpen }) {
         <Layer {...TRAIL_CASING} />
         <Layer {...TRAIL_MULTIUSE} />
         <Layer {...TRAIL_NATURE} />
-        <Layer {...TRAIL_CROSSWALK} />
+        <Layer {...TRAIL_CROSSWALK_MASK} />
+        <Layer {...TRAIL_CROSSWALK_SOLID} />
         <Layer {...TRAIL_CROSSWALK_DASH} />
       </Source>
 

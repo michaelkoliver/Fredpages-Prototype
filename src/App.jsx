@@ -37,7 +37,7 @@ export default function App() {
   const go       = v  => {
     setView(v);
     requestAnimationFrame(() => {
-      try { window.scrollTo(0, 0); } catch (e) {}
+      window.scrollTo(0, 0);
       document.documentElement.scrollTop = 0;
     });
   };
