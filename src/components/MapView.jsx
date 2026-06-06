@@ -18,6 +18,14 @@ const TRAIL_MULTIUSE = {
   paint: { 'line-color': ['get', 'color'], 'line-width': 4.5, 'line-opacity': 0.9 },
 };
 
+const TRAIL_CROSSWALK = {
+  id: 'trails-crosswalk',
+  type: 'line',
+  filter: ['==', ['get', 'kind'], 'crosswalk'],
+  layout: { 'line-cap': 'butt', 'line-join': 'round' },
+  paint: { 'line-color': ['get', 'color'], 'line-width': 5, 'line-opacity': 0.9, 'line-dasharray': [2, 1.5] },
+};
+
 const TRAIL_NATURE = {
   id: 'trails-nature',
   type: 'line',
@@ -106,6 +114,7 @@ export default function MapView({ rows, cat, hoverId, onOpen }) {
       <Source id="trails" type="geojson" data={trailData}>
         <Layer {...TRAIL_CASING} />
         <Layer {...TRAIL_MULTIUSE} />
+        <Layer {...TRAIL_CROSSWALK} />
         <Layer {...TRAIL_NATURE} />
       </Source>
 
