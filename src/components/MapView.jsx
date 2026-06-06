@@ -6,6 +6,7 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 const TRAIL_CASING = {
   id: 'trails-casing',
   type: 'line',
+  filter: ['!=', ['get', 'kind'], 'crosswalk'],
   layout: { 'line-cap': 'round', 'line-join': 'round' },
   paint: { 'line-color': '#ffffff', 'line-width': 8, 'line-opacity': 0.55 },
 };
