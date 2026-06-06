@@ -32,12 +32,7 @@ const TRAIL_CROSSWALK = {
   type: 'line',
   filter: ['==', ['get', 'kind'], 'crosswalk'],
   layout: { 'line-cap': 'butt', 'line-join': 'miter' },
-  paint: {
-    'line-color': ['get', 'color'],
-    'line-width': ['interpolate', ['exponential', 2], ['zoom'], 13, 0.5, 19, 32],
-    'line-opacity': 0.9,
-    'line-dasharray': [1.5, 1.5],
-  },
+  paint: { 'line-color': ['get', 'color'], 'line-width': 4.5, 'line-opacity': 0.9, 'line-dasharray': [1.5, 1.5] },
 };
 
 const TOKEN = import.meta.env.VITE_MAPBOX_TOKEN;
