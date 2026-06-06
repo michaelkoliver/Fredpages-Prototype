@@ -6,7 +6,6 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 const TRAIL_CASING = {
   id: 'trails-casing',
   type: 'line',
-  filter: ['!=', ['get', 'kind'], 'crosswalk'],
   layout: { 'line-cap': 'round', 'line-join': 'round' },
   paint: { 'line-color': '#ffffff', 'line-width': 8, 'line-opacity': 0.55 },
 };
@@ -31,8 +30,8 @@ const TRAIL_CROSSWALK = {
   id: 'trails-crosswalk',
   type: 'line',
   filter: ['==', ['get', 'kind'], 'crosswalk'],
-  layout: { 'line-cap': 'butt', 'line-join': 'miter' },
-  paint: { 'line-color': ['get', 'color'], 'line-width': 4.5, 'line-opacity': 0.9, 'line-dasharray': [1.5, 1.5] },
+  layout: { 'line-cap': 'round', 'line-join': 'round' },
+  paint: { 'line-color': ['get', 'color'], 'line-width': 4.5, 'line-opacity': 0.9, 'line-dasharray': [1, 2] },
 };
 
 const TOKEN = import.meta.env.VITE_MAPBOX_TOKEN;
