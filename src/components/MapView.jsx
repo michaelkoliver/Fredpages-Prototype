@@ -26,35 +26,23 @@ const TRAIL_NATURE = {
   paint: { 'line-color': ['get', 'color'], 'line-width': 3, 'line-opacity': 0.9, 'line-dasharray': [3, 2] },
 };
 
-// Crosswalk crossings are short (~12m). At low zoom that's only a few pixels,
-// where a fine dash pattern vanishes into the white road. So show a solid green
-// connector when zoomed out (never looks broken), and the ladder stripes only
-// once zoomed in close enough for them to read.
+// Crosswalk crossings are short (~12m). White mask behind dashes keeps them
+// readable against the light road surface at any zoom.
 
 const TRAIL_CROSSWALK_MASK = {
   id: 'trails-crosswalk-mask',
   type: 'line',
   filter: ['==', ['get', 'kind'], 'crosswalk'],
-  layout: { 'line-cap': 'round', 'line-join': 'round' },
-  paint: { 'line-color': '#ffffff', 'line-width': 7, 'line-opacity': 0.85 },
-};
-
-const TRAIL_CROSSWALK_SOLID = {
-  id: 'trails-crosswalk-solid',
-  type: 'line',
-  filter: ['==', ['get', 'kind'], 'crosswalk'],
-  maxzoom: 17,
-  layout: { 'line-cap': 'round', 'line-join': 'round' },
-  paint: { 'line-color': ['get', 'color'], 'line-width': 4.5, 'line-opacity': 0.9 },
+  layout: { 'line-cap': 'butt', 'line-join': 'round' },
+  paint: { 'line-color': '#ffffff', 'line-width': 9, 'line-opacity': 0.9 },
 };
 
 const TRAIL_CROSSWALK_DASH = {
   id: 'trails-crosswalk-dash',
   type: 'line',
   filter: ['==', ['get', 'kind'], 'crosswalk'],
-  minzoom: 17,
   layout: { 'line-cap': 'butt', 'line-join': 'round' },
-  paint: { 'line-color': ['get', 'color'], 'line-width': 5, 'line-opacity': 0.9, 'line-dasharray': [0.25, 0.35] },
+  paint: { 'line-color': ['get', 'color'], 'line-width': 5, 'line-opacity': 0.9, 'line-dasharray': [2, 1.5] },
 };
 
 const TOKEN = import.meta.env.VITE_MAPBOX_TOKEN;
@@ -139,7 +127,6 @@ export default function MapView({ rows, cat, hoverId, onOpen }) {
         <Layer {...TRAIL_MULTIUSE} />
         <Layer {...TRAIL_NATURE} />
         <Layer {...TRAIL_CROSSWALK_MASK} />
-        <Layer {...TRAIL_CROSSWALK_SOLID} />
         <Layer {...TRAIL_CROSSWALK_DASH} />
       </Source>
 
