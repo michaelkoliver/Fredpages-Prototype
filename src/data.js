@@ -279,28 +279,6 @@ export const TRAIL_PATHS = {
     },
     {
       type: 'Feature',
-      properties: { id: 20, name: 'Heritage Trail crosswalk', kind: 'crosswalk', color: '#3a7a5a' },
-      geometry: {
-        type: 'LineString',
-        coordinates: [
-          // Western Fall Hill / Canal Path connector crossing
-          [-77.4863487,38.3167500],[-77.4863387,38.3167645],[-77.4862949,38.3167697],[-77.4859728,38.3167693],
-        ],
-      },
-    },
-    {
-      type: 'Feature',
-      properties: { id: 20, name: 'Heritage Trail crosswalk', kind: 'crosswalk', color: '#3a7a5a' },
-      geometry: {
-        type: 'LineString',
-        coordinates: [
-          // Mid-trail connector crossing
-          [-77.4805420,38.3162056],[-77.4800593,38.3162608],
-        ],
-      },
-    },
-    {
-      type: 'Feature',
       properties: { id: 21, name: 'Belmont-Ferry Farm Trail', kind: 'multi-use', color: '#5a7a3a' },
       geometry: {
         type: 'LineString',
