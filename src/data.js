@@ -279,6 +279,26 @@ export const TRAIL_PATHS = {
     },
     {
       type: 'Feature',
+      properties: { id: 20, name: 'Heritage Trail – Princess Anne St crossing', kind: 'crosswalk', color: '#3a7a5a' },
+      geometry: {
+        type: 'LineString',
+        coordinates: [
+          [-77.4656501,38.3111023],[-77.4656869,38.3110789],[-77.4657381,38.3110463],
+        ],
+      },
+    },
+    {
+      type: 'Feature',
+      properties: { id: 20, name: 'Heritage Trail – Caroline St crossing', kind: 'crosswalk', color: '#3a7a5a' },
+      geometry: {
+        type: 'LineString',
+        coordinates: [
+          [-77.4683397,38.3158753],[-77.4683796,38.3157956],[-77.4684151,38.3157245],
+        ],
+      },
+    },
+    {
+      type: 'Feature',
       properties: { id: 21, name: 'Belmont-Ferry Farm Trail', kind: 'multi-use', color: '#5a7a3a' },
       geometry: {
         type: 'LineString',
