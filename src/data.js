@@ -299,6 +299,26 @@ export const TRAIL_PATHS = {
     },
     {
       type: 'Feature',
+      properties: { id: 20, name: 'Heritage Trail – Germania St crossing', kind: 'crosswalk', color: '#3a7a5a' },
+      geometry: {
+        type: 'LineString',
+        coordinates: [
+          [-77.468498,38.3158383],[-77.4684571,38.3157907],[-77.4684097,38.3157354],
+        ],
+      },
+    },
+    {
+      type: 'Feature',
+      properties: { id: 20, name: 'Heritage Trail – Mill Park Terrace service road crossing', kind: 'crosswalk', color: '#3a7a5a' },
+      geometry: {
+        type: 'LineString',
+        coordinates: [
+          [-77.4681916,38.3154607],[-77.4681593,38.3154146],[-77.4680474,38.3152878],
+        ],
+      },
+    },
+    {
+      type: 'Feature',
       properties: { id: 21, name: 'Belmont-Ferry Farm Trail', kind: 'multi-use', color: '#5a7a3a' },
       geometry: {
         type: 'LineString',
