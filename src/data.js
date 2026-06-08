@@ -267,18 +267,6 @@ export const TRAIL_PATHS = {
     },
     {
       type: 'Feature',
-      properties: { id: 20, name: 'Heritage Trail', kind: 'crosswalk', color: '#3a7a5a' },
-      geometry: {
-        type: 'LineString',
-        coordinates: [
-          // way 1003271411 — road crossing (crossing=uncontrolled, crossing:markings=ladder)
-          // way 1243859595 — terminus (connects to Canal Path at [-77.4657580,38.3110336])
-          [-77.4656501,38.3111023],[-77.4656869,38.3110789],[-77.4657381,38.3110463],[-77.4657580,38.3110336],
-        ],
-      },
-    },
-    {
-      type: 'Feature',
       properties: { id: 20, name: 'Heritage Trail – Princess Anne St crossing', kind: 'crosswalk', color: '#3a7a5a' },
       geometry: {
         type: 'LineString',
@@ -304,16 +292,6 @@ export const TRAIL_PATHS = {
         type: 'LineString',
         coordinates: [
           [-77.468498,38.3158383],[-77.4684571,38.3157907],[-77.4684097,38.3157354],
-        ],
-      },
-    },
-    {
-      type: 'Feature',
-      properties: { id: 20, name: 'Heritage Trail – Mill Park Terrace service road crossing', kind: 'crosswalk', color: '#3a7a5a' },
-      geometry: {
-        type: 'LineString',
-        coordinates: [
-          [-77.4681916,38.3154607],[-77.4681593,38.3154146],[-77.4680474,38.3152878],
         ],
       },
     },
