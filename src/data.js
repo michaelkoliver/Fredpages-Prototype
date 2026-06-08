@@ -287,7 +287,7 @@ export const TRAIL_PATHS = {
     },
     {
       type: 'Feature',
-      properties: { id: 20, name: 'Heritage Trail – Germania St crossing', kind: 'crosswalk', color: '#3a7a5a' },
+      properties: { id: 20, name: 'Heritage Trail – Mill Park Terrace north crossing', kind: 'crosswalk', color: '#3a7a5a' },
       geometry: {
         type: 'LineString',
         coordinates: [
@@ -297,7 +297,7 @@ export const TRAIL_PATHS = {
     },
     {
       type: 'Feature',
-      properties: { id: 20, name: 'Heritage Trail – Mill Park Terrace entrance crossing', kind: 'crosswalk', color: '#3a7a5a' },
+      properties: { id: 20, name: 'Heritage Trail – Mill Park Terrace south crossing', kind: 'crosswalk', color: '#3a7a5a' },
       geometry: {
         type: 'LineString',
         coordinates: [
