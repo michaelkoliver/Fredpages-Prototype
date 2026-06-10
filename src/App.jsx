@@ -76,6 +76,12 @@ export default function App() {
         >
           Places
         </button>
+        <button
+          className={'navlink' + (view === 'list' && cat === 'Services' ? ' on' : '')}
+          onClick={() => { setCat('Services'); go('list'); }}
+        >
+          Services
+        </button>
         <div className="searchbox">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#8b938f" strokeWidth="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3" strokeLinecap="round"/></svg>
           <input
