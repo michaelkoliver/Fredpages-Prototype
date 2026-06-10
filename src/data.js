@@ -299,26 +299,6 @@ export const TRAIL_PATHS = {
     },
     {
       type: 'Feature',
-      properties: { id: 20, name: 'Heritage Trail – Mill Park Terrace north driveway', kind: 'crosswalk', color: '#3a7a5a' },
-      geometry: {
-        type: 'LineString',
-        coordinates: [
-          [-77.4681916,38.3154607],[-77.4681593,38.3154146],
-        ],
-      },
-    },
-    {
-      type: 'Feature',
-      properties: { id: 20, name: 'Heritage Trail – Mill Park Terrace south driveway', kind: 'crosswalk', color: '#3a7a5a' },
-      geometry: {
-        type: 'LineString',
-        coordinates: [
-          [-77.4680474,38.3152878],[-77.4679938,38.3152073],
-        ],
-      },
-    },
-    {
-      type: 'Feature',
       properties: { id: 21, name: 'Belmont-Ferry Farm Trail', kind: 'multi-use', color: '#5a7a3a' },
       geometry: {
         type: 'LineString',
