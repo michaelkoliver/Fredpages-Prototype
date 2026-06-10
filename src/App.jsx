@@ -71,8 +71,8 @@ export default function App() {
       <nav className="nav"><div className="inner">
         <div className="brand" onClick={() => go('home')}>Fredpages</div>
         <button
-          className={'navlink' + (view === 'list' ? ' on' : '')}
-          onClick={() => go('list')}
+          className={'navlink' + (view === 'list' && cat === 'All' ? ' on' : '')}
+          onClick={() => { setCat('All'); go('list'); }}
         >
           Places
         </button>
