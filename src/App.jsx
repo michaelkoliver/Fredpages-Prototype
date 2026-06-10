@@ -9,6 +9,8 @@ import Checkout from './pages/Checkout';
 import Dashboard from './pages/Dashboard';
 import Admin from './pages/Admin';
 import Home from './pages/Home';
+import Deals from './pages/Deals';
+import Events from './pages/Events';
 
 export default function App() {
   const [view,          setView]          = useState('home');
@@ -82,8 +84,18 @@ export default function App() {
         >
           Services
         </button>
-        <button className="navlink" onClick={() => go('list')}>Deals</button>
-        <button className="navlink" onClick={() => go('list')}>Events</button>
+        <button
+          className={'navlink' + (view === 'deals' ? ' on' : '')}
+          onClick={() => go('deals')}
+        >
+          Deals
+        </button>
+        <button
+          className={'navlink' + (view === 'events' ? ' on' : '')}
+          onClick={() => go('events')}
+        >
+          Events
+        </button>
         <div className="searchbox">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#8b938f" strokeWidth="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3" strokeLinecap="round"/></svg>
           <input
@@ -102,6 +114,9 @@ export default function App() {
           onClaim={() => { setClaimTargetId(null); go('claim'); }}
         />
       )}
+
+      {view === 'deals' && <Deals />}
+      {view === 'events' && <Events />}
 
       {/* ── BROWSE — always mounted so the map never unmounts ── */}
       <div style={{ display: view === 'list' ? 'block' : 'none' }}>
