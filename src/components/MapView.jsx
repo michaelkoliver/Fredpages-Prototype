@@ -64,7 +64,7 @@ function Pin({ row, selected, onClick }) {
   );
 }
 
-export default function MapView({ rows, cat, hoverId, onOpen }) {
+export default function MapView({ rows, cat, hoverId, onOpen, shown = true }) {
   const mapRef = useRef(null);
   const visible  = cat === 'All' ? rows : rows.filter(r => r.cat === cat);
   const mappable = visible.filter(r => r.coords);
@@ -105,6 +105,16 @@ export default function MapView({ rows, cat, hoverId, onOpen }) {
     const map = mapRef.current?.getMap();
     if (map) fitVisible(map);
   }, [fitVisible]);
+
+  useEffect(() => {
+    if (!shown) return;
+    const map = mapRef.current?.getMap();
+    if (!map) return;
+    requestAnimationFrame(() => {
+      map.resize();
+      fitVisible(map);
+    });
+  }, [shown, fitVisible]);
 
   return (
     <Map

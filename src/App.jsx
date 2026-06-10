@@ -99,7 +99,7 @@ export default function App() {
       <div style={{ display: view === 'list' ? 'block' : 'none' }}>
         <div className="browse">
           <div id="fxbg-map" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', background: '#e8e6df', zIndex: 1 }}>
-            <MapView rows={rows} cat={cat} hoverId={hoverId} onOpen={open} />
+            <MapView rows={rows} cat={cat} hoverId={hoverId} onOpen={open} shown={view === 'list'} />
           </div>
           <ListPanel
             list={list}
