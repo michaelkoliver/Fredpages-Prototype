@@ -73,14 +73,14 @@ export default function App() {
       <nav className="nav"><div className="inner">
         <div className="brand" onClick={() => go('home')}>Fredpages</div>
         <button
-          className={'navlink' + (view === 'list' && cat === 'All' ? ' on' : '')}
-          onClick={() => { setCat('All'); go('list'); }}
+          className={'navlink' + (view === 'places' && cat === 'All' ? ' on' : '')}
+          onClick={() => { setCat('All'); go('places'); }}
         >
           Places
         </button>
         <button
-          className={'navlink' + (view === 'list' && cat === 'Services' ? ' on' : '')}
-          onClick={() => { setCat('Services'); go('list'); }}
+          className={'navlink' + (view === 'places' && cat === 'Services' ? ' on' : '')}
+          onClick={() => { setCat('Services'); go('places'); }}
         >
           Services
         </button>
@@ -101,7 +101,7 @@ export default function App() {
           <input
             placeholder="Search businesses, places, parks…"
             value={search}
-            onChange={e => { setSearch(e.target.value); if (view !== 'list') go('list'); }}
+            onChange={e => { setSearch(e.target.value); if (view !== 'places') go('places'); }}
           />
         </div>
         <button className="btn btn-primary" onClick={() => { setClaimTargetId(null); go('claim'); }}>Claim a business</button>
@@ -110,7 +110,7 @@ export default function App() {
       {/* ── HOME ── */}
       {view === 'home' && (
         <Home
-          onPlaces={() => go('list')}
+          onPlaces={() => go('places')}
           onClaim={() => { setClaimTargetId(null); go('claim'); }}
         />
       )}
@@ -119,10 +119,10 @@ export default function App() {
       {view === 'events' && <Events />}
 
       {/* ── BROWSE — always mounted so the map never unmounts ── */}
-      <div style={{ display: view === 'list' ? 'block' : 'none' }}>
+      <div style={{ display: view === 'places' ? 'block' : 'none' }}>
         <div className="browse">
           <div id="fxbg-map" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', background: '#e8e6df', zIndex: 1 }}>
-            <MapView rows={rows} cat={cat} hoverId={hoverId} onOpen={open} shown={view === 'list'} />
+            <MapView rows={rows} cat={cat} hoverId={hoverId} onOpen={open} shown={view === 'places'} />
           </div>
           <ListPanel
             list={list}
@@ -141,7 +141,7 @@ export default function App() {
       {view === 'detail' && active && (
         <Detail
           active={active}
-          onBack={() => go('list')}
+          onBack={() => go('places')}
           onDash={() => { setClaimedId(active.id); setTab('details'); go('dash'); }}
           onClaim={() => { setClaimTargetId(active.id); go('claim'); }}
           ping={ping}
@@ -195,7 +195,7 @@ export default function App() {
           setOfferForm={setOfferForm}
           eventForm={eventForm}
           setEventForm={setEventForm}
-          onBack={() => go('list')}
+          onBack={() => go('places')}
           onViewProfile={() => { setActiveId(claimedId); go('detail'); }}
           onCheckout={() => { setClaimTargetId(claimedId); setPay({ email: '', card: '', exp: '', cvc: '', name: '', zip: '', err: '' }); go('checkout'); }}
           ping={ping}
@@ -209,7 +209,7 @@ export default function App() {
           setRows={setRows}
           atab={atab}
           setAtab={setAtab}
-          onBack={() => go('list')}
+          onBack={() => go('places')}
           onEditRow={r => {
             if (!PLACE_CATS.has(r.cat)) {
               setClaimedId(r.id);
