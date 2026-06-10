@@ -8,9 +8,10 @@ import Verify from './pages/Verify';
 import Checkout from './pages/Checkout';
 import Dashboard from './pages/Dashboard';
 import Admin from './pages/Admin';
+import Home from './pages/Home';
 
 export default function App() {
-  const [view,          setView]          = useState('list');
+  const [view,          setView]          = useState('home');
   const [activeId,      setActiveId]      = useState(null);
   const [cat,           setCat]           = useState('All');
   const [search,        setSearch]        = useState('');
@@ -68,17 +69,31 @@ export default function App() {
     <div className="app">
       {/* nav */}
       <nav className="nav"><div className="inner">
-        <div className="brand" onClick={() => go('list')}>Fredpages</div>
+        <div className="brand" onClick={() => go('home')}>Fredpages</div>
+        <button
+          className={'navlink' + (view === 'list' ? ' on' : '')}
+          onClick={() => go('list')}
+        >
+          Places
+        </button>
         <div className="searchbox">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#8b938f" strokeWidth="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3" strokeLinecap="round"/></svg>
           <input
             placeholder="Search businesses, places, parks…"
             value={search}
-            onChange={e => setSearch(e.target.value)}
+            onChange={e => { setSearch(e.target.value); if (view !== 'list') go('list'); }}
           />
         </div>
         <button className="btn btn-primary" onClick={() => { setClaimTargetId(null); go('claim'); }}>Claim a business</button>
       </div></nav>
+
+      {/* ── HOME ── */}
+      {view === 'home' && (
+        <Home
+          onPlaces={() => go('list')}
+          onClaim={() => { setClaimTargetId(null); go('claim'); }}
+        />
+      )}
 
       {/* ── BROWSE — always mounted so the map never unmounts ── */}
       <div style={{ display: view === 'list' ? 'block' : 'none' }}>
