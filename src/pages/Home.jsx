@@ -1,94 +1,62 @@
 import { DATA, PLACE_CATS, tone, initials } from '../data';
 
-const FEATURED_CATS = [
-  { name: 'Restaurant',    color: '#a8553c', blurb: 'Local kitchens, taprooms, and weekend brunch spots.' },
-  { name: 'Coffee & Tea',  color: '#7a5230', blurb: 'Pour-overs, espresso bars, and quiet corners to work.' },
-  { name: 'Brewery',       color: '#3f6b4a', blurb: 'Small-batch taprooms and beer gardens around town.' },
-  { name: 'Antiques',      color: '#5a6b7a', blurb: 'Estate furniture, jewelry, and downtown curiosities.' },
-  { name: 'Bookstore',     color: '#6b4a3f', blurb: 'Independent shops with deep local sections.' },
-  { name: 'Park',          color: '#3f6b4a', blurb: 'Riverfront walks, picnic lawns, and playgrounds.' },
+const CATS = [
+  {
+    name: 'Restaurant',
+    icon: <><path d="M4 3v8a2 2 0 002 2v8"/><path d="M8 3v8"/><path d="M6 3v8"/><path d="M18 3c-2 0-3 2-3 5s1 5 3 5v8"/></>,
+  },
+  {
+    name: 'Coffee & Tea',
+    icon: <><path d="M4 8h13v6a5 5 0 01-5 5H9a5 5 0 01-5-5V8z"/><path d="M17 10h2a2 2 0 010 4h-2"/><path d="M8 3v3"/><path d="M12 3v3"/></>,
+  },
+  {
+    name: 'Brewery',
+    icon: <><path d="M6 3h12v18H6z"/><path d="M6 9h12"/><path d="M9 13v4"/><path d="M15 13v4"/></>,
+  },
+  {
+    name: 'Antiques',
+    icon: <><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></>,
+  },
+  {
+    name: 'Bookstore',
+    icon: <><path d="M4 4h14a2 2 0 012 2v14a2 2 0 01-2 2H4z"/><path d="M4 4v18"/><path d="M8 8h8"/></>,
+  },
+  {
+    name: 'Park',
+    icon: <><path d="M12 3l8 12H4z"/><path d="M12 15v6"/></>,
+  },
 ];
 
-export default function Home({ onPlaces, onClaim }) {
-  const businesses = DATA.filter(r => !PLACE_CATS.has(r.cat));
-  const featured = businesses.filter(r => r.status === 'claimed').slice(0, 3);
+export default function Home({ onPlaces, onOpen }) {
+  const featured = DATA
+    .filter(r => !PLACE_CATS.has(r.cat) && r.status === 'claimed' && r.coords)
+    .slice(0, 6);
 
   return (
     <div className="home">
       <section className="home-hero">
-        <div className="home-hero-inner">
-          <span className="home-eyebrow">Fredericksburg, Virginia</span>
-          <h1>The local directory for Fredericksburg.</h1>
-          <p className="home-lede">
-            Find the cafés, breweries, shops, and parks that make this town
-            what it is — mapped, reviewed, and kept current by the people who run them.
-          </p>
-          <div className="home-cta">
-            <button className="btn btn-primary btn-lg" onClick={onPlaces}>Browse the map</button>
-            <button className="btn btn-lg" onClick={onClaim}>Claim your business</button>
-          </div>
-          <div className="home-stats">
-            <div><b>{businesses.length}+</b><span>local listings</span></div>
-            <div><b>6</b><span>neighborhoods</span></div>
-            <div><b>{DATA.length - businesses.length}</b><span>parks &amp; places</span></div>
-          </div>
-        </div>
+        <h1>Fredericksburg</h1>
+        <button className="btn btn-primary btn-lg" onClick={onPlaces}>Open the map</button>
       </section>
 
-      <section className="home-section">
-        <div className="home-section-head">
-          <h2>Browse by category</h2>
-          <button className="home-link" onClick={onPlaces}>See all on the map →</button>
-        </div>
-        <div className="home-cats">
-          {FEATURED_CATS.map(c => (
-            <button key={c.name} className="home-cat" onClick={onPlaces}>
-              <div className="home-cat-swatch" style={{ background: tone(c.color) }}>
-                {c.name.split(' ')[0][0]}
-              </div>
-              <div>
-                <b>{c.name}</b>
-                <p>{c.blurb}</p>
-              </div>
-            </button>
-          ))}
-        </div>
+      <section className="home-cats">
+        {CATS.map(c => (
+          <button key={c.name} className="home-cat" onClick={onPlaces}>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+              {c.icon}
+            </svg>
+            <span>{c.name}</span>
+          </button>
+        ))}
       </section>
 
-      {featured.length > 0 && (
-        <section className="home-section">
-          <div className="home-section-head">
-            <h2>Featured this week</h2>
-            <button className="home-link" onClick={onPlaces}>View all →</button>
-          </div>
-          <div className="home-feature-grid">
-            {featured.map(b => (
-              <button key={b.id} className="home-feature" onClick={onPlaces}>
-                <div className="home-feature-img" style={{ background: tone(b.color) }}>
-                  {initials(b.name)}
-                </div>
-                <div className="home-feature-body">
-                  <b>{b.name}</b>
-                  <span>{b.cat} · {b.hood}</span>
-                  {b.rating > 0 && (
-                    <span className="home-feature-rate">★ {b.rating} ({b.reviews})</span>
-                  )}
-                </div>
-              </button>
-            ))}
-          </div>
-        </section>
-      )}
-
-      <section className="home-claim">
-        <div className="home-claim-inner">
-          <h2>Own a business in Fredericksburg?</h2>
-          <p>
-            Claim your listing to manage hours, post offers, share events,
-            and respond to reviews. Free to claim, simple to verify.
-          </p>
-          <button className="btn btn-primary btn-lg" onClick={onClaim}>Claim your business</button>
-        </div>
+      <section className="home-featured">
+        {featured.map(b => (
+          <button key={b.id} className="home-feature" onClick={() => onOpen(b)}>
+            <div className="home-feature-cover" style={{ background: tone(b.color) }}>{initials(b.name)}</div>
+            <div className="home-feature-name">{b.name}</div>
+          </button>
+        ))}
       </section>
     </div>
   );

@@ -167,7 +167,7 @@ export default function App() {
       {view === 'home' && (
         <Home
           onPlaces={() => go('places')}
-          onClaim={() => startClaim(null)}
+          onOpen={open}
         />
       )}
 
