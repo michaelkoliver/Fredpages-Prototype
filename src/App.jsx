@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { DATA, nextMonthISO, PUBLIC_PLACE_CATS } from './data';
+import { DATA, nextMonthISO } from './data';
 import MapView from './components/MapView';
 import ListPanel from './components/ListPanel';
 import Detail from './pages/Detail';
@@ -49,7 +49,7 @@ export default function App() {
   const active = rows.find(r => r.id === activeId);
   const biz    = rows.find(r => r.id === claimedId);
 
-  const placesRows = rows.filter(r => !(r.cat === 'Services' && !r.coords));
+  const placesRows = rows.filter(r => !(r.type === 'service' && !r.coords));
   const list = (cat === 'All' ? placesRows : placesRows.filter(r => r.cat === cat)).filter(r =>
     !search || [r.name, r.cat, r.hood, r.addr].some(f => f?.toLowerCase().includes(search.toLowerCase()))
   );
@@ -80,6 +80,7 @@ export default function App() {
     id: nextId,
     name: form.name,
     cat: form.cat,
+    type: form.type || 'business',
     hood: form.hood || 'Fredericksburg',
     color: '#5a6b7a',
     rating: 0,
@@ -95,6 +96,7 @@ export default function App() {
     hours: [],
     offers: [],
     events: [],
+    ...(form.type === 'public' ? { claimable: false } : {}),
   });
 
   const addNewListing = form => {
@@ -348,7 +350,7 @@ export default function App() {
       {view === 'detail' && active && (
         <Detail
           active={active}
-          onBack={() => go(active.cat === 'Services' ? 'services' : 'places')}
+          onBack={() => go(active.type === 'service' ? 'services' : 'places')}
           onDash={() => { setClaimedId(active.id); setTab('details'); go('dash'); }}
           onClaim={() => startClaim(active.id)}
           ping={ping}
@@ -400,7 +402,7 @@ export default function App() {
           onSubAction={subAction}
           onAddListing={adminAddListing}
           onEditRow={r => {
-            if (!PUBLIC_PLACE_CATS.has(r.cat)) {
+            if (r.type !== 'public') {
               setClaimedId(r.id);
               setTab('details');
               go('dash');

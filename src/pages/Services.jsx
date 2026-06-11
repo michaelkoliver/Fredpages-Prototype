@@ -1,11 +1,13 @@
 import { useState } from 'react';
 import Check from '../components/Check';
-import { stars, tone, SERVICE_SUBCATS } from '../data';
+import { stars, tone, SERVICE_CATS } from '../data';
+
+const FILTER_CATS = ['All', ...SERVICE_CATS];
 
 export default function Services({ rows, onOpen }) {
-  const [sub, setSub] = useState('All');
-  const services = rows.filter(r => r.cat === 'Services');
-  const list = sub === 'All' ? services : services.filter(r => r.subcat === sub);
+  const [cat, setCat] = useState('All');
+  const services = rows.filter(r => r.type === 'service');
+  const list = cat === 'All' ? services : services.filter(r => r.cat === cat);
 
   return (
     <div className="page-wrap">
@@ -14,13 +16,13 @@ export default function Services({ rows, onOpen }) {
         <span className="count">{list.length} results</span>
       </div>
       <div className="services-pills">
-        {SERVICE_SUBCATS.map(s => (
+        {FILTER_CATS.map(c => (
           <button
-            key={s}
-            className={'pill' + (s === sub ? ' on' : '')}
-            onClick={() => setSub(s)}
+            key={c}
+            className={'pill' + (c === cat ? ' on' : '')}
+            onClick={() => setCat(c)}
           >
-            {s}
+            {c}
           </button>
         ))}
       </div>
@@ -46,7 +48,7 @@ export default function Services({ rows, onOpen }) {
                 </div>
               )}
               <div className="metaline">
-                {l.subcat || l.cat}<span className="dot">·</span>{l.hood}
+                {l.cat}<span className="dot">·</span>{l.hood}
                 {l.addr && <><span className="dot">·</span>{l.addr}</>}
               </div>
             </div>

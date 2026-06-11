@@ -22,7 +22,7 @@ export const REVIEWS = [
 ];
 
 export const DATA = [
-  { id:1, name:"Caroline Street Coffee", cat:"Coffee & Tea", hood:"Downtown", color:"#7a5230",
+  { id:1, type:"business", name:"Caroline Street Coffee", cat:"Coffee & Tea", hood:"Downtown", color:"#7a5230",
     rating:4.8, reviews:214, open:true, until:"6:00 PM", status:"claimed",
     coords:[38.3013,-77.4607],
     about:"A small-batch roastery in a restored storefront on lower Caroline Street. Single-origin pour-overs, espresso, and pastries baked in-house each morning. Back patio open seasonally.",
@@ -32,7 +32,7 @@ export const DATA = [
     events:[{title:"Latte art throwdown",date:"2026-06-14",time:"7:00 PM",desc:"Watch local baristas compete for the title."},{title:"Local roasters tasting",date:"2026-06-28",time:"2:00 PM",desc:""}],
     sub:{active:true,brand:"Visa",last4:"4242",since:"2025-09-03",renews:"2026-07-03"} },
 
-  { id:2, name:"Hyperion Antiques", cat:"Antiques", hood:"Downtown", color:"#5a6b7a",
+  { id:2, type:"business", name:"Hyperion Antiques", cat:"Antiques", hood:"Downtown", color:"#5a6b7a",
     rating:4.5, reviews:96, open:true, until:"6:00 PM", status:"claimed",
     coords:[38.3022,-77.4614],
     about:"Three floors of estate furniture, jewelry, and curiosities. A Caroline Street fixture for over forty years.",
@@ -42,7 +42,7 @@ export const DATA = [
     events:[{title:"Independence Day estate sale",date:"2026-07-04",time:"9:00 AM",desc:""}],
     sub:{active:true,brand:"Mastercard",last4:"5318",since:"2025-11-20",renews:"2026-06-20"} },
 
-  { id:3, name:"Battlefield Brewing Co.", cat:"Brewery", hood:"Route 1 Corridor", color:"#3f6b4a",
+  { id:3, type:"business", name:"Battlefield Brewing Co.", cat:"Brewery", hood:"Route 1 Corridor", color:"#3f6b4a",
     rating:4.7, reviews:331, open:false, until:"3:00 PM", status:"claimed",
     coords:[38.2748,-77.4558],
     about:"Taproom and beer garden pouring small-batch ales brewed on site. Rotating food trucks most evenings.",
@@ -52,27 +52,27 @@ export const DATA = [
     events:[{title:"Bluegrass + food truck night",date:"2026-06-20",time:"6:00 PM",desc:""},{title:"Trivia night",date:"2026-06-21",time:"7:30 PM",desc:""}],
     sub:{active:true,brand:"Visa",last4:"1187",since:"2025-07-01",renews:"2026-07-01"} },
 
-  { id:4, name:"The Bavarian Chef", cat:"Restaurant", hood:"Downtown", color:"#8a4b3a",
+  { id:4, type:"business", name:"The Bavarian Chef", cat:"Restaurant", hood:"Downtown", color:"#8a4b3a",
     rating:4.4, reviews:158, open:true, until:"9:00 PM", status:"auto",
     coords:[38.3002,-77.4589],
     addr:"414 William St", phone:"", web:"", about:"", hours:[], offers:[], events:[] },
 
-  { id:5, name:"Riverby Books", cat:"Bookstore", hood:"Downtown", color:"#6a5a8a",
+  { id:5, type:"business", name:"Riverby Books", cat:"Bookstore", hood:"Downtown", color:"#6a5a8a",
     rating:4.9, reviews:142, open:true, until:"7:00 PM", status:"auto",
     coords:[38.3016,-77.4609],
     addr:"805 Caroline St", phone:"", web:"", about:"", hours:[], offers:[], events:[] },
 
-  { id:6, name:"Sunken Well Tavern", cat:"Restaurant", hood:"College Heights", color:"#996b35",
+  { id:6, type:"business", name:"Sunken Well Tavern", cat:"Restaurant", hood:"College Heights", color:"#996b35",
     rating:4.6, reviews:287, open:true, until:"10:00 PM", status:"auto",
     coords:[38.2993,-77.4583],
     addr:"720 Littlepage St", phone:"", web:"", about:"", hours:[], offers:[], events:[] },
 
-  { id:7, name:"Rappahannock River Plumbing", cat:"Services", subcat:"Home", hood:"Fredericksburg", color:"#4a6b7a",
+  { id:7, name:"Rappahannock River Plumbing", cat:"Plumbing", type:"service", hood:"Fredericksburg", color:"#4a6b7a",
     rating:4.7, reviews:89, open:true, until:"5:00 PM", status:"auto",
     coords:null,
     addr:"Service area: all of Fredericksburg", phone:"", web:"", about:"", hours:[], offers:[], events:[] },
 
-  { id:10, name:"Central Rappahannock Library", cat:"Library", claimable:false, hood:"Downtown", color:"#3a6b8a",
+  { id:10, name:"Central Rappahannock Library", cat:"Library", claimable:false, type:"public", hood:"Downtown", color:"#3a6b8a",
     rating:0, reviews:0, open:true, until:"9:00 PM", status:"auto",
     coords:[38.3048,-77.4622],
     about:"The main branch of the Central Rappahannock Regional Library, serving Fredericksburg since 1954. Free Wi-Fi, community meeting rooms, and a local history collection.",
@@ -80,7 +80,7 @@ export const DATA = [
     hours:[["Mon","10:00 AM – 9:00 PM"],["Tue","10:00 AM – 9:00 PM"],["Wed","10:00 AM – 9:00 PM"],["Thu","10:00 AM – 9:00 PM"],["Fri","10:00 AM – 6:00 PM"],["Sat","10:00 AM – 5:00 PM"],["Sun","1:00 PM – 5:00 PM"]], todayIdx:2,
     offers:[], events:[] },
 
-  { id:11, name:"Fredericksburg VRE & Amtrak Station", cat:"Transit", claimable:false, hood:"Downtown", color:"#5a5a7a",
+  { id:11, name:"Fredericksburg VRE & Amtrak Station", cat:"Transit", claimable:false, type:"public", hood:"Downtown", color:"#5a5a7a",
     rating:0, reviews:0, open:true, until:"10:00 PM", status:"auto",
     coords:[38.2986,-77.4602],
     about:"Fredericksburg's commuter rail and intercity Amtrak station. VRE service to DC and Amtrak on the Northeast Regional and Silver Service routes.",
@@ -88,7 +88,7 @@ export const DATA = [
     hours:[["Mon–Fri","First train ~5:15 AM"],["Sat–Sun","Amtrak only"]], todayIdx:0,
     offers:[], events:[] },
 
-  { id:12, name:"Hurkamp Park", cat:"Park", claimable:false, hood:"Downtown", color:"#3f6b4a",
+  { id:12, name:"Hurkamp Park", cat:"Park", claimable:false, type:"public", hood:"Downtown", color:"#3f6b4a",
     rating:0, reviews:0, open:true, until:"Dusk", status:"auto",
     coords:[38.3038,-77.4617],
     about:"A small public green in the heart of downtown, bordered by William and Princess Anne Streets. Host to the Fredericksburg Farmers Market on Saturdays.",
@@ -96,7 +96,7 @@ export const DATA = [
     hours:[["Daily","Dawn – Dusk"]], todayIdx:0,
     offers:[], events:[{title:"Farmers Market",date:"2026-06-07",time:"8:00 AM",desc:"Every Saturday, year-round."}] },
 
-  { id:13, name:"Virginia Central Railway Trail", cat:"Trail", claimable:false, hood:"Route 1 Corridor", color:"#2a7a8a",
+  { id:13, name:"Virginia Central Railway Trail", cat:"Trail", claimable:false, type:"public", hood:"Route 1 Corridor", color:"#2a7a8a",
     rating:0, reviews:0, open:true, until:"Dusk", status:"auto",
     coords:[38.2870,-77.4845],
     about:"A paved multi-use trail following the former Virginia Central Railway corridor from downtown Fredericksburg westward. Open to cyclists, joggers, and walkers.",
@@ -104,7 +104,7 @@ export const DATA = [
     hours:[["Daily","Dawn – Dusk"]], todayIdx:0,
     offers:[], events:[] },
 
-  { id:20, name:"Heritage Trail", cat:"Trail", claimable:false, hood:"Northwest Fredericksburg", color:"#3a7a5a",
+  { id:20, name:"Heritage Trail", cat:"Trail", claimable:false, type:"public", hood:"Northwest Fredericksburg", color:"#3a7a5a",
     rating:0, reviews:0, open:true, until:"Dusk", status:"auto",
     coords:[38.3162,-77.4800],
     about:"A paved multi-use trail winding through the northwest side of Fredericksburg, connecting neighborhoods and parks. Popular with cyclists and pedestrians.",
@@ -112,7 +112,7 @@ export const DATA = [
     hours:[["Daily","Dawn – Dusk"]], todayIdx:0,
     offers:[], events:[] },
 
-  { id:21, name:"Belmont-Ferry Farm Trail", cat:"Trail", claimable:false, hood:"Riverside", color:"#5a7a3a",
+  { id:21, name:"Belmont-Ferry Farm Trail", cat:"Trail", claimable:false, type:"public", hood:"Riverside", color:"#5a7a3a",
     rating:0, reviews:0, open:true, until:"Dusk", status:"auto",
     coords:[38.3090,-77.4570],
     about:"A paved bicycle and pedestrian path running from Sophia Street across the Chatham Bridge, through the Belmont area, and north toward Ferry Farm. One of Fredericksburg's primary multi-use corridors.",
@@ -120,7 +120,7 @@ export const DATA = [
     hours:[["Daily","Dawn – Dusk"]], todayIdx:0,
     offers:[], events:[] },
 
-  { id:22, name:"Canal Path", cat:"Trail", claimable:false, hood:"Central Fredericksburg", color:"#2a6b9a",
+  { id:22, name:"Canal Path", cat:"Trail", claimable:false, type:"public", hood:"Central Fredericksburg", color:"#2a6b9a",
     rating:0, reviews:0, open:true, until:"Dusk", status:"auto",
     coords:[38.3130,-77.4770],
     about:"A paved multi-use path running from the historic district northwest through Central Fredericksburg. Connects to the Heritage Trail at its eastern end and extends to the Fall Hill Avenue Trail.",
@@ -128,7 +128,7 @@ export const DATA = [
     hours:[["Daily","Dawn – Dusk"]], todayIdx:0,
     offers:[], events:[] },
 
-  { id:23, name:"Fall Hill Trail", cat:"Trail", claimable:false, hood:"Fall Hill", color:"#6b7a2a",
+  { id:23, name:"Fall Hill Trail", cat:"Trail", claimable:false, type:"public", hood:"Fall Hill", color:"#6b7a2a",
     rating:0, reviews:0, open:true, until:"Dusk", status:"auto",
     coords:[38.3158,-77.4940],
     about:"A paved multi-use path running west along the Fall Hill Avenue corridor from the Canal Path junction through Fall Hill neighborhood and toward Route 1.",
@@ -136,7 +136,7 @@ export const DATA = [
     hours:[["Daily","Dawn – Dusk"]], todayIdx:0,
     offers:[], events:[] },
 
-  { id:24, name:"Cowan Boulevard Trail", cat:"Trail", claimable:false, hood:"Fredericksburg", color:"#7a4a2a",
+  { id:24, name:"Cowan Boulevard Trail", cat:"Trail", claimable:false, type:"public", hood:"Fredericksburg", color:"#7a4a2a",
     rating:0, reviews:0, open:true, until:"Dusk", status:"auto",
     coords:[38.3062,-77.4960],
     about:"A paved multi-use trail running along the Cowan Boulevard corridor, connecting Route 1 area neighborhoods eastward to the trail network.",
@@ -144,7 +144,7 @@ export const DATA = [
     hours:[["Daily","Dawn – Dusk"]], todayIdx:0,
     offers:[], events:[] },
 
-  { id:25, name:"College Heights Connector", cat:"Trail", claimable:false, hood:"College Heights", color:"#6a3a7a",
+  { id:25, name:"College Heights Connector", cat:"Trail", claimable:false, type:"public", hood:"College Heights", color:"#6a3a7a",
     rating:0, reviews:0, open:true, until:"Dusk", status:"auto",
     coords:[38.3000,-77.4817],
     about:"An unnamed multi-use connector pathway linking the College Heights neighborhood along the Emancipation Hwy corridor to Old William Street and Rappahannock Avenue.",
@@ -152,7 +152,7 @@ export const DATA = [
     hours:[["Daily","Dawn – Dusk"]], todayIdx:0,
     offers:[], events:[] },
 
-  { id:29, name:"Mary Washington Trail", cat:"Trail", claimable:false, hood:"Canal Quarter", color:"#3a6a7a",
+  { id:29, name:"Mary Washington Trail", cat:"Trail", claimable:false, type:"public", hood:"Canal Quarter", color:"#3a6a7a",
     rating:0, reviews:0, open:true, until:"Dusk", status:"auto",
     coords:[38.3070,-77.4860],
     about:"A paved multi-use path starting at Hospital Drive and Cowan Boulevard, looping northeast around the roundabout and continuing southeast, ending near Sam Perry Boulevard.",
@@ -160,7 +160,7 @@ export const DATA = [
     hours:[["Daily","Dawn – Dusk"]], todayIdx:0,
     offers:[], events:[] },
 
-  { id:30, name:"Eagle Village Drive Trail", cat:"Trail", claimable:false, hood:"Canal Quarter", color:"#7a6a3a",
+  { id:30, name:"Eagle Village Drive Trail", cat:"Trail", claimable:false, type:"public", hood:"Canal Quarter", color:"#7a6a3a",
     rating:0, reviews:0, open:true, until:"Dusk", status:"auto",
     coords:[38.3081,-77.4825],
     about:"A paved multi-use path running along the southwestern side of Eagle Village Drive.",
@@ -168,7 +168,7 @@ export const DATA = [
     hours:[["Daily","Dawn – Dusk"]], todayIdx:0,
     offers:[], events:[] },
 
-  { id:28, name:"Spring Wood Trail", cat:"Trail", claimable:false, hood:"Lafayette", color:"#7a5a2a",
+  { id:28, name:"Spring Wood Trail", cat:"Trail", claimable:false, type:"public", hood:"Lafayette", color:"#7a5a2a",
     rating:0, reviews:0, open:true, until:"Dusk", status:"auto",
     coords:[38.2865,-77.4863],
     about:"A short paved pathway connecting the northwest end of Spring Wood Drive to the Virginia Central Railway Trail.",
@@ -176,7 +176,7 @@ export const DATA = [
     hours:[["Daily","Dawn – Dusk"]], todayIdx:0,
     offers:[], events:[] },
 
-  { id:27, name:"Trestle Lane Trail", cat:"Trail", claimable:false, hood:"Lafayette", color:"#4a7a3a",
+  { id:27, name:"Trestle Lane Trail", cat:"Trail", claimable:false, type:"public", hood:"Lafayette", color:"#4a7a3a",
     rating:0, reviews:0, open:true, until:"Dusk", status:"auto",
     coords:[38.2893,-77.4769],
     about:"A newly built 8-foot multi-use pathway along the southwest side of Trestle Lane, connecting the Virginia Central Railway Trail to the Lafayette Boulevard Trail.",
@@ -184,7 +184,7 @@ export const DATA = [
     hours:[["Daily","Dawn – Dusk"]], todayIdx:0,
     offers:[], events:[] },
 
-  { id:26, name:"Lafayette Boulevard Trail", cat:"Trail", claimable:false, hood:"Lafayette", color:"#2a5a7a",
+  { id:26, name:"Lafayette Boulevard Trail", cat:"Trail", claimable:false, type:"public", hood:"Lafayette", color:"#2a5a7a",
     rating:0, reviews:0, open:true, until:"Dusk", status:"auto",
     coords:[38.2855,-77.4788],
     about:"An unnamed multi-use cycleway running along the Lafayette Boulevard corridor from Trestle Lane south through the Lafayette neighborhood to Twin Lakes Drive.",
@@ -192,7 +192,7 @@ export const DATA = [
     hours:[["Daily","Dawn – Dusk"]], todayIdx:0,
     offers:[], events:[] },
 
-  { id:14, name:"Kenmore Plantation", cat:"Historic Site", claimable:false, hood:"Washington Ave", color:"#8a6b4a",
+  { id:14, name:"Kenmore Plantation", cat:"Historic Site", claimable:false, type:"public", hood:"Washington Ave", color:"#8a6b4a",
     rating:0, reviews:0, open:true, until:"5:00 PM", status:"auto",
     coords:[38.3044,-77.4636],
     about:"The 18th-century home of Fielding Lewis and Betty Washington Lewis, sister of George Washington. A National Historic Landmark offering tours and living-history programs.",
@@ -201,9 +201,11 @@ export const DATA = [
     offers:[], events:[] },
 ];
 
-export const CATS = ["All","Restaurant","Coffee & Tea","Brewery","Antiques","Bookstore","Services","Library","Transit","Park","Trail","Historic Site"];
-export const PUBLIC_PLACE_CATS = new Set(["Library","Transit","Park","Trail","Historic Site"]);
-export const SERVICE_SUBCATS = ["All","Home","Auto","Professional","Pet","Other"];
+export const BUSINESS_CATS = ["Restaurant","Coffee & Tea","Brewery","Antiques","Bookstore"];
+export const SERVICE_CATS  = ["Plumbing","Electrical","HVAC","Landscaping","Cleaning","Auto Repair","Professional Services"];
+export const PUBLIC_CATS   = ["Park","Trail","Library","Transit","Historic Site"];
+export const PLACES_CATS   = ["All", ...BUSINESS_CATS, ...PUBLIC_CATS];
+export const ALL_CATS      = [...BUSINESS_CATS, ...SERVICE_CATS, ...PUBLIC_CATS];
 
 // Trail IDs rendered as line paths on the map (not pins)
 export const TRAIL_PATH_IDS = new Set([13, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30]);

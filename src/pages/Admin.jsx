@@ -1,5 +1,8 @@
 import { useState } from 'react';
-import { initials, CATS, fmtLong } from '../data';
+import { initials, BUSINESS_CATS, SERVICE_CATS, PUBLIC_CATS, fmtLong } from '../data';
+
+const TYPE_CATS = { business: BUSINESS_CATS, service: SERVICE_CATS, public: PUBLIC_CATS };
+const TYPE_LABEL = { business: 'Business', service: 'Service', public: 'Public place' };
 
 const STATUS_LABEL = {
   pending: 'Pending',
@@ -34,7 +37,7 @@ const TABS = [
   ['subs', 'Subscriptions'],
 ];
 
-const BLANK = { name: '', cat: 'Restaurant', hood: 'Downtown', addr: '' };
+const BLANK = { type: 'business', name: '', cat: 'Restaurant', hood: 'Downtown', addr: '' };
 
 export default function Admin({
   rows,
@@ -130,21 +133,27 @@ export default function Admin({
               </div>
               {showAdd && (
                 <div className="formcard">
+                  <div className="two">
+                    <div className="fld">
+                      <label>Type</label>
+                      <select value={form.type} onChange={e => { const t = e.target.value; setForm({ ...form, type: t, cat: TYPE_CATS[t][0] }); }}>
+                        {Object.keys(TYPE_CATS).map(t => <option key={t} value={t}>{TYPE_LABEL[t]}</option>)}
+                      </select>
+                    </div>
+                    <div className="fld">
+                      <label>Category</label>
+                      <select value={form.cat} onChange={e => setForm({ ...form, cat: e.target.value })}>
+                        {TYPE_CATS[form.type].map(c => <option key={c}>{c}</option>)}
+                      </select>
+                    </div>
+                  </div>
                   <div className="fld">
                     <label>Name</label>
                     <input placeholder="e.g. Picker's Supply" value={form.name} onChange={e => setForm({ ...form, name: e.target.value })} />
                   </div>
-                  <div className="two">
-                    <div className="fld">
-                      <label>Category</label>
-                      <select value={form.cat} onChange={e => setForm({ ...form, cat: e.target.value })}>
-                        {CATS.filter(c => c !== 'All').map(c => <option key={c}>{c}</option>)}
-                      </select>
-                    </div>
-                    <div className="fld">
-                      <label>Neighborhood</label>
-                      <input value={form.hood} onChange={e => setForm({ ...form, hood: e.target.value })} />
-                    </div>
+                  <div className="fld">
+                    <label>Neighborhood</label>
+                    <input value={form.hood} onChange={e => setForm({ ...form, hood: e.target.value })} />
                   </div>
                   <div className="fld">
                     <label>Address</label>

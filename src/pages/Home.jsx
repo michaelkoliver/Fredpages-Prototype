@@ -1,4 +1,4 @@
-import { DATA, PUBLIC_PLACE_CATS, tone, initials } from '../data';
+import { DATA, tone, initials } from '../data';
 
 const CATS = [
   {
@@ -29,7 +29,7 @@ const CATS = [
 
 export default function Home({ onPlaces, onOpen }) {
   const featured = DATA
-    .filter(r => !PUBLIC_PLACE_CATS.has(r.cat) && r.status === 'claimed' && r.coords)
+    .filter(r => r.type === 'business' && r.status === 'claimed' && r.coords)
     .slice(0, 6);
 
   return (

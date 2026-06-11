@@ -1,6 +1,6 @@
 import { useRef, useState, useEffect } from 'react';
 import Check from './Check';
-import { stars, tone, CATS, PUBLIC_PLACE_CATS } from '../data';
+import { stars, tone, PLACES_CATS } from '../data';
 
 const NAV_H = 58;
 const NAV_H_2 = 44;
@@ -89,7 +89,7 @@ export default function ListPanel({ list, cat, onCat, hoverId, onHover, onOpen, 
 
       <div className="filters-bar">
         <div className="pills">
-          {CATS.filter(c => c !== 'Services').map(c => (
+          {PLACES_CATS.map(c => (
             <button key={c} className={'pill' + (c === cat ? ' on' : '')} onClick={() => onCat(c)}>{c}</button>
           ))}
         </div>
@@ -112,7 +112,7 @@ export default function ListPanel({ list, cat, onCat, hoverId, onHover, onOpen, 
             <div className="card-body">
               <div className="card-row1">
                 <span className="bizname">{l.name}</span>
-                {!PUBLIC_PLACE_CATS.has(l.cat) && l.open !== null && (
+                {!l.type === 'public' && l.open !== null && (
                   <span className={'statuspill ' + (l.open ? 'is-open' : 'is-closed')}>
                     {l.open ? 'Open' : 'Closed'}
                   </span>
@@ -128,17 +128,17 @@ export default function ListPanel({ list, cat, onCat, hoverId, onHover, onOpen, 
               )}
               <div className="metaline">
                 {l.cat}<span className="dot">·</span>{l.hood}
-                {!PUBLIC_PLACE_CATS.has(l.cat) && l.coords && <><span className="dot">·</span>{l.addr}</>}
+                {!l.type === 'public' && l.coords && <><span className="dot">·</span>{l.addr}</>}
               </div>
               <div className="chips">
-                {PUBLIC_PLACE_CATS.has(l.cat) && <span className="placechip">{l.cat}</span>}
+                {l.type === 'public' && <span className="placechip">{l.cat}</span>}
                 {l.status === 'claimed' && l.offers.length > 0 && (
                   <span className="offerchip">◆ {l.offers.length} offer{l.offers.length > 1 ? 's' : ''}</span>
                 )}
-                {l.status === 'auto' && !PUBLIC_PLACE_CATS.has(l.cat) && l.coords && (
+                {l.status === 'auto' && !l.type === 'public' && l.coords && (
                   <span className="claimchip">Unclaimed — claim it</span>
                 )}
-                {!l.coords && !PUBLIC_PLACE_CATS.has(l.cat) && (
+                {!l.coords && !l.type === 'public' && (
                   <span className="svcchip">Service area · no location</span>
                 )}
               </div>

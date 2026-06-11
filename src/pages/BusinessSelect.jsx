@@ -1,12 +1,23 @@
 import { useState } from 'react';
-import { tone, initials, PUBLIC_PLACE_CATS, CATS } from '../data';
+import { tone, initials, BUSINESS_CATS, SERVICE_CATS } from '../data';
 
-const BLANK = { name: '', cat: 'Restaurant', hood: '', addr: '', phone: '', web: '' };
+const TYPE_LABEL = { business: 'Business', service: 'Service' };
+const TYPE_CATS  = { business: BUSINESS_CATS, service: SERVICE_CATS };
+
+const blankFor = type => ({
+  type,
+  cat: TYPE_CATS[type][0],
+  name: '',
+  hood: '',
+  addr: '',
+  phone: '',
+  web: '',
+});
 
 export default function BusinessSelect({ rows, onBack, onClaimExisting, onAddListing }) {
-  const [mode, setMode] = useState('pick');
+  const [mode, setMode] = useState('pick');     // 'pick' | 'type' | 'new'
   const [search, setSearch] = useState('');
-  const [form, setForm] = useState(BLANK);
+  const [form, setForm] = useState(blankFor('business'));
   const [err, setErr] = useState('');
 
   const claimable = rows
@@ -21,21 +32,44 @@ export default function BusinessSelect({ rows, onBack, onClaimExisting, onAddLis
     onAddListing(form);
   };
 
-  if (mode === 'new') {
+  if (mode === 'type') {
     return (
       <div className="center" style={{ maxWidth: 480 }}>
         <button className="back" onClick={() => setMode('pick')}>←</button>
-        <h1>Add business</h1>
+        <h1>What kind?</h1>
+        <div className="join-choice">
+          <button className="join-card" onClick={() => { setForm(blankFor('business')); setMode('new'); }}>
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M3 10l2-6h14l2 6"/><path d="M4 10v10h16V10"/>
+            </svg>
+            <span>Business</span>
+          </button>
+          <button className="join-card" onClick={() => { setForm(blankFor('service')); setMode('new'); }}>
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M14 6l3 3-9 9-3 1 1-3z"/><path d="M14 6l-2-2 3-3 2 2-3 3z"/>
+            </svg>
+            <span>Service</span>
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  if (mode === 'new') {
+    return (
+      <div className="center" style={{ maxWidth: 480 }}>
+        <button className="back" onClick={() => setMode('type')}>←</button>
+        <h1>Add {TYPE_LABEL[form.type].toLowerCase()}</h1>
         <div className="paycard" style={{ textAlign: 'left' }}>
           {err && <div className="payerr">{err}</div>}
           <div className="fld">
-            <label>Business name *</label>
+            <label>Name *</label>
             <input value={form.name} onChange={e => setForm({ ...form, name: e.target.value })} />
           </div>
           <div className="fld">
             <label>Category *</label>
             <select value={form.cat} onChange={e => setForm({ ...form, cat: e.target.value })}>
-              {CATS.filter(c => c !== 'All' && !PUBLIC_PLACE_CATS.has(c)).map(c => (
+              {TYPE_CATS[form.type].map(c => (
                 <option key={c} value={c}>{c}</option>
               ))}
             </select>
@@ -45,7 +79,7 @@ export default function BusinessSelect({ rows, onBack, onClaimExisting, onAddLis
             <input value={form.hood} onChange={e => setForm({ ...form, hood: e.target.value })} />
           </div>
           <div className="fld">
-            <label>Address</label>
+            <label>{form.type === 'service' ? 'Service area or address' : 'Address'}</label>
             <input value={form.addr} onChange={e => setForm({ ...form, addr: e.target.value })} />
           </div>
           <div className="two">
@@ -91,7 +125,7 @@ export default function BusinessSelect({ rows, onBack, onClaimExisting, onAddLis
           </div>
         ))}
         {claimable.length === 0 && <p className="empty">No matches.</p>}
-        <button className="dashed" onClick={() => setMode('new')}>+ Add new</button>
+        <button className="dashed" onClick={() => setMode('type')}>+ Add new</button>
       </div>
     </div>
   );
