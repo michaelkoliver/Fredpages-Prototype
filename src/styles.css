@@ -234,6 +234,14 @@ img{display:block;}
 .miniedit{border:1px solid var(--line);background:#fff;border-radius:7px;font-size:12px;font-weight:600;padding:6px 11px;min-height:34px;color:var(--text);}
 .miniedit:hover{background:var(--bg);}
 
+/* ── services page ── */
+.services-head{display:flex;align-items:baseline;justify-content:space-between;padding:24px 0 8px;gap:12px;}
+.services-head h1{font-size:26px;font-weight:700;letter-spacing:-.02em;margin:0;}
+.services-head .count{color:var(--text-3);font-size:13px;}
+.services-pills{display:flex;gap:7px;overflow-x:auto;padding:6px 0 18px;-webkit-overflow-scrolling:touch;}
+.services-pills::-webkit-scrollbar{height:0;}
+.services-list{padding-bottom:40px;}
+
 /* ── home page ── */
 .home{padding-bottom:40px;}
 .home-hero{

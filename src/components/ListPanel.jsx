@@ -88,7 +88,7 @@ export default function ListPanel({ list, cat, onCat, hoverId, onHover, onOpen, 
 
       <div className="filters-bar">
         <div className="pills">
-          {CATS.map(c => (
+          {CATS.filter(c => c !== 'Services').map(c => (
             <button key={c} className={'pill' + (c === cat ? ' on' : '')} onClick={() => onCat(c)}>{c}</button>
           ))}
         </div>

@@ -67,7 +67,7 @@ function Pin({ row, selected, onClick }) {
 export default function MapView({ rows, cat, hoverId, onOpen, shown = true }) {
   const mapRef = useRef(null);
   const visible  = useMemo(
-    () => cat === 'All' ? rows.filter(r => r.cat !== 'Services') : rows.filter(r => r.cat === cat),
+    () => cat === 'All' ? rows : rows.filter(r => r.cat === cat),
     [rows, cat]
   );
   const mappable = visible.filter(r => r.coords);

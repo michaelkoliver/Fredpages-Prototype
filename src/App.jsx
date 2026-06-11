@@ -11,6 +11,7 @@ import Admin from './pages/Admin';
 import Home from './pages/Home';
 import Deals from './pages/Deals';
 import Events from './pages/Events';
+import Services from './pages/Services';
 
 export default function App() {
   const [view,          setView]          = useState('home');
@@ -32,7 +33,8 @@ export default function App() {
   const active = rows.find(r => r.id === activeId);
   const biz    = rows.find(r => r.id === claimedId);
 
-  const list = (cat === 'All' ? rows.filter(r => r.cat !== 'Services') : rows.filter(r => r.cat === cat)).filter(r =>
+  const placesRows = rows.filter(r => !(r.cat === 'Services' && !r.coords));
+  const list = (cat === 'All' ? placesRows : placesRows.filter(r => r.cat === cat)).filter(r =>
     !search || [r.name, r.cat, r.hood, r.addr].some(f => f?.toLowerCase().includes(search.toLowerCase()))
   );
 
@@ -79,8 +81,8 @@ export default function App() {
           Places
         </button>
         <button
-          className={'navlink' + (view === 'places' && cat === 'Services' ? ' on' : '')}
-          onClick={() => { setCat('Services'); go('places'); }}
+          className={'navlink' + (view === 'services' ? ' on' : '')}
+          onClick={() => go('services')}
         >
           Services
         </button>
@@ -117,12 +119,13 @@ export default function App() {
 
       {view === 'deals' && <Deals />}
       {view === 'events' && <Events />}
+      {view === 'services' && <Services rows={rows} onOpen={open} />}
 
       {/* ── BROWSE — always mounted so the map never unmounts ── */}
       <div style={{ display: view === 'places' ? 'block' : 'none' }}>
         <div className="browse">
           <div id="fxbg-map" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', background: '#e8e6df', zIndex: 1 }}>
-            <MapView rows={rows} cat={cat} hoverId={hoverId} onOpen={open} shown={view === 'places'} />
+            <MapView rows={placesRows} cat={cat} hoverId={hoverId} onOpen={open} shown={view === 'places'} />
           </div>
           <ListPanel
             list={list}
@@ -141,7 +144,7 @@ export default function App() {
       {view === 'detail' && active && (
         <Detail
           active={active}
-          onBack={() => go('places')}
+          onBack={() => go(active.cat === 'Services' ? 'services' : 'places')}
           onDash={() => { setClaimedId(active.id); setTab('details'); go('dash'); }}
           onClaim={() => { setClaimTargetId(active.id); go('claim'); }}
           ping={ping}

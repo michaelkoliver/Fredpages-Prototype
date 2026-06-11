@@ -67,7 +67,7 @@ export const DATA = [
     coords:[38.2993,-77.4583],
     addr:"720 Littlepage St", phone:"", web:"", about:"", hours:[], offers:[], events:[] },
 
-  { id:7, name:"Rappahannock River Plumbing", cat:"Services", hood:"Fredericksburg", color:"#4a6b7a",
+  { id:7, name:"Rappahannock River Plumbing", cat:"Services", subcat:"Home", hood:"Fredericksburg", color:"#4a6b7a",
     rating:4.7, reviews:89, open:true, until:"5:00 PM", status:"auto",
     coords:null,
     addr:"Service area: all of Fredericksburg", phone:"", web:"", about:"", hours:[], offers:[], events:[] },
@@ -203,6 +203,7 @@ export const DATA = [
 
 export const CATS = ["All","Restaurant","Coffee & Tea","Brewery","Antiques","Bookstore","Services","Library","Transit","Park","Trail","Historic Site"];
 export const PLACE_CATS = new Set(["Library","Transit","Park","Trail","Historic Site"]);
+export const SERVICE_SUBCATS = ["All","Home","Auto","Professional","Pet","Other"];
 
 // Trail IDs rendered as line paths on the map (not pins)
 export const TRAIL_PATH_IDS = new Set([13, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30]);
