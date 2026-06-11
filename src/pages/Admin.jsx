@@ -1,39 +1,73 @@
 import { useState } from 'react';
-import { initials, CATS, PUBLIC_PLACE_CATS } from '../data';
+import { initials, CATS, fmtLong } from '../data';
 
-const EMPTY_FORM = { name: '', cat: 'Restaurant', hood: 'Downtown', addr: '' };
+const STATUS_LABEL = {
+  pending: 'Pending',
+  approved_unpaid: 'Approved — unpaid',
+  completed: 'Claimed',
+  rejected: 'Rejected',
+  none: 'Unclaimed',
+};
 
-export default function Admin({ rows, setRows, atab, setAtab, onBack, onEditRow, ping }) {
-  const [form, setForm] = useState(EMPTY_FORM);
+function getClaimStatus(row, requests) {
+  const req = [...requests].reverse().find(r => r.listingId === row.id && r.status !== 'rejected');
+  if (req) return req.status;
+  return 'none';
+}
 
-  const addListing = () => {
-    const nm = form.name.trim() || 'New listing';
-    setRows([
-      ...rows,
-      {
-        id: Date.now(),
-        name: nm,
-        cat: form.cat || 'Other',
-        hood: form.hood || 'Downtown',
-        color: '#5a6b7a',
-        rating: 4.5,
-        reviews: 0,
-        open: true,
-        until: '5:00 PM',
-        status: 'auto',
-        coords: null,
-        about: '',
-        addr: form.addr || '—',
-        phone: '',
-        web: '',
-        hours: [],
-        offers: [],
-        events: [],
-      },
-    ]);
-    setForm(EMPTY_FORM);
+function getOwner(row, requests) {
+  const req = [...requests].reverse().find(r => r.listingId === row.id && r.status !== 'rejected');
+  if (!req) return null;
+  return { name: (req.userFirstName + ' ' + req.userLastName).trim(), email: req.userEmail };
+}
+
+function subState(row) {
+  if (row.sub?.active) return 'Active';
+  if (row.sub?.status === 'past_due') return 'Past due';
+  if (row.sub?.status === 'canceled') return 'Canceled';
+  return '—';
+}
+
+const TABS = [
+  ['claims', 'Claim Requests'],
+  ['listings', 'Listings'],
+  ['subs', 'Subscriptions'],
+];
+
+const BLANK = { name: '', cat: 'Restaurant', hood: 'Downtown', addr: '' };
+
+export default function Admin({
+  rows,
+  claimRequests,
+  atab,
+  setAtab,
+  onBack,
+  onApproveClaim,
+  onRejectClaim,
+  onToggleClaimable,
+  onToggleClosed,
+  onEditRow,
+  onSubAction,
+  onAddListing,
+  ping,
+}) {
+  const [form, setForm] = useState(BLANK);
+  const [showAdd, setShowAdd] = useState(false);
+
+  const submitAdd = () => {
+    const nm = form.name.trim();
+    if (!nm) { ping('Name required'); return; }
+    onAddListing({ ...form, name: nm });
+    setForm(BLANK);
+    setShowAdd(false);
     ping('Listing added');
   };
+
+  const pending = claimRequests.filter(r => r.status === 'pending');
+  const subRows = rows.filter(r => {
+    const s = getClaimStatus(r, claimRequests);
+    return s !== 'none' || r.sub;
+  });
 
   return (
     <div className="page-wrap" style={{ paddingBottom: 50 }}>
@@ -44,91 +78,143 @@ export default function Admin({ rows, setRows, atab, setAtab, onBack, onEditRow,
             <div className="av" style={{ background: '#15663f' }}>A</div>
             <div><b>Admin</b><small>Operator</small></div>
           </div>
-          {[['listings', 'All listings'], ['add', 'Add listing'], ['sources', 'Data sources']].map(([k, l]) => (
-            <a key={k} className={atab === k ? 'on' : ''} onClick={() => setAtab(k)}>{l}</a>
+          {TABS.map(([k, l]) => (
+            <a key={k} className={atab === k ? 'on' : ''} onClick={() => setAtab(k)}>
+              {l}
+              {k === 'claims' && pending.length > 0 && <span className="adm-badge">{pending.length}</span>}
+            </a>
           ))}
         </div>
         <div className="main">
+          {atab === 'claims' && (
+            <>
+              <h2>Claim requests</h2>
+              <p className="sub">{pending.length} pending</p>
+              {pending.length === 0 && <p className="empty">No pending claim requests.</p>}
+              {pending.map(req => {
+                const listing = rows.find(r => r.id === req.listingId);
+                return (
+                  <div key={req.id} className="claim-row">
+                    <div className="claim-row-main">
+                      <div className="claim-row-biz">
+                        <span className="av" style={{ background: listing?.color || '#5a6b7a' }}>{initials(listing?.name || '?')}</span>
+                        <div>
+                          <b>{listing?.name || 'Unknown listing'}</b>
+                          <small>{listing?.cat} · {listing?.hood}</small>
+                        </div>
+                      </div>
+                      <div className="claim-row-who">
+                        <b>{req.userFirstName} {req.userLastName}</b>
+                        <small>{req.userEmail}</small>
+                        <small>{req.role} · submitted {fmtLong(req.submittedAt) || req.submittedAt}</small>
+                      </div>
+                    </div>
+                    <div className="claim-row-acts">
+                      <button className="btn btn-primary" onClick={() => onApproveClaim(req.id)}>Approve</button>
+                      <button className="btn" onClick={() => onRejectClaim(req.id)}>Reject</button>
+                    </div>
+                  </div>
+                );
+              })}
+            </>
+          )}
+
           {atab === 'listings' && (
             <>
-              <h2>All listings</h2><p className="sub">Edit any entry — imported, claimed, or place.</p>
-              <div className="banner">
-                <span>
-                  <b>{rows.filter(r => r.status === 'auto').length}</b> imported ·{' '}
-                  <b>{rows.filter(r => r.status === 'claimed').length}</b> claimed ·{' '}
-                  <b>{rows.filter(r => PUBLIC_PLACE_CATS.has(r.cat)).length}</b> places ·{' '}
-                  <b>{rows.length}</b> total
-                </span>
-                <button className="miniedit" onClick={() => ping('Re-syncing…')}>↻ Re-sync</button>
+              <div className="adm-head">
+                <div>
+                  <h2>Listings</h2>
+                  <p className="sub">{rows.length} total · {rows.filter(r => r.claimable !== false).length} claimable</p>
+                </div>
+                <button className="btn btn-primary" onClick={() => setShowAdd(s => !s)}>{showAdd ? 'Cancel' : '+ Add listing'}</button>
               </div>
+              {showAdd && (
+                <div className="formcard">
+                  <div className="fld">
+                    <label>Name</label>
+                    <input placeholder="e.g. Picker's Supply" value={form.name} onChange={e => setForm({ ...form, name: e.target.value })} />
+                  </div>
+                  <div className="two">
+                    <div className="fld">
+                      <label>Category</label>
+                      <select value={form.cat} onChange={e => setForm({ ...form, cat: e.target.value })}>
+                        {CATS.filter(c => c !== 'All').map(c => <option key={c}>{c}</option>)}
+                      </select>
+                    </div>
+                    <div className="fld">
+                      <label>Neighborhood</label>
+                      <input value={form.hood} onChange={e => setForm({ ...form, hood: e.target.value })} />
+                    </div>
+                  </div>
+                  <div className="fld">
+                    <label>Address</label>
+                    <input placeholder="000 Caroline St" value={form.addr} onChange={e => setForm({ ...form, addr: e.target.value })} />
+                  </div>
+                  <div className="formbtns">
+                    <button className="btn btn-primary" onClick={submitAdd}>Add</button>
+                  </div>
+                </div>
+              )}
               <div className="tblscroll">
                 <table className="tbl">
-                  <thead><tr><th>Name</th><th>Category</th><th>Status</th><th></th></tr></thead>
+                  <thead><tr><th>Name</th><th>Category</th><th>Claimable</th><th>Claim</th><th>Subscription</th><th>Owner</th><th></th></tr></thead>
                   <tbody>
-                    {rows.map(r => (
-                      <tr key={r.id}>
-                        <td><span className="tn"><span className="av" style={{ background: r.color }}>{initials(r.name)}</span>{r.name}</span></td>
-                        <td style={{ color: 'var(--text-2)' }}>{r.cat}</td>
-                        <td><span className={'st ' + (r.status === 'claimed' ? 'claimed' : 'auto')}>{r.status === 'claimed' ? 'Claimed' : 'Imported'}</span></td>
-                        <td style={{ textAlign: 'right' }}>
-                          <button className="miniedit" onClick={() => onEditRow(r)}>Edit</button>
-                        </td>
-                      </tr>
-                    ))}
+                    {rows.map(r => {
+                      const cs = getClaimStatus(r, claimRequests);
+                      const o = getOwner(r, claimRequests);
+                      return (
+                        <tr key={r.id}>
+                          <td><span className="tn"><span className="av" style={{ background: r.color }}>{initials(r.name)}</span>{r.name}</span></td>
+                          <td style={{ color: 'var(--text-2)' }}>{r.cat}</td>
+                          <td>{r.claimable === false ? 'No' : 'Yes'}</td>
+                          <td><span className={'st ' + (cs === 'completed' ? 'claimed' : 'auto')}>{STATUS_LABEL[cs]}</span></td>
+                          <td>{subState(r)}</td>
+                          <td style={{ color: 'var(--text-2)' }}>{o ? o.name : '—'}</td>
+                          <td style={{ textAlign: 'right', whiteSpace: 'nowrap' }}>
+                            <button className="miniedit" onClick={() => onEditRow(r)}>Edit</button>{' '}
+                            <button className="miniedit" onClick={() => onToggleClaimable(r.id)}>{r.claimable === false ? 'Make claimable' : 'Make unclaimable'}</button>{' '}
+                            <button className="miniedit" onClick={() => onToggleClosed(r.id)}>{r.open ? 'Mark closed' : 'Reopen'}</button>
+                          </td>
+                        </tr>
+                      );
+                    })}
                   </tbody>
                 </table>
               </div>
             </>
           )}
-          {atab === 'add' && (
+
+          {atab === 'subs' && (
             <>
-              <h2>Add listing</h2><p className="sub">Create a business or place the import missed.</p>
-              <div className="fld">
-                <label>Name</label>
-                <input
-                  placeholder="e.g. Picker's Supply"
-                  value={form.name}
-                  onChange={e => setForm({ ...form, name: e.target.value })}
-                />
+              <h2>Subscriptions</h2>
+              <p className="sub">{subRows.length} listings with claim or subscription activity</p>
+              {subRows.length === 0 && <p className="empty">No subscriptions yet.</p>}
+              <div className="tblscroll">
+                <table className="tbl">
+                  <thead><tr><th>Business</th><th>Owner</th><th>Claim</th><th>Subscription</th><th>Renews</th><th></th></tr></thead>
+                  <tbody>
+                    {subRows.map(r => {
+                      const cs = getClaimStatus(r, claimRequests);
+                      const o = getOwner(r, claimRequests);
+                      const ss = subState(r);
+                      return (
+                        <tr key={r.id}>
+                          <td><span className="tn"><span className="av" style={{ background: r.color }}>{initials(r.name)}</span>{r.name}</span></td>
+                          <td style={{ color: 'var(--text-2)' }}>{o ? <>{o.name}<br /><small style={{ color: 'var(--text-3)' }}>{o.email}</small></> : '—'}</td>
+                          <td><span className={'st ' + (cs === 'completed' ? 'claimed' : 'auto')}>{STATUS_LABEL[cs]}</span></td>
+                          <td>{ss}</td>
+                          <td style={{ color: 'var(--text-2)' }}>{r.sub?.renews ? fmtLong(r.sub.renews) : '—'}</td>
+                          <td style={{ textAlign: 'right', whiteSpace: 'nowrap' }}>
+                            <button className="miniedit" onClick={() => onSubAction(r.id, 'active')}>Mark active</button>{' '}
+                            <button className="miniedit" onClick={() => onSubAction(r.id, 'past_due')}>Past due</button>{' '}
+                            <button className="miniedit" onClick={() => onSubAction(r.id, 'cancel')}>Cancel</button>
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
               </div>
-              <div className="two">
-                <div className="fld">
-                  <label>Category</label>
-                  <select value={form.cat} onChange={e => setForm({ ...form, cat: e.target.value })}>
-                    {CATS.filter(c => c !== 'All').map(c => <option key={c} value={c}>{c}</option>)}
-                  </select>
-                </div>
-                <div className="fld">
-                  <label>Neighborhood</label>
-                  <input
-                    placeholder="Downtown"
-                    value={form.hood}
-                    onChange={e => setForm({ ...form, hood: e.target.value })}
-                  />
-                </div>
-              </div>
-              <div className="fld">
-                <label>Address</label>
-                <input
-                  placeholder="000 Caroline St"
-                  value={form.addr}
-                  onChange={e => setForm({ ...form, addr: e.target.value })}
-                />
-              </div>
-              <div className="publishbar">
-                <button className="btn btn-primary" onClick={addListing}>Add listing</button>
-              </div>
-            </>
-          )}
-          {atab === 'sources' && (
-            <>
-              <h2>Data sources</h2><p className="sub">Where imported businesses come from.</p>
-              <div className="mc"><div><b>Google Places</b><br /><small>Imports name, category, address, hours, rating</small></div><span className="st claimed">Connected</span></div>
-              <div className="mc"><div><b>Yelp Fusion</b><br /><small>Supplemental ratings and photos</small></div><button className="miniedit">Connect</button></div>
-              <div className="mc"><div><b>Manual</b><br /><small>Listings you add by hand</small></div><span className="st claimed">On</span></div>
-              <p className="sub" style={{ marginTop: 14, marginBottom: 0, lineHeight: 1.5 }}>
-                Imported businesses start as <b>unclaimed</b>. Owners take them over by claiming. You retain edit access to every entry.
-              </p>
             </>
           )}
         </div>

@@ -17,7 +17,16 @@ import MemberSignup from './pages/MemberSignup';
 import OwnerSignup from './pages/OwnerSignup';
 import BusinessSelect from './pages/BusinessSelect';
 import Login from './pages/Login';
+import ClaimRequest from './pages/ClaimRequest';
 import PfpMenu from './components/PfpMenu';
+
+const INITIAL_CLAIM_REQUESTS = [
+  { id: 'cr-h1', listingId: 1, userFirstName: 'Maya',   userLastName: 'Chen',   userEmail: 'maya@carolinestcoffee.com',  role: 'Owner',   status: 'completed', submittedAt: '2025-08-20' },
+  { id: 'cr-h2', listingId: 2, userFirstName: 'Robert', userLastName: 'Hyde',   userEmail: 'robert@hyperionantiques.com', role: 'Owner',   status: 'completed', submittedAt: '2025-11-10' },
+  { id: 'cr-h3', listingId: 3, userFirstName: 'Jess',   userLastName: 'Carver', userEmail: 'jess@battlefieldbrewing.com', role: 'Owner',   status: 'completed', submittedAt: '2025-06-25' },
+  { id: 'cr-p1', listingId: 4, userFirstName: 'Hans',   userLastName: 'Mueller', userEmail: 'hans@bavarianchef.com',      role: 'Owner',   status: 'pending',   submittedAt: '2026-06-09' },
+  { id: 'cr-p2', listingId: 5, userFirstName: 'Linda',  userLastName: 'Park',    userEmail: 'linda@riverbybooks.com',     role: 'Manager', status: 'pending',   submittedAt: '2026-06-08' },
+];
 
 export default function App() {
   const [view,          setView]          = useState('home');
@@ -25,18 +34,20 @@ export default function App() {
   const [cat,           setCat]           = useState('All');
   const [search,        setSearch]        = useState('');
   const [tab,           setTab]           = useState('details');
-  const [atab,          setAtab]          = useState('listings');
-  const [toast,         setToast]         = useState('');
-  const [rows,          setRows]          = useState(DATA);
-  const [claimedId,     setClaimedId]     = useState(1);
-  const [claimTargetId, setClaimTargetId] = useState(null);
-  const [offerForm,     setOfferForm]     = useState(null);
-  const [eventForm,     setEventForm]     = useState(null);
-  const [pay,           setPay]           = useState(null);
-  const [vrf,           setVrf]           = useState(null);
-  const [hoverId,       setHoverId]       = useState(null);
-  const [localUser,     setLocalUser]     = useState(null);
-  const [ownerUser,     setOwnerUser]     = useState(null);
+  const [atab,           setAtab]          = useState('claims');
+  const [toast,          setToast]         = useState('');
+  const [rows,           setRows]          = useState(DATA);
+  const [claimedId,      setClaimedId]     = useState(1);
+  const [claimTargetId,  setClaimTargetId] = useState(null);
+  const [offerForm,      setOfferForm]     = useState(null);
+  const [eventForm,      setEventForm]     = useState(null);
+  const [pay,            setPay]           = useState(null);
+  const [vrf,            setVrf]           = useState(null);
+  const [hoverId,        setHoverId]       = useState(null);
+  const [localUser,      setLocalUser]     = useState(null);
+  const [ownerUser,      setOwnerUser]     = useState(null);
+  const [claimRequests,  setClaimRequests] = useState(INITIAL_CLAIM_REQUESTS);
+  const [ownerListingId, setOwnerListingId] = useState(null);
 
   const active = rows.find(r => r.id === activeId);
   const biz    = rows.find(r => r.id === claimedId);
@@ -63,37 +74,103 @@ export default function App() {
     if (!ownerUser) {
       go('ownerSignup');
     } else if (targetId) {
-      go('claim');
+      go('claimRequest');
     } else {
       go('businessSelect');
     }
   };
 
+  const buildRow = (form, nextId) => ({
+    id: nextId,
+    name: form.name,
+    cat: form.cat,
+    hood: form.hood || 'Fredericksburg',
+    color: '#5a6b7a',
+    rating: 0,
+    reviews: 0,
+    open: true,
+    until: '',
+    status: 'auto',
+    coords: null,
+    addr: form.addr || '',
+    phone: form.phone || '',
+    web: form.web || '',
+    about: '',
+    hours: [],
+    offers: [],
+    events: [],
+  });
+
   const addNewListing = form => {
     const nextId = Math.max(...rows.map(r => r.id)) + 1;
-    const newRow = {
-      id: nextId,
-      name: form.name,
-      cat: form.cat,
-      hood: form.hood || 'Fredericksburg',
-      color: '#5a6b7a',
-      rating: 0,
-      reviews: 0,
-      open: true,
-      until: '',
-      status: 'auto',
-      coords: null,
-      addr: form.addr || '',
-      phone: form.phone || '',
-      web: form.web || '',
-      about: '',
-      hours: [],
-      offers: [],
-      events: [],
-    };
-    setRows(rs => [...rs, newRow]);
+    setRows(rs => [...rs, buildRow(form, nextId)]);
     setClaimTargetId(nextId);
-    go('claim');
+    go('claimRequest');
+  };
+
+  const adminAddListing = form => {
+    const nextId = Math.max(...rows.map(r => r.id)) + 1;
+    setRows(rs => [...rs, buildRow(form, nextId)]);
+  };
+
+  const submitClaimRequest = ({ role }) => {
+    const newReq = {
+      id: 'cr-' + Date.now(),
+      listingId: claimTargetId,
+      userFirstName: ownerUser.firstName,
+      userLastName: ownerUser.lastName,
+      userEmail: ownerUser.email,
+      role,
+      status: 'pending',
+      submittedAt: new Date().toISOString().slice(0, 10),
+    };
+    setClaimRequests(rs => [...rs, newReq]);
+    setOwnerListingId(claimTargetId);
+    ping('Claim submitted — pending review');
+    go('home');
+  };
+
+  const myBusiness = () => {
+    if (!ownerListingId) {
+      setClaimTargetId(null);
+      go('businessSelect');
+      return;
+    }
+    const listing = rows.find(r => r.id === ownerListingId);
+    if (!listing) { setClaimTargetId(null); go('businessSelect'); return; }
+    const req = [...claimRequests].reverse().find(r => r.listingId === ownerListingId && r.userEmail === ownerUser.email);
+    if (!req) { setClaimTargetId(null); go('businessSelect'); return; }
+    if (req.status === 'pending')         { ping('Your claim is pending review'); return; }
+    if (req.status === 'rejected')        { ping('Your claim was rejected'); setClaimTargetId(null); go('businessSelect'); return; }
+    if (req.status === 'approved_unpaid') {
+      setClaimTargetId(ownerListingId);
+      setPay({ email: ownerUser.email, card: '', exp: '', cvc: '', name: (ownerUser.firstName + ' ' + ownerUser.lastName).trim(), zip: '', err: '' });
+      go('checkout');
+      return;
+    }
+    setClaimedId(ownerListingId);
+    setTab('details');
+    go('dash');
+  };
+
+  const approveClaim = id => {
+    setClaimRequests(rs => rs.map(r => r.id === id ? { ...r, status: 'approved_unpaid' } : r));
+    ping('Claim approved');
+  };
+  const rejectClaim = id => {
+    setClaimRequests(rs => rs.map(r => r.id === id ? { ...r, status: 'rejected' } : r));
+    ping('Claim rejected');
+  };
+  const toggleClaimable = id => patchBiz(id, { claimable: rows.find(r => r.id === id)?.claimable === false ? true : false });
+  const toggleClosed    = id => { const r = rows.find(x => x.id === id); patchBiz(id, { open: !r.open }); };
+  const subAction = (id, action) => {
+    const r = rows.find(x => x.id === id);
+    if (!r) return;
+    const sub = r.sub || { brand: 'Visa', last4: '0000', since: new Date().toISOString().slice(0, 10), renews: nextMonthISO() };
+    if (action === 'active')   patchBiz(id, { sub: { ...sub, active: true,  status: 'active'   } });
+    if (action === 'past_due') patchBiz(id, { sub: { ...sub, active: false, status: 'past_due' } });
+    if (action === 'cancel')   patchBiz(id, { sub: { ...sub, active: false, status: 'canceled' } });
+    ping('Subscription updated');
   };
 
   const subscribe = () => {
@@ -106,8 +183,9 @@ export default function App() {
     const target = claimTargetId || 1;
     patchBiz(target, {
       status: 'claimed',
-      sub: { active: true, brand: 'Visa', last4: digits.slice(-4), since: new Date().toISOString().slice(0, 10), renews: nextMonthISO() },
+      sub: { active: true, status: 'active', brand: 'Visa', last4: digits.slice(-4), since: new Date().toISOString().slice(0, 10), renews: nextMonthISO() },
     });
+    setClaimRequests(rs => rs.map(r => r.listingId === target && r.status === 'approved_unpaid' ? { ...r, status: 'completed' } : r));
     setClaimedId(target);
     setTab('details');
     setPay(null);
@@ -142,9 +220,9 @@ export default function App() {
           : ownerUser
             ? <PfpMenu
                 user={ownerUser}
-                onSignOut={() => { setOwnerUser(null); go('home'); }}
+                onSignOut={() => { setOwnerUser(null); setOwnerListingId(null); go('home'); }}
                 items={[
-                  { label: 'My business', icon: <><path d="M3 10l2-6h14l2 6"/><path d="M4 10v10h16V10"/></>, onClick: () => { setClaimTargetId(null); go('businessSelect'); } },
+                  { label: 'My business', icon: <><path d="M3 10l2-6h14l2 6"/><path d="M4 10v10h16V10"/></>, onClick: myBusiness },
                 ]}
               />
             : <button className="btn btn-primary" onClick={() => go('login')}>Join / Log in</button>}
@@ -219,7 +297,7 @@ export default function App() {
           onBack={() => go(claimTargetId ? 'detail' : 'join')}
           onSubmit={u => {
             setOwnerUser(u);
-            if (claimTargetId) go('claim');
+            if (claimTargetId) go('claimRequest');
             else go('businessSelect');
           }}
         />
@@ -227,10 +305,19 @@ export default function App() {
 
       {view === 'businessSelect' && (
         <BusinessSelect
-          rows={rows}
+          rows={rows.filter(r => !claimRequests.some(cr => cr.listingId === r.id && (cr.status === 'pending' || cr.status === 'approved_unpaid' || cr.status === 'completed')))}
           onBack={() => go('home')}
-          onClaimExisting={id => { setClaimTargetId(id); go('claim'); }}
+          onClaimExisting={id => { setClaimTargetId(id); go('claimRequest'); }}
           onAddListing={addNewListing}
+        />
+      )}
+
+      {view === 'claimRequest' && ownerUser && (
+        <ClaimRequest
+          listing={rows.find(r => r.id === claimTargetId)}
+          owner={ownerUser}
+          onBack={() => go('businessSelect')}
+          onSubmit={submitClaimRequest}
         />
       )}
 
@@ -248,7 +335,7 @@ export default function App() {
             onHover={setHoverId}
             onOpen={open}
             onClaim={() => startClaim(null)}
-            onAdmin={() => { setAtab('listings'); go('admin'); }}
+            onAdmin={() => { setAtab('claims'); go('admin'); }}
           />
         </div>
       </div>
@@ -322,10 +409,16 @@ export default function App() {
       {view === 'admin' && (
         <Admin
           rows={rows}
-          setRows={setRows}
+          claimRequests={claimRequests}
           atab={atab}
           setAtab={setAtab}
           onBack={() => go('places')}
+          onApproveClaim={approveClaim}
+          onRejectClaim={rejectClaim}
+          onToggleClaimable={toggleClaimable}
+          onToggleClosed={toggleClosed}
+          onSubAction={subAction}
+          onAddListing={adminAddListing}
           onEditRow={r => {
             if (!PUBLIC_PLACE_CATS.has(r.cat)) {
               setClaimedId(r.id);
@@ -344,7 +437,7 @@ export default function App() {
         <span style={{ margin: '0 8px', color: 'var(--line)' }}>·</span>
         <button
           style={{ background: 'none', border: 'none', color: 'var(--text-3)', fontSize: 12, cursor: 'pointer', padding: 0 }}
-          onClick={() => { setAtab('listings'); go('admin'); }}
+          onClick={() => { setAtab('claims'); go('admin'); }}
         >
           Admin
         </button>
