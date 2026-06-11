@@ -12,6 +12,11 @@ import Home from './pages/Home';
 import Deals from './pages/Deals';
 import Events from './pages/Events';
 import Services from './pages/Services';
+import Join from './pages/Join';
+import MemberSignup from './pages/MemberSignup';
+import MemberDash from './pages/MemberDash';
+import OwnerSignup from './pages/OwnerSignup';
+import BusinessSelect from './pages/BusinessSelect';
 
 export default function App() {
   const [view,          setView]          = useState('home');
@@ -29,6 +34,8 @@ export default function App() {
   const [pay,           setPay]           = useState(null);
   const [vrf,           setVrf]           = useState(null);
   const [hoverId,       setHoverId]       = useState(null);
+  const [localUser,     setLocalUser]     = useState(null);
+  const [ownerUser,     setOwnerUser]     = useState(null);
 
   const active = rows.find(r => r.id === activeId);
   const biz    = rows.find(r => r.id === claimedId);
@@ -49,6 +56,44 @@ export default function App() {
   const open     = l  => { setActiveId(l.id); go('detail'); };
   const patchBiz = (id, p) => setRows(rs => rs.map(r => r.id === id ? { ...r, ...p } : r));
   const genCode  = ()  => String(Math.floor(100000 + Math.random() * 900000));
+
+  const startClaim = targetId => {
+    setClaimTargetId(targetId || null);
+    if (!ownerUser) {
+      go('ownerSignup');
+    } else if (targetId) {
+      go('claim');
+    } else {
+      go('businessSelect');
+    }
+  };
+
+  const addNewListing = form => {
+    const nextId = Math.max(...rows.map(r => r.id)) + 1;
+    const newRow = {
+      id: nextId,
+      name: form.name,
+      cat: form.cat,
+      hood: form.hood || 'Fredericksburg',
+      color: '#5a6b7a',
+      rating: 0,
+      reviews: 0,
+      open: true,
+      until: '',
+      status: 'auto',
+      coords: null,
+      addr: form.addr || '',
+      phone: form.phone || '',
+      web: form.web || '',
+      about: '',
+      hours: [],
+      offers: [],
+      events: [],
+    };
+    setRows(rs => [...rs, newRow]);
+    setClaimTargetId(nextId);
+    go('claim');
+  };
 
   const subscribe = () => {
     const p = pay;
@@ -83,7 +128,11 @@ export default function App() {
             onChange={e => { setSearch(e.target.value); if (view !== 'places') go('places'); }}
           />
         </div>
-        <button className="btn btn-primary" onClick={() => { setClaimTargetId(null); go('claim'); }}>Claim a business</button>
+        {localUser
+          ? <button className="btn btn-primary" onClick={() => go('memberDash')}>My profile</button>
+          : ownerUser
+            ? <button className="btn btn-primary" onClick={() => { setClaimTargetId(null); go('businessSelect'); }}>My business</button>
+            : <button className="btn btn-primary" onClick={() => go('join')}>Join / Log in</button>}
       </div></nav>
 
       <nav className="nav-secondary"><div className="inner">
@@ -118,13 +167,55 @@ export default function App() {
       {view === 'home' && (
         <Home
           onPlaces={() => go('places')}
-          onClaim={() => { setClaimTargetId(null); go('claim'); }}
+          onClaim={() => startClaim(null)}
         />
       )}
 
       {view === 'deals' && <Deals />}
       {view === 'events' && <Events />}
       {view === 'services' && <Services rows={rows} onOpen={open} />}
+
+      {view === 'join' && (
+        <Join
+          onBack={() => go('home')}
+          onMember={() => go('memberSignup')}
+          onOwner={() => go('ownerSignup')}
+        />
+      )}
+
+      {view === 'memberSignup' && (
+        <MemberSignup
+          onBack={() => go('join')}
+          onSubmit={u => { setLocalUser(u); ping('Welcome to Fredpages'); go('memberDash'); }}
+        />
+      )}
+
+      {view === 'memberDash' && localUser && (
+        <MemberDash
+          user={localUser}
+          onSignOut={() => { setLocalUser(null); go('home'); }}
+        />
+      )}
+
+      {view === 'ownerSignup' && (
+        <OwnerSignup
+          onBack={() => go(claimTargetId ? 'detail' : 'join')}
+          onSubmit={u => {
+            setOwnerUser(u);
+            if (claimTargetId) go('claim');
+            else go('businessSelect');
+          }}
+        />
+      )}
+
+      {view === 'businessSelect' && (
+        <BusinessSelect
+          rows={rows}
+          onBack={() => go('home')}
+          onClaimExisting={id => { setClaimTargetId(id); go('claim'); }}
+          onAddListing={addNewListing}
+        />
+      )}
 
       {/* ── BROWSE — always mounted so the map never unmounts ── */}
       <div style={{ display: view === 'places' ? 'block' : 'none' }}>
@@ -139,7 +230,7 @@ export default function App() {
             hoverId={hoverId}
             onHover={setHoverId}
             onOpen={open}
-            onClaim={() => { setClaimTargetId(null); go('claim'); }}
+            onClaim={() => startClaim(null)}
             onAdmin={() => { setAtab('listings'); go('admin'); }}
           />
         </div>
@@ -151,7 +242,7 @@ export default function App() {
           active={active}
           onBack={() => go(active.cat === 'Services' ? 'services' : 'places')}
           onDash={() => { setClaimedId(active.id); setTab('details'); go('dash'); }}
-          onClaim={() => { setClaimTargetId(active.id); go('claim'); }}
+          onClaim={() => startClaim(active.id)}
           ping={ping}
         />
       )}
