@@ -72,6 +72,7 @@ export default function App() {
   return (
     <div className="app">
       {/* nav */}
+      <div className="header">
       <nav className="nav"><div className="inner">
         <div className="brand" onClick={() => go('home')}>Fredpages</div>
         <div className="searchbox">
@@ -111,6 +112,7 @@ export default function App() {
           Events
         </button>
       </div></nav>
+      </div>
 
       {/* ── HOME ── */}
       {view === 'home' && (
