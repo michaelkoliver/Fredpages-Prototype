@@ -66,7 +66,10 @@ function Pin({ row, selected, onClick }) {
 
 export default function MapView({ rows, cat, hoverId, onOpen, shown = true }) {
   const mapRef = useRef(null);
-  const visible  = cat === 'All' ? rows.filter(r => r.cat !== 'Services') : rows.filter(r => r.cat === cat);
+  const visible  = useMemo(
+    () => cat === 'All' ? rows.filter(r => r.cat !== 'Services') : rows.filter(r => r.cat === cat),
+    [rows, cat]
+  );
   const mappable = visible.filter(r => r.coords);
   const pinnable = mappable.filter(r => !TRAIL_PATH_IDS.has(r.id));
   const hovered  = hoverId != null ? rows.find(r => r.id === hoverId) : null;
