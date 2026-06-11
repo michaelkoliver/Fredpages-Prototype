@@ -3,8 +3,6 @@ import { DATA, nextMonthISO, PUBLIC_PLACE_CATS } from './data';
 import MapView from './components/MapView';
 import ListPanel from './components/ListPanel';
 import Detail from './pages/Detail';
-import Claim from './pages/Claim';
-import Verify from './pages/Verify';
 import Checkout from './pages/Checkout';
 import Dashboard from './pages/Dashboard';
 import Admin from './pages/Admin';
@@ -42,7 +40,6 @@ export default function App() {
   const [offerForm,      setOfferForm]     = useState(null);
   const [eventForm,      setEventForm]     = useState(null);
   const [pay,            setPay]           = useState(null);
-  const [vrf,            setVrf]           = useState(null);
   const [hoverId,        setHoverId]       = useState(null);
   const [localUser,      setLocalUser]     = useState(null);
   const [ownerUser,      setOwnerUser]     = useState(null);
@@ -67,7 +64,6 @@ export default function App() {
   };
   const open     = l  => { setActiveId(l.id); go('detail'); };
   const patchBiz = (id, p) => setRows(rs => rs.map(r => r.id === id ? { ...r, ...p } : r));
-  const genCode  = ()  => String(Math.floor(100000 + Math.random() * 900000));
 
   const startClaim = targetId => {
     setClaimTargetId(targetId || null);
@@ -351,37 +347,13 @@ export default function App() {
         />
       )}
 
-      {/* ── CLAIM ── */}
-      {view === 'claim' && (
-        <Claim
-          onContinue={() => {
-            const target = claimTargetId || (rows.find(r => r.status === 'auto') || { id: 1 }).id;
-            setClaimTargetId(target);
-            setVrf({ method: 'phone', sent: false, code: '', entry: '', err: '' });
-            go('verify');
-          }}
-        />
-      )}
-
-      {/* ── VERIFY ── */}
-      {view === 'verify' && vrf && (
-        <Verify
-          vrf={vrf}
-          setVrf={setVrf}
-          vBiz={rows.find(r => r.id === claimTargetId)}
-          onBack={() => go('claim')}
-          onVerified={() => { setPay({ email: '', card: '', exp: '', cvc: '', name: '', zip: '', err: '' }); go('checkout'); }}
-          genCode={genCode}
-        />
-      )}
-
       {/* ── CHECKOUT ── */}
       {view === 'checkout' && pay && (
         <Checkout
           pay={pay}
           setPay={setPay}
           coBiz={rows.find(r => r.id === claimTargetId)}
-          onBack={() => go('claim')}
+          onBack={() => go('home')}
           onSubscribe={subscribe}
         />
       )}
