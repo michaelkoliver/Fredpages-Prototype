@@ -32,7 +32,7 @@ export default function App() {
   const active = rows.find(r => r.id === activeId);
   const biz    = rows.find(r => r.id === claimedId);
 
-  const list = (cat === 'All' ? rows : rows.filter(r => r.cat === cat)).filter(r =>
+  const list = (cat === 'All' ? rows.filter(r => r.cat !== 'Services') : rows.filter(r => r.cat === cat)).filter(r =>
     !search || [r.name, r.cat, r.hood, r.addr].some(f => f?.toLowerCase().includes(search.toLowerCase()))
   );
 
