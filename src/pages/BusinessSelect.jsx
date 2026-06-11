@@ -23,10 +23,9 @@ export default function BusinessSelect({ rows, onBack, onClaimExisting, onAddLis
 
   if (mode === 'new') {
     return (
-      <div className="center" style={{ maxWidth: 520 }}>
-        <button className="back" onClick={() => setMode('pick')}>← Back</button>
-        <h1>Add your business</h1>
-        <p className="lede">We'll create a new listing for you.</p>
+      <div className="center" style={{ maxWidth: 480 }}>
+        <button className="back" onClick={() => setMode('pick')}>←</button>
+        <h1>Add business</h1>
         <div className="paycard" style={{ textAlign: 'left' }}>
           {err && <div className="payerr">{err}</div>}
           <div className="fld">
@@ -67,9 +66,8 @@ export default function BusinessSelect({ rows, onBack, onClaimExisting, onAddLis
 
   return (
     <div className="page-wrap">
-      <button className="back" onClick={onBack}>← Back</button>
-      <h1 style={{ fontSize: 26, fontWeight: 700, letterSpacing: '-.02em', margin: '8px 0 6px' }}>Find your business</h1>
-      <p style={{ color: 'var(--text-2)', margin: '0 0 14px' }}>Search for your business below. Not listed? Add it.</p>
+      <button className="back" onClick={onBack}>←</button>
+      <h1 style={{ fontSize: 24, fontWeight: 700, letterSpacing: '-.02em', margin: '8px 0 14px' }}>Find your business</h1>
       <div className="searchbox" style={{ maxWidth: 'none', marginBottom: 14 }}>
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#8b938f" strokeWidth="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3" strokeLinecap="round"/></svg>
         <input placeholder="Search by name or address" value={search} onChange={e => setSearch(e.target.value)} />
@@ -87,13 +85,13 @@ export default function BusinessSelect({ rows, onBack, onClaimExisting, onAddLis
                 {b.addr && <><span className="dot">·</span>{b.addr}</>}
               </div>
               <div className="chips">
-                <span className="claimchip">Unclaimed — claim it</span>
+                <span className="claimchip">Unclaimed</span>
               </div>
             </div>
           </div>
         ))}
         {claimable.length === 0 && <p className="empty">No matches.</p>}
-        <button className="dashed" onClick={() => setMode('new')}>+ Add a new business listing</button>
+        <button className="dashed" onClick={() => setMode('new')}>+ Add new</button>
       </div>
     </div>
   );
