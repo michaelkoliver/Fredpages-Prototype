@@ -133,7 +133,7 @@ export default function App() {
           ? <button className="btn btn-primary" onClick={() => go('memberDash')}>My profile</button>
           : ownerUser
             ? <button className="btn btn-primary" onClick={() => { setClaimTargetId(null); go('businessSelect'); }}>My business</button>
-            : <button className="btn btn-primary" onClick={() => go('join')}>Join / Log in</button>}
+            : <button className="btn btn-primary" onClick={() => go('login')}>Join / Log in</button>}
       </div></nav>
 
       <nav className="nav-secondary"><div className="inner">
@@ -176,20 +176,20 @@ export default function App() {
       {view === 'events' && <Events />}
       {view === 'services' && <Services rows={rows} onOpen={open} />}
 
-      {view === 'join' && (
-        <Join
+      {view === 'login' && (
+        <Login
           onBack={() => go('home')}
-          onMember={() => go('memberSignup')}
-          onOwner={() => go('ownerSignup')}
-          onLogin={() => go('login')}
+          onSignUp={() => go('join')}
+          onSubmit={u => { setLocalUser(u); ping('Logged in'); go('memberDash'); }}
         />
       )}
 
-      {view === 'login' && (
-        <Login
-          onBack={() => go('join')}
-          onMember={u => { setLocalUser(u); ping('Logged in'); go('memberDash'); }}
-          onOwner={u => { setOwnerUser(u); ping('Logged in'); go('businessSelect'); }}
+      {view === 'join' && (
+        <Join
+          onBack={() => go('login')}
+          onMember={() => go('memberSignup')}
+          onOwner={() => go('ownerSignup')}
+          onLogin={() => go('login')}
         />
       )}
 
