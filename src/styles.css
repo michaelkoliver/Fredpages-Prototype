@@ -280,15 +280,42 @@ img{display:block;}
 .photo-picker img{width:100%;height:100%;object-fit:cover;}
 .photo-picker:hover{border-color:var(--brand);}
 
-/* ── member dashboard tiles ── */
-.member-tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:18px;}
-.member-tile{
-  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;
-  aspect-ratio:1;background:var(--surface);border:1px solid var(--line);border-radius:14px;
-  color:var(--text-2);box-shadow:var(--shadow);transition:transform .12s,box-shadow .12s,color .12s,border-color .12s;
+/* ── pfp avatar + dropdown menu ── */
+.pfp-wrap{position:relative;}
+.pfp{
+  width:36px;height:36px;border-radius:50%;
+  background:#5a6b7a;color:#fff;
+  display:flex;align-items:center;justify-content:center;
+  font-weight:700;font-size:14px;
+  border:none;cursor:pointer;overflow:hidden;padding:0;
+  transition:box-shadow .12s;
 }
-.member-tile:hover{transform:translateY(-1px);box-shadow:var(--shadow-2);color:var(--brand);border-color:var(--brand);}
-.member-tile span{font-size:12.5px;font-weight:600;}
+.pfp:hover{box-shadow:0 0 0 3px var(--brand-bg);}
+.pfp img{width:100%;height:100%;object-fit:cover;}
+.pfp-menu{
+  position:absolute;top:calc(100% + 10px);right:0;
+  background:var(--surface);border:1px solid var(--line);border-radius:13px;
+  box-shadow:0 10px 30px rgba(16,24,20,.15);
+  min-width:240px;padding:6px;z-index:50;
+  animation:pfp-in .14s ease-out;
+}
+@keyframes pfp-in{
+  from{opacity:0;transform:translateY(-4px);}
+  to{opacity:1;transform:translateY(0);}
+}
+.pfp-menu-head{display:flex;gap:11px;align-items:center;padding:10px 10px 12px;border-bottom:1px solid var(--line-2);margin-bottom:4px;}
+.pfp-menu-head img,.pfp-menu-av{width:38px;height:38px;border-radius:50%;flex-shrink:0;object-fit:cover;}
+.pfp-menu-av{background:#5a6b7a;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:15px;}
+.pfp-menu-head b{font-size:13.5px;font-weight:600;display:block;line-height:1.2;}
+.pfp-menu-head small{font-size:12px;color:var(--text-2);display:block;margin-top:2px;}
+.pfp-menu-item{
+  display:flex;width:100%;align-items:center;gap:10px;
+  padding:9px 10px;border:none;background:none;border-radius:8px;
+  font-size:13.5px;font-weight:500;color:var(--text);text-align:left;cursor:pointer;
+}
+.pfp-menu-item:hover{background:var(--bg);}
+.pfp-menu-item svg{color:var(--text-2);flex-shrink:0;}
+.pfp-menu-sep{height:1px;background:var(--line-2);margin:5px 0;}
 
 /* ── home page ── */
 .home{padding-bottom:40px;}

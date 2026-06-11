@@ -14,10 +14,10 @@ import Events from './pages/Events';
 import Services from './pages/Services';
 import Join from './pages/Join';
 import MemberSignup from './pages/MemberSignup';
-import MemberDash from './pages/MemberDash';
 import OwnerSignup from './pages/OwnerSignup';
 import BusinessSelect from './pages/BusinessSelect';
 import Login from './pages/Login';
+import PfpMenu from './components/PfpMenu';
 
 export default function App() {
   const [view,          setView]          = useState('home');
@@ -130,9 +130,23 @@ export default function App() {
           />
         </div>
         {localUser
-          ? <button className="btn btn-primary" onClick={() => go('memberDash')}>My profile</button>
+          ? <PfpMenu
+              user={localUser}
+              onSignOut={() => { setLocalUser(null); go('home'); }}
+              items={[
+                { label: 'Reviews', icon: <path d="M12 2l3 7h7l-5.5 4 2 7-6.5-4.5L5.5 20l2-7L2 9h7z"/>, onClick: () => ping('Reviews coming soon') },
+                { label: 'Saved places', icon: <path d="M6 3h12v18l-6-4-6 4z"/>, onClick: () => ping('Saved places coming soon') },
+                { label: 'Followed deals', icon: <><path d="M21 11l-9-9H3v9l9 9z"/><circle cx="7.5" cy="7.5" r="1.5"/></>, onClick: () => ping('Followed deals coming soon') },
+              ]}
+            />
           : ownerUser
-            ? <button className="btn btn-primary" onClick={() => { setClaimTargetId(null); go('businessSelect'); }}>My business</button>
+            ? <PfpMenu
+                user={ownerUser}
+                onSignOut={() => { setOwnerUser(null); go('home'); }}
+                items={[
+                  { label: 'My business', icon: <><path d="M3 10l2-6h14l2 6"/><path d="M4 10v10h16V10"/></>, onClick: () => { setClaimTargetId(null); go('businessSelect'); } },
+                ]}
+              />
             : <button className="btn btn-primary" onClick={() => go('login')}>Join / Log in</button>}
       </div></nav>
 
@@ -180,7 +194,7 @@ export default function App() {
         <Login
           onBack={() => go('home')}
           onSignUp={() => go('join')}
-          onSubmit={u => { setLocalUser(u); ping('Logged in'); go('memberDash'); }}
+          onSubmit={u => { setLocalUser(u); ping('Welcome back'); go('home'); }}
         />
       )}
 
@@ -196,14 +210,7 @@ export default function App() {
       {view === 'memberSignup' && (
         <MemberSignup
           onBack={() => go('join')}
-          onSubmit={u => { setLocalUser(u); ping('Welcome to Fredpages'); go('memberDash'); }}
-        />
-      )}
-
-      {view === 'memberDash' && localUser && (
-        <MemberDash
-          user={localUser}
-          onSignOut={() => { setLocalUser(null); go('home'); }}
+          onSubmit={u => { setLocalUser(u); ping('Welcome to Fredpages'); go('home'); }}
         />
       )}
 
