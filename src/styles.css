@@ -348,7 +348,6 @@ img{display:block;}
 
 @media(max-width:600px){
   .browse{height:calc(100vh - var(--nav-h) - var(--nav-h-2));}
-  .nav .btn-primary{display:none;}
   .mapboxgl-ctrl-zoom-in,.mapboxgl-ctrl-zoom-out{display:none;}
 
   /* ── Bottom sheet — map fills screen, panel floats over the bottom ── */
