@@ -1,4 +1,4 @@
-export default function Join({ onMember, onOwner, onBack }) {
+export default function Join({ onMember, onOwner, onLogin, onBack }) {
   return (
     <div className="center">
       <button className="back" onClick={onBack}>←</button>
@@ -20,6 +20,7 @@ export default function Join({ onMember, onOwner, onBack }) {
           <span>Business Owner</span>
         </button>
       </div>
+      <button className="join-login" onClick={onLogin}>Have an account? Log in</button>
     </div>
   );
 }

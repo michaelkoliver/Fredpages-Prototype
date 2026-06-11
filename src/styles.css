@@ -260,6 +260,11 @@ img{display:block;}
 .join-card svg{color:var(--text-2);transition:color .12s;}
 .join-card:hover svg{color:var(--brand);}
 .join-card span{font-size:14px;font-weight:600;}
+.join-login{background:none;border:none;color:var(--text-2);font-size:13px;font-weight:600;padding:18px 0;margin-top:8px;width:100%;}
+.join-login:hover{color:var(--brand);}
+.role-toggle{display:flex;gap:6px;margin-bottom:14px;}
+.role-toggle-btn{flex:1;background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:9px;font-size:13px;font-weight:600;color:var(--text-2);}
+.role-toggle-btn.on{background:var(--brand);border-color:var(--brand);color:#fff;}
 @media(max-width:480px){
   .join-choice{grid-template-columns:1fr;}
 }

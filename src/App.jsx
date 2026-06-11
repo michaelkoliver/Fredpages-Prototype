@@ -17,6 +17,7 @@ import MemberSignup from './pages/MemberSignup';
 import MemberDash from './pages/MemberDash';
 import OwnerSignup from './pages/OwnerSignup';
 import BusinessSelect from './pages/BusinessSelect';
+import Login from './pages/Login';
 
 export default function App() {
   const [view,          setView]          = useState('home');
@@ -180,6 +181,15 @@ export default function App() {
           onBack={() => go('home')}
           onMember={() => go('memberSignup')}
           onOwner={() => go('ownerSignup')}
+          onLogin={() => go('login')}
+        />
+      )}
+
+      {view === 'login' && (
+        <Login
+          onBack={() => go('join')}
+          onMember={u => { setLocalUser(u); ping('Logged in'); go('memberDash'); }}
+          onOwner={u => { setOwnerUser(u); ping('Logged in'); go('businessSelect'); }}
         />
       )}
 
