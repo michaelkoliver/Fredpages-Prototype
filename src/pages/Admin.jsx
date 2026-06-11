@@ -205,8 +205,7 @@ export default function Admin({
                           <td data-label="Subscription">{ss}</td>
                           <td data-label="Renews" style={{ color: 'var(--text-2)' }}>{r.sub?.renews ? fmtLong(r.sub.renews) : '—'}</td>
                           <td data-label="" className="td-acts">
-                            <button className="miniedit" onClick={() => onSubAction(r.id, 'active')}>Mark active</button>
-                            <button className="miniedit" onClick={() => onSubAction(r.id, 'past_due')}>Past due</button>
+                            <button className="miniedit" onClick={() => onSubAction(r.id, 'comp')}>Comp month</button>
                             <button className="miniedit" onClick={() => onSubAction(r.id, 'cancel')}>Cancel</button>
                           </td>
                         </tr>

@@ -163,10 +163,18 @@ export default function App() {
     const r = rows.find(x => x.id === id);
     if (!r) return;
     const sub = r.sub || { brand: 'Visa', last4: '0000', since: new Date().toISOString().slice(0, 10), renews: nextMonthISO() };
-    if (action === 'active')   patchBiz(id, { sub: { ...sub, active: true,  status: 'active'   } });
-    if (action === 'past_due') patchBiz(id, { sub: { ...sub, active: false, status: 'past_due' } });
-    if (action === 'cancel')   patchBiz(id, { sub: { ...sub, active: false, status: 'canceled' } });
-    ping('Subscription updated');
+    if (action === 'comp') {
+      const d = new Date((sub.renews || nextMonthISO()) + 'T00:00');
+      d.setMonth(d.getMonth() + 1);
+      patchBiz(id, { sub: { ...sub, renews: d.toISOString().slice(0, 10) } });
+      ping('Comped one month');
+      return;
+    }
+    if (action === 'cancel') {
+      patchBiz(id, { sub: { ...sub, active: false, status: 'canceled' } });
+      ping('Subscription canceled');
+      return;
+    }
   };
 
   const subscribe = () => {
