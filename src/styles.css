@@ -9,6 +9,7 @@
   --shadow-2:0 4px 14px rgba(16,24,20,.08);
 }
 *{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
 .app{font-family:'Hanken Grotesk',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;font-size:14px;-webkit-font-smoothing:antialiased;}
 button{font-family:inherit;cursor:pointer;}
 img{display:block;}
