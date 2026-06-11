@@ -348,6 +348,11 @@ img{display:block;}
 
 @media(max-width:600px){
   .browse{height:calc(100vh - var(--nav-h) - var(--nav-h-2));}
+  .nav .inner{gap:8px;padding:0 12px;}
+  .brand{font-size:14px;}
+  .nav .searchbox{flex:1 1 0;min-width:0;max-width:none;height:36px;padding:0 10px;}
+  .nav .searchbox input{font-size:13px;}
+  .nav .btn-primary{padding:7px 10px;font-size:12.5px;min-height:36px;}
   .mapboxgl-ctrl-zoom-in,.mapboxgl-ctrl-zoom-out{display:none;}
 
   /* ── Bottom sheet — map fills screen, panel floats over the bottom ── */
