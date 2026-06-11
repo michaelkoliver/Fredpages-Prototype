@@ -156,7 +156,7 @@ export default function Admin({
                 </div>
               )}
               <div className="tblscroll">
-                <table className="tbl">
+                <table className="tbl tbl-stack">
                   <thead><tr><th>Name</th><th>Category</th><th>Claimable</th><th>Claim</th><th>Subscription</th><th>Owner</th><th></th></tr></thead>
                   <tbody>
                     {rows.map(r => {
@@ -164,15 +164,15 @@ export default function Admin({
                       const o = getOwner(r, claimRequests);
                       return (
                         <tr key={r.id}>
-                          <td><span className="tn"><span className="av" style={{ background: r.color }}>{initials(r.name)}</span>{r.name}</span></td>
-                          <td style={{ color: 'var(--text-2)' }}>{r.cat}</td>
-                          <td>{r.claimable === false ? 'No' : 'Yes'}</td>
-                          <td><span className={'st ' + (cs === 'completed' ? 'claimed' : 'auto')}>{STATUS_LABEL[cs]}</span></td>
-                          <td>{subState(r)}</td>
-                          <td style={{ color: 'var(--text-2)' }}>{o ? o.name : '—'}</td>
-                          <td style={{ textAlign: 'right', whiteSpace: 'nowrap' }}>
-                            <button className="miniedit" onClick={() => onEditRow(r)}>Edit</button>{' '}
-                            <button className="miniedit" onClick={() => onToggleClaimable(r.id)}>{r.claimable === false ? 'Make claimable' : 'Make unclaimable'}</button>{' '}
+                          <td data-label="Name"><span className="tn"><span className="av" style={{ background: r.color }}>{initials(r.name)}</span>{r.name}</span></td>
+                          <td data-label="Category" style={{ color: 'var(--text-2)' }}>{r.cat}</td>
+                          <td data-label="Claimable">{r.claimable === false ? 'No' : 'Yes'}</td>
+                          <td data-label="Claim"><span className={'st ' + (cs === 'completed' ? 'claimed' : 'auto')}>{STATUS_LABEL[cs]}</span></td>
+                          <td data-label="Subscription">{subState(r)}</td>
+                          <td data-label="Owner" style={{ color: 'var(--text-2)' }}>{o ? o.name : '—'}</td>
+                          <td data-label="" className="td-acts">
+                            <button className="miniedit" onClick={() => onEditRow(r)}>Edit</button>
+                            <button className="miniedit" onClick={() => onToggleClaimable(r.id)}>{r.claimable === false ? 'Make claimable' : 'Make unclaimable'}</button>
                             <button className="miniedit" onClick={() => onToggleClosed(r.id)}>{r.open ? 'Mark closed' : 'Reopen'}</button>
                           </td>
                         </tr>
@@ -190,7 +190,7 @@ export default function Admin({
               <p className="sub">{subRows.length} listings with claim or subscription activity</p>
               {subRows.length === 0 && <p className="empty">No subscriptions yet.</p>}
               <div className="tblscroll">
-                <table className="tbl">
+                <table className="tbl tbl-stack">
                   <thead><tr><th>Business</th><th>Owner</th><th>Claim</th><th>Subscription</th><th>Renews</th><th></th></tr></thead>
                   <tbody>
                     {subRows.map(r => {
@@ -199,14 +199,14 @@ export default function Admin({
                       const ss = subState(r);
                       return (
                         <tr key={r.id}>
-                          <td><span className="tn"><span className="av" style={{ background: r.color }}>{initials(r.name)}</span>{r.name}</span></td>
-                          <td style={{ color: 'var(--text-2)' }}>{o ? <>{o.name}<br /><small style={{ color: 'var(--text-3)' }}>{o.email}</small></> : '—'}</td>
-                          <td><span className={'st ' + (cs === 'completed' ? 'claimed' : 'auto')}>{STATUS_LABEL[cs]}</span></td>
-                          <td>{ss}</td>
-                          <td style={{ color: 'var(--text-2)' }}>{r.sub?.renews ? fmtLong(r.sub.renews) : '—'}</td>
-                          <td style={{ textAlign: 'right', whiteSpace: 'nowrap' }}>
-                            <button className="miniedit" onClick={() => onSubAction(r.id, 'active')}>Mark active</button>{' '}
-                            <button className="miniedit" onClick={() => onSubAction(r.id, 'past_due')}>Past due</button>{' '}
+                          <td data-label="Business"><span className="tn"><span className="av" style={{ background: r.color }}>{initials(r.name)}</span>{r.name}</span></td>
+                          <td data-label="Owner" style={{ color: 'var(--text-2)' }}>{o ? <>{o.name}<br /><small style={{ color: 'var(--text-3)' }}>{o.email}</small></> : '—'}</td>
+                          <td data-label="Claim"><span className={'st ' + (cs === 'completed' ? 'claimed' : 'auto')}>{STATUS_LABEL[cs]}</span></td>
+                          <td data-label="Subscription">{ss}</td>
+                          <td data-label="Renews" style={{ color: 'var(--text-2)' }}>{r.sub?.renews ? fmtLong(r.sub.renews) : '—'}</td>
+                          <td data-label="" className="td-acts">
+                            <button className="miniedit" onClick={() => onSubAction(r.id, 'active')}>Mark active</button>
+                            <button className="miniedit" onClick={() => onSubAction(r.id, 'past_due')}>Past due</button>
                             <button className="miniedit" onClick={() => onSubAction(r.id, 'cancel')}>Cancel</button>
                           </td>
                         </tr>
