@@ -3,9 +3,10 @@ import Check from './Check';
 import { stars, tone, CATS, PLACE_CATS } from '../data';
 
 const NAV_H = 58;
+const NAV_H_2 = 44;
 
 function getSnaps() {
-  const browse = window.innerHeight - NAV_H;
+  const browse = window.innerHeight - NAV_H - NAV_H_2;
   return [
     148,
     Math.round(browse * 0.52),
@@ -51,7 +52,7 @@ export default function ListPanel({ list, cat, onCat, hoverId, onHover, onOpen, 
       if (!drag.current.active) return;
       e.preventDefault();
       const dy  = drag.current.startY - e.touches[0].clientY;
-      const max = window.innerHeight - NAV_H - 12;
+      const max = window.innerHeight - NAV_H - NAV_H_2 - 12;
       setSheetH(Math.max(100, Math.min(max, drag.current.startH + dy)));
     };
     const onEnd = () => {

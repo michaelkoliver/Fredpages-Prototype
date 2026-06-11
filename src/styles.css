@@ -4,6 +4,7 @@
   --bg:#fbfbfa; --surface:#ffffff; --text:#1f2422; --text-2:#646d69; --text-3:#8b938f;
   --line:#e8e8e4; --line-2:#f0f0ec; --brand:#15663f; --brand-bg:#eef4f0; --amber:#b6802a;
   --nav-h:58px;
+  --nav-h-2:44px;
   --shadow:0 1px 2px rgba(16,24,20,.05),0 1px 3px rgba(16,24,20,.04);
   --shadow-2:0 4px 14px rgba(16,24,20,.08);
 }
@@ -15,6 +16,9 @@ img{display:block;}
 /* ── nav ── */
 .nav{background:var(--surface);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:40;height:var(--nav-h);}
 .nav .inner{display:flex;align-items:center;gap:12px;padding:0 20px;height:100%;}
+.nav-secondary{background:var(--surface);border-bottom:1px solid var(--line);position:sticky;top:var(--nav-h);z-index:39;height:var(--nav-h-2);}
+.nav-secondary .inner{display:flex;align-items:center;gap:4px;padding:0 12px;height:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;}
+.nav-secondary .inner::-webkit-scrollbar{height:0;}
 .brand{display:flex;align-items:center;gap:9px;font-weight:700;font-size:16px;letter-spacing:-.01em;cursor:pointer;white-space:nowrap;margin-right:auto;}
 .brand .mark{width:26px;height:26px;border-radius:7px;background:var(--brand);color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;}
 .searchbox{display:flex;align-items:center;gap:8px;background:var(--bg);border:1px solid var(--line);border-radius:9px;padding:0 12px;height:40px;flex:1 1 260px;max-width:360px;}
@@ -30,7 +34,7 @@ img{display:block;}
 .btn-lg{padding:13px 22px;font-size:14px;border-radius:10px;min-height:46px;}
 
 /* ── browse ── */
-.browse{position:relative;height:calc(100vh - var(--nav-h));overflow:hidden;}
+.browse{position:relative;height:calc(100vh - var(--nav-h) - var(--nav-h-2));overflow:hidden;}
 #fxbg-map{position:absolute;inset:0;width:100%;height:100%;background:#e8e6df;z-index:1;}
 .map-loading{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:#e8e6df;font-size:13px;color:var(--text-3);font-weight:500;z-index:2;pointer-events:none;}
 
@@ -347,7 +351,7 @@ img{display:block;}
 }
 
 @media(max-width:600px){
-  .browse{height:calc(100vh - var(--nav-h));}
+  .browse{height:calc(100vh - var(--nav-h) - var(--nav-h-2));}
   .nav .btn-primary{display:none;}
   .mapboxgl-ctrl-zoom-in,.mapboxgl-ctrl-zoom-out{display:none;}
 

@@ -74,6 +74,18 @@ export default function App() {
       {/* nav */}
       <nav className="nav"><div className="inner">
         <div className="brand" onClick={() => go('home')}>Fredpages</div>
+        <div className="searchbox">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#8b938f" strokeWidth="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3" strokeLinecap="round"/></svg>
+          <input
+            placeholder="Search businesses, places, parks…"
+            value={search}
+            onChange={e => { setSearch(e.target.value); if (view !== 'places') go('places'); }}
+          />
+        </div>
+        <button className="btn btn-primary" onClick={() => { setClaimTargetId(null); go('claim'); }}>Claim a business</button>
+      </div></nav>
+
+      <nav className="nav-secondary"><div className="inner">
         <button
           className={'navlink' + (view === 'places' && cat === 'All' ? ' on' : '')}
           onClick={() => { setCat('All'); go('places'); }}
@@ -98,15 +110,6 @@ export default function App() {
         >
           Events
         </button>
-        <div className="searchbox">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#8b938f" strokeWidth="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3" strokeLinecap="round"/></svg>
-          <input
-            placeholder="Search businesses, places, parks…"
-            value={search}
-            onChange={e => { setSearch(e.target.value); if (view !== 'places') go('places'); }}
-          />
-        </div>
-        <button className="btn btn-primary" onClick={() => { setClaimTargetId(null); go('claim'); }}>Claim a business</button>
       </div></nav>
 
       {/* ── HOME ── */}
