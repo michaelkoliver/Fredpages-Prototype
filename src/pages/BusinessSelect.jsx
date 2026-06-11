@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { tone, initials, PLACE_CATS, CATS } from '../data';
+import { tone, initials, PUBLIC_PLACE_CATS, CATS } from '../data';
 
 const BLANK = { name: '', cat: 'Restaurant', hood: '', addr: '', phone: '', web: '' };
 
@@ -10,7 +10,7 @@ export default function BusinessSelect({ rows, onBack, onClaimExisting, onAddLis
   const [err, setErr] = useState('');
 
   const claimable = rows
-    .filter(r => !PLACE_CATS.has(r.cat) && r.status !== 'claimed')
+    .filter(r => r.claimable !== false && r.status !== 'claimed')
     .filter(r => !search || r.name.toLowerCase().includes(search.toLowerCase()) || (r.addr || '').toLowerCase().includes(search.toLowerCase()));
 
   const submitNew = () => {
@@ -35,7 +35,7 @@ export default function BusinessSelect({ rows, onBack, onClaimExisting, onAddLis
           <div className="fld">
             <label>Category *</label>
             <select value={form.cat} onChange={e => setForm({ ...form, cat: e.target.value })}>
-              {CATS.filter(c => c !== 'All' && !PLACE_CATS.has(c)).map(c => (
+              {CATS.filter(c => c !== 'All' && !PUBLIC_PLACE_CATS.has(c)).map(c => (
                 <option key={c} value={c}>{c}</option>
               ))}
             </select>

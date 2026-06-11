@@ -1,6 +1,6 @@
 import { useRef, useState, useEffect } from 'react';
 import Check from './Check';
-import { stars, tone, CATS, PLACE_CATS } from '../data';
+import { stars, tone, CATS, PUBLIC_PLACE_CATS } from '../data';
 
 const NAV_H = 58;
 const NAV_H_2 = 44;
@@ -112,7 +112,7 @@ export default function ListPanel({ list, cat, onCat, hoverId, onHover, onOpen, 
             <div className="card-body">
               <div className="card-row1">
                 <span className="bizname">{l.name}</span>
-                {!PLACE_CATS.has(l.cat) && l.open !== null && (
+                {!PUBLIC_PLACE_CATS.has(l.cat) && l.open !== null && (
                   <span className={'statuspill ' + (l.open ? 'is-open' : 'is-closed')}>
                     {l.open ? 'Open' : 'Closed'}
                   </span>
@@ -128,17 +128,17 @@ export default function ListPanel({ list, cat, onCat, hoverId, onHover, onOpen, 
               )}
               <div className="metaline">
                 {l.cat}<span className="dot">·</span>{l.hood}
-                {!PLACE_CATS.has(l.cat) && l.coords && <><span className="dot">·</span>{l.addr}</>}
+                {!PUBLIC_PLACE_CATS.has(l.cat) && l.coords && <><span className="dot">·</span>{l.addr}</>}
               </div>
               <div className="chips">
-                {PLACE_CATS.has(l.cat) && <span className="placechip">{l.cat}</span>}
+                {PUBLIC_PLACE_CATS.has(l.cat) && <span className="placechip">{l.cat}</span>}
                 {l.status === 'claimed' && l.offers.length > 0 && (
                   <span className="offerchip">◆ {l.offers.length} offer{l.offers.length > 1 ? 's' : ''}</span>
                 )}
-                {l.status === 'auto' && !PLACE_CATS.has(l.cat) && l.coords && (
+                {l.status === 'auto' && !PUBLIC_PLACE_CATS.has(l.cat) && l.coords && (
                   <span className="claimchip">Unclaimed — claim it</span>
                 )}
-                {!l.coords && !PLACE_CATS.has(l.cat) && (
+                {!l.coords && !PUBLIC_PLACE_CATS.has(l.cat) && (
                   <span className="svcchip">Service area · no location</span>
                 )}
               </div>

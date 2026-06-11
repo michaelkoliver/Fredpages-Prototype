@@ -1,5 +1,5 @@
 import Check from '../components/Check';
-import { stars, tone, initials, monthDay, fmtDate, REVIEWS, PLACE_CATS, MAP_EMBED } from '../data';
+import { stars, tone, initials, monthDay, fmtDate, REVIEWS, PUBLIC_PLACE_CATS, MAP_EMBED } from '../data';
 
 export default function Detail({ active, onBack, onDash, onClaim, ping }) {
   if (!active) return null;
@@ -7,7 +7,7 @@ export default function Detail({ active, onBack, onDash, onClaim, ping }) {
   return (
     <div className="page-wrap">
       <button className="back" onClick={onBack}>← Back</button>
-      {(active.status === 'claimed' || PLACE_CATS.has(active.cat)) && (
+      {(active.status === 'claimed' || PUBLIC_PLACE_CATS.has(active.cat)) && (
         <div className="hero" style={{ background: tone(active.color) }}>{initials(active.name)}</div>
       )}
       <div className="dhead">
@@ -35,7 +35,7 @@ export default function Detail({ active, onBack, onDash, onClaim, ping }) {
         </div>
       </div>
 
-      {(active.status === 'claimed' || PLACE_CATS.has(active.cat)) ? (
+      {(active.status === 'claimed' || PUBLIC_PLACE_CATS.has(active.cat)) ? (
         <>
           {active.about && (
             <div className="dsection"><h2>About</h2><p className="about">{active.about}</p></div>

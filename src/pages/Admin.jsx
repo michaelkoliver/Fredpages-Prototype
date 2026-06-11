@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { initials, CATS, PLACE_CATS } from '../data';
+import { initials, CATS, PUBLIC_PLACE_CATS } from '../data';
 
 const EMPTY_FORM = { name: '', cat: 'Restaurant', hood: 'Downtown', addr: '' };
 
@@ -56,7 +56,7 @@ export default function Admin({ rows, setRows, atab, setAtab, onBack, onEditRow,
                 <span>
                   <b>{rows.filter(r => r.status === 'auto').length}</b> imported ·{' '}
                   <b>{rows.filter(r => r.status === 'claimed').length}</b> claimed ·{' '}
-                  <b>{rows.filter(r => PLACE_CATS.has(r.cat)).length}</b> places ·{' '}
+                  <b>{rows.filter(r => PUBLIC_PLACE_CATS.has(r.cat)).length}</b> places ·{' '}
                   <b>{rows.length}</b> total
                 </span>
                 <button className="miniedit" onClick={() => ping('Re-syncing…')}>↻ Re-sync</button>

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { DATA, nextMonthISO, PLACE_CATS } from './data';
+import { DATA, nextMonthISO, PUBLIC_PLACE_CATS } from './data';
 import MapView from './components/MapView';
 import ListPanel from './components/ListPanel';
 import Detail from './pages/Detail';
@@ -327,7 +327,7 @@ export default function App() {
           setAtab={setAtab}
           onBack={() => go('places')}
           onEditRow={r => {
-            if (!PLACE_CATS.has(r.cat)) {
+            if (!PUBLIC_PLACE_CATS.has(r.cat)) {
               setClaimedId(r.id);
               setTab('details');
               go('dash');

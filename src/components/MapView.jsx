@@ -1,6 +1,6 @@
 import { useRef, useCallback, useEffect, useMemo } from 'react';
 import Map, { Marker, Popup, NavigationControl, Source, Layer } from 'react-map-gl/mapbox';
-import { tone, PLACE_CATS, TRAIL_PATHS, TRAIL_PATH_IDS } from '../data';
+import { tone, PUBLIC_PLACE_CATS, TRAIL_PATHS, TRAIL_PATH_IDS } from '../data';
 import 'mapbox-gl/dist/mapbox-gl.css';
 
 const TRAIL_CASING = {
@@ -47,7 +47,7 @@ const CENTER = { longitude: -77.4605, latitude: 38.3016, zoom: 13 };
 
 function Pin({ row, selected, onClick }) {
   const bg = tone(row.color);
-  const isPlace = PLACE_CATS.has(row.cat);
+  const isPlace = PUBLIC_PLACE_CATS.has(row.cat);
   return (
     <Marker
       longitude={row.coords[1]}
