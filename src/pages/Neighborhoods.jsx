@@ -27,13 +27,13 @@ export default function Neighborhoods() {
 
   const fc = useMemo(() => data, []);
   const groups = useMemo(() => {
-    const m = new Map();
+    const byGroup = {};
     fc.features.forEach(f => {
       const g = f.properties.group;
-      if (!m.has(g)) m.set(g, []);
-      m.get(g).push(f.properties.name);
+      if (!byGroup[g]) byGroup[g] = [];
+      byGroup[g].push(f.properties.name);
     });
-    return Array.from(m.entries()).sort();
+    return Object.entries(byGroup).sort();
   }, [fc]);
 
   const labelData = useMemo(() => ({

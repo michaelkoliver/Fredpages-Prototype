@@ -260,6 +260,12 @@ export default function App() {
         >
           Events
         </button>
+        <button
+          className={'navlink' + (view === 'neighborhoods' ? ' on' : '')}
+          onClick={() => go('neighborhoods')}
+        >
+          Neighborhoods
+        </button>
       </div></nav>
       </div>
 
@@ -424,13 +430,6 @@ export default function App() {
           onClick={() => { setAtab('claims'); go('admin'); }}
         >
           Admin
-        </button>
-        <span style={{ margin: '0 8px', color: 'var(--line)' }}>·</span>
-        <button
-          style={{ background: 'none', border: 'none', color: 'var(--text-3)', fontSize: 12, cursor: 'pointer', padding: 0 }}
-          onClick={() => go('neighborhoods')}
-        >
-          Neighborhoods
         </button>
       </div></footer>
       {toast && <div className="toast">{toast}</div>}
