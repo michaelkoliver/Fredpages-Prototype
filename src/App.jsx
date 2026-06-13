@@ -16,6 +16,7 @@ import OwnerSignup from './pages/OwnerSignup';
 import BusinessSelect from './pages/BusinessSelect';
 import Login from './pages/Login';
 import ClaimRequest from './pages/ClaimRequest';
+import Neighborhoods from './pages/Neighborhoods';
 import PfpMenu from './components/PfpMenu';
 
 const INITIAL_CLAIM_REQUESTS = [
@@ -273,6 +274,7 @@ export default function App() {
       {view === 'deals' && <Deals />}
       {view === 'events' && <Events />}
       {view === 'services' && <Services rows={rows} onOpen={open} />}
+      {view === 'neighborhoods' && <Neighborhoods />}
 
       {view === 'login' && (
         <Login
@@ -422,6 +424,13 @@ export default function App() {
           onClick={() => { setAtab('claims'); go('admin'); }}
         >
           Admin
+        </button>
+        <span style={{ margin: '0 8px', color: 'var(--line)' }}>·</span>
+        <button
+          style={{ background: 'none', border: 'none', color: 'var(--text-3)', fontSize: 12, cursor: 'pointer', padding: 0 }}
+          onClick={() => go('neighborhoods')}
+        >
+          Neighborhoods
         </button>
       </div></footer>
       {toast && <div className="toast">{toast}</div>}
