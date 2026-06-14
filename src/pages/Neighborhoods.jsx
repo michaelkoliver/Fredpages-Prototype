@@ -7,6 +7,19 @@ import cityBoundary from '../data/city-boundary.json';
 const TOKEN = import.meta.env.VITE_MAPBOX_TOKEN;
 const CENTER = { longitude: -77.4775, latitude: 38.300, zoom: 12.6 };
 
+const COLORS = {
+  'Downtown':          '#15663f',
+  'Central Park':      '#a8553c',
+  'Celebrate Virginia':'#b6802a',
+  'College Heights':   '#6a5a8a',
+  'Mary Washington':   '#3a6b8a',
+  'Plank Road':        '#7a5230',
+  'Fall Hill / North': '#3f6b4a',
+  'Mayfield / Dixon':  '#996b35',
+  'Lafayette / South': '#5a6b7a',
+  'Battlefield':       '#8a4b3a',
+};
+
 export default function Neighborhoods() {
   const mapRef = useRef(null);
 
@@ -45,12 +58,17 @@ export default function Neighborhoods() {
           <Layer
             id="hood-fill"
             type="fill"
-            paint={{ 'fill-color': '#15663f', 'fill-opacity': 0.18 }}
+            paint={{
+              'fill-color': ['match', ['get', 'name'],
+                ...Object.entries(COLORS).flatMap(([k, v]) => [k, v]),
+                '#888'],
+              'fill-opacity': 0.45,
+            }}
           />
           <Layer
             id="hood-line"
             type="line"
-            paint={{ 'line-color': '#15663f', 'line-width': 1, 'line-opacity': 0.7 }}
+            paint={{ 'line-color': '#ffffff', 'line-width': 1.5 }}
           />
         </Source>
         <Source id="hood-labels" type="geojson" data={labels}>
@@ -59,15 +77,14 @@ export default function Neighborhoods() {
             type="symbol"
             layout={{
               'text-field': ['get', 'name'],
-              'text-size': 10,
-              'text-font': ['Open Sans Semibold', 'Arial Unicode MS Bold'],
-              'text-allow-overlap': false,
-              'text-padding': 2,
+              'text-size': 14,
+              'text-font': ['Open Sans Bold', 'Arial Unicode MS Bold'],
+              'text-allow-overlap': true,
             }}
             paint={{
               'text-color': '#1f2422',
               'text-halo-color': '#ffffff',
-              'text-halo-width': 1.5,
+              'text-halo-width': 2,
             }}
           />
         </Source>
