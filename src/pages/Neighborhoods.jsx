@@ -2,6 +2,7 @@ import { useEffect, useMemo, useRef } from 'react';
 import Map, { Source, Layer, NavigationControl } from 'react-map-gl/mapbox';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import data from '../data/neighborhoods.json';
+import cityBoundary from '../data/city-boundary.json';
 
 const TOKEN = import.meta.env.VITE_MAPBOX_TOKEN;
 const CENTER = { longitude: -77.4775, latitude: 38.300, zoom: 12.6 };
@@ -33,6 +34,13 @@ export default function Neighborhoods() {
         mapStyle="mapbox://styles/mapbox/light-v11"
       >
         <NavigationControl position="top-right" showCompass={false} />
+        <Source id="city" type="geojson" data={cityBoundary}>
+          <Layer
+            id="city-line"
+            type="line"
+            paint={{ 'line-color': '#1f2422', 'line-width': 2.5 }}
+          />
+        </Source>
         <Source id="hoods" type="geojson" data={data}>
           <Layer
             id="hood-fill"
