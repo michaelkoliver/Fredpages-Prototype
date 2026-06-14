@@ -15,7 +15,7 @@ const COLORS = {
   'Mary Washington': '#3a6b8a',
   'UMW':             '#6a5a8a',
   'College Heights': '#6a5a8a',
-  'Greenbrier':      '#6a5a8a',
+  'Greenbrier':      '#c46a4a',
   'Riverside':       '#b6802a',
   'Mayfield':        '#996b35',
   'Braehead':        '#8a4b3a',
