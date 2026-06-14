@@ -8,16 +8,16 @@ const TOKEN = import.meta.env.VITE_MAPBOX_TOKEN;
 const CENTER = { longitude: -77.4775, latitude: 38.300, zoom: 12.6 };
 
 const COLORS = {
-  'Downtown':          '#15663f',
-  'Central Park':      '#a8553c',
-  'Celebrate Virginia':'#b6802a',
-  'College Heights':   '#6a5a8a',
-  'Mary Washington':   '#3a6b8a',
-  'Plank Road':        '#7a5230',
-  'Fall Hill / North': '#3f6b4a',
-  'Mayfield / Dixon':  '#996b35',
-  'Lafayette / South': '#5a6b7a',
-  'Battlefield':       '#8a4b3a',
+  'Downtown':                     '#15663f',
+  'Celebrate  / Central Park':    '#a8553c',
+  'Fall Hill':                    '#3f6b4a',
+  'Plank Road / Route 3':         '#7a5230',
+  'Hospital / Cowan Blvd':        '#3a6b8a',
+  'University / Central Rte 1':   '#6a5a8a',
+  'Princess Anne / N. Route 1':   '#b6802a',
+  'Dixon Street / Mayfield':      '#996b35',
+  'Braehead / National Park':     '#8a4b3a',
+  'Lafayette / S. Route 1':       '#5a6b7a',
 };
 
 export default function Neighborhoods() {
