@@ -7,18 +7,8 @@ import cityBoundary from '../data/city-boundary.json';
 const TOKEN = import.meta.env.VITE_MAPBOX_TOKEN;
 const CENTER = { longitude: -77.4775, latitude: 38.300, zoom: 12.6 };
 
-const COLORS = {
-  'Downtown':                     '#15663f',
-  'Celebrate  / Central Park':    '#a8553c',
-  'Fall Hill':                    '#3f6b4a',
-  'Plank Road / Route 3':         '#7a5230',
-  'Hospital / Cowan Blvd':        '#3a6b8a',
-  'University / Central Rte 1':   '#6a5a8a',
-  'Princess Anne / N. Route 1':   '#b6802a',
-  'Dixon Street / Mayfield':      '#996b35',
-  'Braehead / National Park':     '#8a4b3a',
-  'Lafayette / S. Route 1':       '#5a6b7a',
-};
+const COLORS = {};
+const PALETTE = ['#15663f','#a8553c','#3f6b4a','#7a5230','#3a6b8a','#6a5a8a','#b6802a','#996b35','#8a4b3a','#5a6b7a','#3a7a5a','#7a3a5a','#5a7a3a','#3a5a7a','#7a5a3a'];
 
 export default function Neighborhoods() {
   const mapRef = useRef(null);
@@ -31,6 +21,12 @@ export default function Neighborhoods() {
       geometry: { type: 'Point', coordinates: [f.properties.cx, f.properties.cy] },
     })),
   }), []);
+
+  const colorData = useMemo(() => {
+    const d = JSON.parse(JSON.stringify(data));
+    d.features.forEach((f, i) => { f.properties.color = PALETTE[i % PALETTE.length]; });
+    return d;
+  }, []);
 
   useEffect(() => {
     const map = mapRef.current?.getMap();
@@ -54,15 +50,13 @@ export default function Neighborhoods() {
             paint={{ 'line-color': '#1f2422', 'line-width': 2.5 }}
           />
         </Source>
-        <Source id="hoods" type="geojson" data={data}>
+        <Source id="hoods" type="geojson" data={colorData}>
           <Layer
             id="hood-fill"
             type="fill"
             paint={{
-              'fill-color': ['match', ['get', 'name'],
-                ...Object.entries(COLORS).flatMap(([k, v]) => [k, v]),
-                '#888'],
-              'fill-opacity': 0.45,
+              'fill-color': ['get', 'color'],
+              'fill-opacity': 0.42,
             }}
           />
           <Layer
@@ -77,9 +71,10 @@ export default function Neighborhoods() {
             type="symbol"
             layout={{
               'text-field': ['get', 'name'],
-              'text-size': 14,
+              'text-size': 11,
               'text-font': ['Open Sans Bold', 'Arial Unicode MS Bold'],
-              'text-allow-overlap': true,
+              'text-allow-overlap': false,
+              'text-padding': 2,
             }}
             paint={{
               'text-color': '#1f2422',
