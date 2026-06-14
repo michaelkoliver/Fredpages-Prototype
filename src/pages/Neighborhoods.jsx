@@ -14,6 +14,7 @@ const COLORS = {
   'Plank Road':      '#7a5230',
   'Mary Washington': '#3a6b8a',
   'UMW':             '#6a5a8a',
+  'Greenbrier':      '#6a5a8a',
   'Riverside':       '#b6802a',
   'Mayfield':        '#996b35',
   'Braehead':        '#8a4b3a',
