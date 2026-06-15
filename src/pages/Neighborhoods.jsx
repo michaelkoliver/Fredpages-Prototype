@@ -14,7 +14,7 @@ const COLORS = {
   'Route 3':                      '#7a5230',
   'Hospital / Cowan':             '#3a6b8a',
   'University / Central Route 1': '#6a5a8a',
-  'Princess Anne / N. Route 1':   '#b6802a',
+  'Canal Quarter':                '#b6802a',
   'South Dixon':                  '#996b35',
   'Braehead':                     '#8a4b3a',
   'Lafayette / S. Route 1':       '#5a6b7a',
