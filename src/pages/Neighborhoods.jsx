@@ -11,7 +11,7 @@ const COLORS = {
   'Downtown':                     '#15663f',
   'Celebrate Va. / Central Park': '#a8553c',
   'Fall Hill':                    '#3f6b4a',
-  'Route 3':                      '#7a5230',
+  'Greenbrier':                   '#7a5230',
   'Hospital / Cowan':             '#3a6b8a',
   'University / Central Route 1': '#6a5a8a',
   'Canal Quarter':                '#b6802a',
