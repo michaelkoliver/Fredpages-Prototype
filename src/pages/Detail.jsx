@@ -1,5 +1,5 @@
 import Check from '../components/Check';
-import { stars, tone, initials, monthDay, fmtDate, REVIEWS, MAP_EMBED } from '../data';
+import { stars, tone, initials, monthDay, fmtDate, MAP_EMBED } from '../data';
 
 export default function Detail({ active, onBack, onDash, onClaim, ping }) {
   if (!active) return null;
@@ -79,24 +79,6 @@ export default function Detail({ active, onBack, onDash, onClaim, ping }) {
               {active.hours.map((h, i) => (
                 <div key={i} className={'hours-row' + (i === active.todayIdx ? ' today' : '')}>
                   <span>{h[0]}</span><span>{h[1]}</span>
-                </div>
-              ))}
-            </div>
-          )}
-          {active.reviews > 0 && (
-            <div className="dsection">
-              <h2>Reviews</h2>
-              {REVIEWS.map((r, i) => (
-                <div key={i} className="review">
-                  <div className="ravatar" style={{ background: r.c }}>{r.n[0]}</div>
-                  <div>
-                    <div className="rtop">
-                      <span className="rname">{r.n}</span>
-                      <span className="rdate">{r.dt}</span>
-                    </div>
-                    <div className="rstars">{stars(r.s)}</div>
-                    <p>{r.t}</p>
-                  </div>
                 </div>
               ))}
             </div>
