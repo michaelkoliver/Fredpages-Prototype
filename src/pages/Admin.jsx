@@ -181,7 +181,9 @@ export default function Admin({
                           <td data-label="Owner" style={{ color: 'var(--text-2)' }}>{o ? o.name : '—'}</td>
                           <td data-label="" className="td-acts">
                             <button className="miniedit" onClick={() => onEditRow(r)}>Edit</button>
-                            <button className="miniedit" onClick={() => onToggleClaimable(r.id)}>{r.claimable === false ? 'Make claimable' : 'Make unclaimable'}</button>
+                            {r.type !== 'public' && (
+                              <button className="miniedit" onClick={() => onToggleClaimable(r.id)}>{r.claimable === false ? 'Make claimable' : 'Make unclaimable'}</button>
+                            )}
                             <button className="miniedit" onClick={() => onToggleClosed(r.id)}>{r.open ? 'Mark closed' : 'Reopen'}</button>
                           </td>
                         </tr>

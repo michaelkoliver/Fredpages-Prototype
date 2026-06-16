@@ -112,7 +112,7 @@ export default function ListPanel({ list, cat, onCat, hoverId, onHover, onOpen, 
             <div className="card-body">
               <div className="card-row1">
                 <span className="bizname">{l.name}</span>
-                {!l.type === 'public' && l.open !== null && (
+                {l.type !== 'public' && l.open !== null && (
                   <span className={'statuspill ' + (l.open ? 'is-open' : 'is-closed')}>
                     {l.open ? 'Open' : 'Closed'}
                   </span>
@@ -128,17 +128,17 @@ export default function ListPanel({ list, cat, onCat, hoverId, onHover, onOpen, 
               )}
               <div className="metaline">
                 {l.cat}<span className="dot">·</span>{l.hood}
-                {!l.type === 'public' && l.coords && <><span className="dot">·</span>{l.addr}</>}
+                {l.type !== 'public' && l.coords && <><span className="dot">·</span>{l.addr}</> }
               </div>
               <div className="chips">
                 {l.type === 'public' && <span className="placechip">{l.cat}</span>}
                 {l.status === 'claimed' && l.offers.length > 0 && (
                   <span className="offerchip">◆ {l.offers.length} offer{l.offers.length > 1 ? 's' : ''}</span>
                 )}
-                {l.status === 'auto' && !l.type === 'public' && l.coords && (
+                {l.status === 'auto' && l.type !== 'public' && l.coords && (
                   <span className="claimchip">Unclaimed — claim it</span>
                 )}
-                {!l.coords && !l.type === 'public' && (
+                {!l.coords && l.type !== 'public' && (
                   <span className="svcchip">Service area · no location</span>
                 )}
               </div>
