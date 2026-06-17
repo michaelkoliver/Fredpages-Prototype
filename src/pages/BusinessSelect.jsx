@@ -115,7 +115,7 @@ export default function BusinessSelect({ rows, onBack, onClaimExisting, onAddLis
                 <span className="bizname">{b.name}</span>
               </div>
               <div className="metaline">
-                {b.cat}<span className="dot">·</span>{b.hood}
+                {b.cat}{b.hood && <><span className="dot">·</span>{b.hood}</>}
                 {b.addr && <><span className="dot">·</span>{b.addr}</>}
               </div>
               <div className="chips">

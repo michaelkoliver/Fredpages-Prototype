@@ -162,7 +162,7 @@ export default function MapView({ rows, cat, hoverId, onOpen, shown = true }) {
             <div className="pop-head" style={{ background: tone(hovered.color) }}>{hovered.name[0]}</div>
             <div className="pop-b">
               <div className="pop-name">{hovered.name}</div>
-              <div className="pop-meta">{hovered.cat} · {hovered.hood}</div>
+              <div className="pop-meta">{hovered.cat}{hovered.hood ? ` · ${hovered.hood}` : ''}</div>
               {hovered.rating > 0 && (
                 <div className="pop-rate">★ {hovered.rating} · {hovered.reviews} reviews</div>
               )}

@@ -82,7 +82,7 @@ export default function App() {
     name: form.name,
     cat: form.cat,
     type: form.type || 'business',
-    hood: form.hood || 'Fredericksburg',
+    hood: form.hood || '',
     color: '#5a6b7a',
     rating: 0,
     reviews: 0,

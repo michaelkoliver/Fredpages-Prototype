@@ -103,7 +103,7 @@ export default function Admin({
                         <span className="av" style={{ background: listing?.color || '#5a6b7a' }}>{initials(listing?.name || '?')}</span>
                         <div>
                           <b>{listing?.name || 'Unknown listing'}</b>
-                          <small>{listing?.cat} · {listing?.hood}</small>
+                          <small>{listing?.cat}{listing?.hood ? ` · ${listing.hood}` : ''}</small>
                         </div>
                       </div>
                       <div className="claim-row-who">

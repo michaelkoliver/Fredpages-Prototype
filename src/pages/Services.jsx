@@ -48,7 +48,7 @@ export default function Services({ rows, onOpen }) {
                 </div>
               )}
               <div className="metaline">
-                {l.cat}<span className="dot">·</span>{l.hood}
+                {l.cat}{l.hood && <><span className="dot">·</span>{l.hood}</>}
                 {l.addr && <><span className="dot">·</span>{l.addr}</>}
               </div>
             </div>

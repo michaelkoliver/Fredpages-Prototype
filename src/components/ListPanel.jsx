@@ -127,7 +127,7 @@ export default function ListPanel({ list, cat, onCat, hoverId, onHover, onOpen, 
                 </div>
               )}
               <div className="metaline">
-                {l.cat}<span className="dot">·</span>{l.hood}
+                {l.cat}{l.hood && <><span className="dot">·</span>{l.hood}</>}
                 {!l.type === 'public' && l.coords && <><span className="dot">·</span>{l.addr}</>}
               </div>
               <div className="chips">

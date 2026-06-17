@@ -22,7 +22,7 @@ export default function Detail({ active, onBack, onDash, onClaim, ping }) {
             </div>
           )}
           <div className="metaline" style={{ fontSize: 13 }}>
-            {active.cat}<span className="dot">·</span>{active.hood}
+            {active.cat}{active.hood && <><span className="dot">·</span>{active.hood}</>}
             {active.status === 'claimed' && (
               <> <span className="dot">·</span> <span className="vbadge"><Check />Verified owner</span></>
             )}
