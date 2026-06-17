@@ -92,6 +92,91 @@ export const DATA = [
     hours:[["Mon","11:30 AM – 2:30 PM, 5:30 – 9:00 PM"],["Tue","11:30 AM – 2:30 PM, 5:30 – 9:00 PM"],["Wed","11:30 AM – 2:30 PM, 5:30 – 9:00 PM"],["Thu","11:30 AM – 2:30 PM, 5:30 – 9:00 PM"],["Fri","11:30 AM – 2:30 PM, 5:30 – 9:00 PM"],["Sat","11:30 AM – 2:00 PM, 5:30 – 9:00 PM"],["Sun","Closed"]], todayIdx:1,
     about:"", offers:[], events:[] },
 
+  // ── More verified local businesses (downtown core) ──
+  { id:40, type:"business", name:"Castiglia's Italian Restaurant", cat:"Restaurant", hood:"Downtown", color:"#8a4b3a",
+    rating:0, reviews:0, open:true, until:"10:00 PM", status:"auto",
+    coords:[38.30282,-77.46145],
+    addr:"324 William St", phone:"(540) 373-6650", web:"mycastiglias.com",
+    hours:[["Mon","11:00 AM – 10:00 PM"],["Tue","11:00 AM – 10:00 PM"],["Wed","11:00 AM – 10:00 PM"],["Thu","11:00 AM – 10:00 PM"],["Fri","11:00 AM – 11:00 PM"],["Sat","11:00 AM – 11:00 PM"],["Sun","11:00 AM – 9:00 PM"]], todayIdx:1,
+    about:"", offers:[], events:[] },
+
+  { id:41, type:"business", name:"Sammy T's", cat:"Restaurant", hood:"Downtown", color:"#8a4b3a",
+    rating:0, reviews:0, open:true, until:"2:30 PM", status:"auto",
+    coords:[38.30205,-77.45835],
+    addr:"801 Caroline St", phone:"(540) 371-2008", web:"sammyts.com",
+    hours:[["Mon","11:30 AM – 9:00 PM"],["Tue","11:30 AM – 2:30 PM"],["Wed","11:30 AM – 9:00 PM"],["Thu","11:30 AM – 9:00 PM"],["Fri","11:30 AM – 10:00 PM"],["Sat","11:30 AM – 10:00 PM"],["Sun","11:30 AM – 6:00 PM"]], todayIdx:1,
+    about:"", offers:[], events:[] },
+
+  { id:42, type:"business", name:"Benny Vitali's", cat:"Pizza", hood:"Downtown", color:"#9a4a3a",
+    rating:0, reviews:0, open:true, until:"11:00 PM", status:"auto",
+    coords:[38.30141,-77.45841],
+    addr:"722 Caroline St", phone:"(540) 368-1690", web:"bennysva.com",
+    hours:[["Mon","11:00 AM – 11:00 PM"],["Tue","11:00 AM – 11:00 PM"],["Wed","11:00 AM – 11:00 PM"],["Thu","11:00 AM – 11:00 PM"],["Fri","11:00 AM – 12:00 AM"],["Sat","11:00 AM – 12:00 AM"],["Sun","11:00 AM – 11:00 PM"]], todayIdx:1,
+    about:"", offers:[], events:[] },
+
+  { id:43, type:"business", name:"Capital Ale House", cat:"Bar & Pub", hood:"Downtown", color:"#6a4a7a",
+    rating:0, reviews:0, open:true, until:"12:00 AM", status:"auto",
+    coords:[38.30341,-77.45895],
+    addr:"917 Caroline St", phone:"(540) 371-2337", web:"capitalalehouse.com",
+    hours:[["Mon","11:30 AM – 12:00 AM"],["Tue","11:30 AM – 12:00 AM"],["Wed","11:30 AM – 12:00 AM"],["Thu","11:30 AM – 12:00 AM"],["Fri","11:30 AM – 1:30 AM"],["Sat","10:00 AM – 1:30 AM"],["Sun","10:00 AM – 12:00 AM"]], todayIdx:1,
+    about:"", offers:[], events:[] },
+
+  { id:44, type:"business", name:"Eileen's Bakery & Café", cat:"Bakery", hood:"Downtown", color:"#b07a3a",
+    rating:0, reviews:0, open:true, until:"2:00 PM", status:"auto",
+    coords:[38.30538,-77.46032],
+    addr:"1115 Caroline St", phone:"(540) 372-4030", web:"",
+    hours:[["Mon","Closed"],["Tue","8:00 AM – 2:00 PM"],["Wed","8:00 AM – 2:00 PM"],["Thu","8:00 AM – 2:00 PM"],["Fri","8:00 AM – 2:00 PM"],["Sat","8:00 AM – 2:00 PM"],["Sun","8:00 AM – 2:00 PM"]], todayIdx:1,
+    about:"", offers:[], events:[] },
+
+  { id:45, type:"business", name:"Carl's Frozen Custard", cat:"Dessert", hood:"Downtown", color:"#c06a8a",
+    rating:0, reviews:0, open:true, until:"11:00 PM", status:"auto",
+    coords:[38.31372,-77.46910],
+    addr:"2200 Princess Anne St", phone:"", web:"carlsfrozencustard.com",
+    hours:[["Mon","11:00 AM – 11:00 PM"],["Tue","11:00 AM – 11:00 PM"],["Wed","11:00 AM – 11:00 PM"],["Thu","11:00 AM – 11:00 PM"],["Fri","11:00 AM – 11:00 PM"],["Sat","11:00 AM – 11:00 PM"],["Sun","11:00 AM – 11:00 PM"]], todayIdx:1,
+    about:"", offers:[], events:[] },
+
+  { id:46, type:"business", name:"Olde Towne Butcher", cat:"Market", hood:"Downtown", color:"#7a6a3a",
+    rating:0, reviews:0, open:true, until:"7:00 PM", status:"auto",
+    coords:[38.30298,-77.46196],
+    addr:"401 William St", phone:"(540) 370-4105", web:"oldetownebutcher.com",
+    hours:[["Mon","10:00 AM – 7:00 PM"],["Tue","10:00 AM – 7:00 PM"],["Wed","10:00 AM – 7:00 PM"],["Thu","10:00 AM – 7:00 PM"],["Fri","10:00 AM – 8:00 PM"],["Sat","9:00 AM – 8:00 PM"],["Sun","11:00 AM – 6:00 PM"]], todayIdx:1,
+    about:"", offers:[], events:[] },
+
+  { id:47, type:"business", name:"Made in Virginia Store", cat:"Gifts", hood:"Downtown", color:"#5a8a6a",
+    rating:0, reviews:0, open:true, until:"6:00 PM", status:"auto",
+    coords:[38.30295,-77.45926],
+    addr:"920 Caroline St", phone:"(540) 371-2030", web:"madeinva.com",
+    hours:[["Mon","10:00 AM – 6:00 PM"],["Tue","10:00 AM – 6:00 PM"],["Wed","10:00 AM – 6:00 PM"],["Thu","10:00 AM – 6:00 PM"],["Fri","10:00 AM – 7:00 PM"],["Sat","10:00 AM – 7:00 PM"],["Sun","12:00 PM – 5:00 PM"]], todayIdx:1,
+    about:"", offers:[], events:[] },
+
+  { id:48, type:"business", name:"Centerpiece Boutique + Studio", cat:"Florist", hood:"Downtown", color:"#8a5a7a",
+    rating:0, reviews:0, open:true, until:"6:00 PM", status:"auto",
+    coords:[38.30101,-77.45771],
+    addr:"703 Caroline St", phone:"", web:"",
+    hours:[["Mon","Closed"],["Tue","10:00 AM – 6:00 PM"],["Wed","10:00 AM – 6:00 PM"],["Thu","10:00 AM – 6:00 PM"],["Fri","10:00 AM – 6:00 PM"],["Sat","10:00 AM – 5:00 PM"],["Sun","10:00 AM – 5:00 PM"]], todayIdx:1,
+    about:"", offers:[], events:[] },
+
+  { id:49, type:"business", name:"LibertyTown Arts Workshop", cat:"Art Gallery", hood:"Downtown", color:"#4a6a8a",
+    rating:0, reviews:0, open:true, until:"8:00 PM", status:"auto",
+    coords:[38.30105,-77.46409],
+    addr:"916 Liberty St", phone:"(540) 371-7255", web:"libertytownarts.com",
+    hours:[["Mon","10:00 AM – 8:00 PM"],["Tue","10:00 AM – 8:00 PM"],["Wed","10:00 AM – 8:00 PM"],["Thu","10:00 AM – 8:00 PM"],["Fri","10:00 AM – 8:00 PM"],["Sat","10:00 AM – 8:00 PM"],["Sun","10:00 AM – 6:00 PM"]], todayIdx:1,
+    about:"", offers:[], events:[] },
+
+  { id:50, type:"business", name:"PONSHOP Studio & Gallery", cat:"Art Gallery", hood:"Downtown", color:"#4a6a8a",
+    rating:0, reviews:0, open:true, until:"5:00 PM", status:"auto",
+    coords:[38.30093,-77.45799],
+    addr:"712 Caroline St", phone:"(540) 656-2215", web:"ponshopstudio.com",
+    hours:[["Mon","11:00 AM – 5:00 PM"],["Tue","11:00 AM – 5:00 PM"],["Wed","11:00 AM – 5:00 PM"],["Thu","11:00 AM – 5:00 PM"],["Fri","1:00 PM – 7:00 PM"],["Sat","10:00 AM – 6:00 PM"],["Sun","Closed"]], todayIdx:1,
+    about:"", offers:[], events:[] },
+
+  { id:51, type:"business", name:"Dragonfly Yoga Studio", cat:"Fitness", hood:"Downtown", color:"#3a8a7a",
+    rating:0, reviews:0, open:true, until:"8:00 PM", status:"auto",
+    coords:[38.30190,-77.45860],
+    addr:"810 Caroline St", phone:"(540) 372-9600", web:"dragonflyyogafred.com",
+    hours:[["Mon","7:45 AM – 8:30 PM"],["Tue","5:30 AM – 8:00 PM"],["Wed","5:30 AM – 8:30 PM"],["Thu","5:30 AM – 8:00 PM"],["Fri","8:00 AM – 6:45 PM"],["Sat","7:30 AM – 12:00 PM"],["Sun","8:00 AM – 6:00 PM"]], todayIdx:1,
+    about:"", offers:[], events:[] },
+
   { id:15, type:"service", name:"Alexander & Sons", cat:"Plumbing", hood:"Downtown", color:"#4a6b7a",
     rating:0, reviews:0, open:true, until:"", status:"auto",
     coords:null,
@@ -242,7 +327,7 @@ export const DATA = [
     offers:[], events:[] },
 ];
 
-export const BUSINESS_CATS = ["Restaurant","Coffee & Tea","Brewery","Antiques","Bookstore"];
+export const BUSINESS_CATS = ["Restaurant","Pizza","Coffee & Tea","Bakery","Dessert","Brewery","Bar & Pub","Market","Antiques","Bookstore","Gifts","Florist","Art Gallery","Fitness"];
 export const SERVICE_CATS  = ["Plumbing","Electrical","HVAC","Landscaping","Cleaning","Auto Repair","Professional Services"];
 export const PUBLIC_CATS   = ["Park","Trail","Library","Transit","Historic Site"];
 export const PLACES_CATS   = ["All", ...BUSINESS_CATS, ...PUBLIC_CATS];
