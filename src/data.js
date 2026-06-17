@@ -427,6 +427,84 @@ export const DATA = [
     hours:[], todayIdx:1,
     about:"", offers:[], events:[] },
 
+  // ── Central Park / Celebrate Virginia + hotels (city-wide pass) ──
+  { id:88, type:"business", name:"Wegmans", cat:"Grocery", hood:"Celebrate Va. / Central Park", color:"#4a7a4a",
+    rating:0, reviews:0, open:true, until:"12:00 AM", status:"auto",
+    coords:[38.31368,-77.50960],
+    addr:"2281 Carl D Silver Pkwy", phone:"(540) 322-4800", web:"wegmans.com",
+    hours:[["Mon","6:00 AM – 12:00 AM"],["Tue","6:00 AM – 12:00 AM"],["Wed","6:00 AM – 12:00 AM"],["Thu","6:00 AM – 12:00 AM"],["Fri","6:00 AM – 12:00 AM"],["Sat","6:00 AM – 12:00 AM"],["Sun","6:00 AM – 12:00 AM"]], todayIdx:1,
+    about:"", offers:[], events:[] },
+
+  { id:89, type:"business", name:"Target", cat:"Department Store", hood:"Celebrate Va. / Central Park", color:"#7a5a7a",
+    rating:0, reviews:0, open:true, until:"10:00 PM", status:"auto",
+    coords:[38.29993,-77.51328],
+    addr:"1180 Carl D Silver Pkwy", phone:"(540) 786-6800", web:"target.com",
+    hours:[["Mon","8:00 AM – 10:00 PM"],["Tue","8:00 AM – 10:00 PM"],["Wed","8:00 AM – 10:00 PM"],["Thu","8:00 AM – 10:00 PM"],["Fri","8:00 AM – 10:00 PM"],["Sat","8:00 AM – 10:00 PM"],["Sun","8:00 AM – 10:00 PM"]], todayIdx:1,
+    about:"", offers:[], events:[] },
+
+  { id:90, type:"business", name:"Best Buy", cat:"Electronics", hood:"Celebrate Va. / Central Park", color:"#3a6a8a",
+    rating:0, reviews:0, open:true, until:"", status:"auto",
+    coords:[38.30289,-77.50457],
+    addr:"1541 Carl D Silver Pkwy", phone:"(540) 785-2200", web:"bestbuy.com",
+    hours:[], todayIdx:1,
+    about:"", offers:[], events:[] },
+
+  { id:91, type:"business", name:"Barnes & Noble", cat:"Bookstore", hood:"Celebrate Va. / Central Park", color:"#5a7a4a",
+    rating:0, reviews:0, open:true, until:"", status:"auto",
+    coords:[38.30068,-77.51198],
+    addr:"1220 Carl D Silver Pkwy", phone:"", web:"barnesandnoble.com",
+    hours:[], todayIdx:1,
+    about:"", offers:[], events:[] },
+
+  { id:92, type:"business", name:"Old Navy", cat:"Clothing", hood:"Celebrate Va. / Central Park", color:"#a05a7a",
+    rating:0, reviews:0, open:true, until:"", status:"auto",
+    coords:[38.29945,-77.51017],
+    addr:"1260 Carl D Silver Pkwy", phone:"", web:"oldnavy.com",
+    hours:[], todayIdx:1,
+    about:"", offers:[], events:[] },
+
+  { id:93, type:"business", name:"Hobby Lobby", cat:"Crafts", hood:"Celebrate Va. / Central Park", color:"#b06a4a",
+    rating:0, reviews:0, open:true, until:"", status:"auto",
+    coords:[38.31156,-77.51335],
+    addr:"1360 Carl D Silver Pkwy", phone:"", web:"hobbylobby.com",
+    hours:[], todayIdx:1,
+    about:"", offers:[], events:[] },
+
+  { id:94, type:"business", name:"PetSmart", cat:"Pet", hood:"Celebrate Va. / Central Park", color:"#7a5a4a",
+    rating:0, reviews:0, open:true, until:"9:00 PM", status:"auto",
+    coords:[38.30068,-77.50612],
+    addr:"1421 Carl D Silver Pkwy", phone:"(540) 785-9851", web:"petsmart.com",
+    hours:[["Mon","9:00 AM – 9:00 PM"],["Tue","9:00 AM – 9:00 PM"],["Wed","9:00 AM – 9:00 PM"],["Thu","9:00 AM – 9:00 PM"],["Fri","9:00 AM – 9:00 PM"],["Sat","9:00 AM – 9:00 PM"],["Sun","10:00 AM – 7:00 PM"]], todayIdx:1,
+    about:"", offers:[], events:[] },
+
+  { id:95, type:"business", name:"Olive Garden", cat:"Restaurant", hood:"Celebrate Va. / Central Park", color:"#8a4b3a",
+    rating:0, reviews:0, open:true, until:"", status:"auto",
+    coords:[38.29755,-77.50881],
+    addr:"2811 Plank Rd", phone:"", web:"olivegarden.com",
+    hours:[], todayIdx:1,
+    about:"", offers:[], events:[] },
+
+  { id:96, type:"business", name:"Hampton Inn & Suites at Celebrate Virginia", cat:"Hotel", hood:"Celebrate Va. / Central Park", color:"#3a5a6a",
+    rating:0, reviews:0, open:true, until:"", status:"auto",
+    coords:[38.31337,-77.50519],
+    addr:"1080 Hospitality Ln", phone:"(540) 786-5530", web:"hilton.com",
+    hours:[], todayIdx:1,
+    about:"", offers:[], events:[] },
+
+  { id:97, type:"business", name:"Hyatt Place Fredericksburg – Mary Washington", cat:"Hotel", hood:"College Heights", color:"#3a5a6a",
+    rating:0, reviews:0, open:true, until:"", status:"auto",
+    coords:[38.30443,-77.48046],
+    addr:"1241 Emancipation Hwy", phone:"", web:"hyatt.com",
+    hours:[], todayIdx:1,
+    about:"", offers:[], events:[] },
+
+  { id:98, type:"business", name:"Homewood Suites by Hilton Fredericksburg", cat:"Hotel", hood:"Celebrate Va. / Central Park", color:"#3a5a6a",
+    rating:0, reviews:0, open:true, until:"", status:"auto",
+    coords:[38.31397,-77.50703],
+    addr:"1040 Hospitality Ln", phone:"", web:"hilton.com",
+    hours:[], todayIdx:1,
+    about:"", offers:[], events:[] },
+
   { id:15, type:"service", name:"Alexander & Sons", cat:"Plumbing", hood:"", color:"#4a6b7a",
     rating:0, reviews:0, open:true, until:"", status:"auto",
     coords:null,
@@ -577,7 +655,7 @@ export const DATA = [
     offers:[], events:[] },
 ];
 
-export const BUSINESS_CATS = ["Restaurant","Cafe","Pizza","Coffee & Tea","Bakery","Dessert","Brewery","Bar & Pub","Market","Grocery","Pharmacy","Bank","Antiques","Bookstore","Clothing","Gifts","Jewelry","Home Goods","Toys","Music","Records","Bikes","Florist","Art Gallery","Pet","Fitness","Salon","Barber","Spa"];
+export const BUSINESS_CATS = ["Restaurant","Cafe","Pizza","Coffee & Tea","Bakery","Dessert","Brewery","Bar & Pub","Market","Grocery","Pharmacy","Bank","Department Store","Electronics","Antiques","Bookstore","Clothing","Gifts","Jewelry","Home Goods","Crafts","Toys","Music","Records","Bikes","Florist","Art Gallery","Pet","Hotel","Fitness","Salon","Barber","Spa"];
 export const SERVICE_CATS  = ["Plumbing","Electrical","HVAC","Landscaping","Cleaning","Auto Repair","Professional Services"];
 export const PUBLIC_CATS   = ["Park","Trail","Library","Transit","Historic Site"];
 export const PLACES_CATS   = ["All", ...BUSINESS_CATS, ...PUBLIC_CATS];
