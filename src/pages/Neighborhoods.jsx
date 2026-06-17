@@ -46,10 +46,7 @@ export default function Neighborhoods() {
         style={{ width: '100%', height: '100%' }}
         mapStyle="mapbox://styles/mapbox/standard"
         onLoad={e => {
-          try {
-            e.target.setConfigProperty('basemap', 'showPointOfInterestLabels', false);
-            e.target.setConfigProperty('basemap', 'showPedestrianRoads', false);
-          }
+          try { e.target.setConfigProperty('basemap', 'showPointOfInterestLabels', false); }
           catch { /* non-Standard style: config not supported */ }
         }}
       >
