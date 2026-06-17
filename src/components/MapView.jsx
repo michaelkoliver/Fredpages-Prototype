@@ -48,7 +48,7 @@ const TRAIL_CROSSWALK_DASH = {
 };
 
 const TOKEN = import.meta.env.VITE_MAPBOX_TOKEN;
-const CENTER = { longitude: -77.4605, latitude: 38.3016, zoom: 13 };
+const CENTER = { longitude: -77.4605, latitude: 38.3016, zoom: 13, pitch: 48 };
 
 function Pin({ row, selected, onClick }) {
   const bg = tone(row.color);
@@ -104,6 +104,8 @@ export default function MapView({ rows, cat, hoverId, onOpen, shown = true }) {
           right:  40,
           bottom: mobile ? 220 : 40,
         },
+        // keep the tilt — fitBounds resets pitch to 0 unless we pass it
+        pitch: 48,
         animate: false,
       }
     );
