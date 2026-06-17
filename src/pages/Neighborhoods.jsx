@@ -48,7 +48,7 @@ export default function Neighborhoods() {
         onLoad={e => {
           try {
             e.target.setConfigProperty('basemap', 'showPointOfInterestLabels', false);
-            e.target.setConfigProperty('basemap', 'showPedestrianRoads', true);
+            e.target.setConfigProperty('basemap', 'showPedestrianRoads', false);
           }
           catch { /* non-Standard style: config not supported */ }
         }}
