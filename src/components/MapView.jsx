@@ -6,6 +6,7 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 const TRAIL_CASING = {
   id: 'trails-casing',
   type: 'line',
+  slot: 'middle',
   layout: { 'line-cap': 'round', 'line-join': 'round' },
   paint: { 'line-color': '#ffffff', 'line-width': 8, 'line-opacity': 0.55 },
 };
@@ -13,6 +14,7 @@ const TRAIL_CASING = {
 const TRAIL_MULTIUSE = {
   id: 'trails-multiuse',
   type: 'line',
+  slot: 'middle',
   filter: ['==', ['get', 'kind'], 'multi-use'],
   layout: { 'line-cap': 'round', 'line-join': 'round' },
   paint: { 'line-color': ['get', 'color'], 'line-width': 4.5, 'line-opacity': 0.9 },
@@ -21,6 +23,7 @@ const TRAIL_MULTIUSE = {
 const TRAIL_NATURE = {
   id: 'trails-nature',
   type: 'line',
+  slot: 'middle',
   filter: ['==', ['get', 'kind'], 'nature'],
   layout: { 'line-cap': 'round', 'line-join': 'round' },
   paint: { 'line-color': ['get', 'color'], 'line-width': 3, 'line-opacity': 0.9, 'line-dasharray': [3, 2] },
@@ -29,6 +32,7 @@ const TRAIL_NATURE = {
 const TRAIL_CROSSWALK_MASK = {
   id: 'trails-crosswalk-mask',
   type: 'line',
+  slot: 'middle',
   filter: ['==', ['get', 'kind'], 'crosswalk'],
   layout: { 'line-cap': 'butt', 'line-join': 'round' },
   paint: { 'line-color': '#ffffff', 'line-width': 8, 'line-opacity': 1 },
@@ -37,6 +41,7 @@ const TRAIL_CROSSWALK_MASK = {
 const TRAIL_CROSSWALK_DASH = {
   id: 'trails-crosswalk-dash',
   type: 'line',
+  slot: 'middle',
   filter: ['==', ['get', 'kind'], 'crosswalk'],
   layout: { 'line-cap': 'butt', 'line-join': 'round' },
   paint: { 'line-color': ['get', 'color'], 'line-width': 5, 'line-opacity': 1, 'line-dasharray': [2, 1.5] },
@@ -125,8 +130,15 @@ export default function MapView({ rows, cat, hoverId, onOpen, shown = true }) {
       mapboxAccessToken={TOKEN}
       initialViewState={CENTER}
       style={{ width: '100%', height: '100%' }}
-      mapStyle="mapbox://styles/mapbox/light-v11"
-      onLoad={e => fitVisible(e.target)}
+      mapStyle="mapbox://styles/mapbox/standard"
+      onLoad={e => {
+        const map = e.target;
+        // Standard basemap config: keep roads/places, hide Mapbox's own POI
+        // icons so they don't compete with our business pins.
+        try { map.setConfigProperty('basemap', 'showPointOfInterestLabels', false); }
+        catch { /* non-Standard style: config not supported */ }
+        fitVisible(map);
+      }}
       cooperativeGestures={false}
     >
       <NavigationControl position="top-right" showCompass={false} />

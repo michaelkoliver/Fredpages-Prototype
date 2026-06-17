@@ -44,13 +44,18 @@ export default function Neighborhoods() {
         mapboxAccessToken={TOKEN}
         initialViewState={CENTER}
         style={{ width: '100%', height: '100%' }}
-        mapStyle="mapbox://styles/mapbox/light-v11"
+        mapStyle="mapbox://styles/mapbox/standard"
+        onLoad={e => {
+          try { e.target.setConfigProperty('basemap', 'showPointOfInterestLabels', false); }
+          catch { /* non-Standard style: config not supported */ }
+        }}
       >
         <NavigationControl position="top-right" showCompass={false} />
         <Source id="city" type="geojson" data={cityBoundary}>
           <Layer
             id="city-line"
             type="line"
+            slot="middle"
             paint={{ 'line-color': '#1f2422', 'line-width': 2.5 }}
           />
         </Source>
@@ -58,6 +63,7 @@ export default function Neighborhoods() {
           <Layer
             id="hood-fill"
             type="fill"
+            slot="middle"
             paint={{
               'fill-color': ['match', ['get', 'name'],
                 ...Object.entries(COLORS).flatMap(([k, v]) => [k, v]),
@@ -68,6 +74,7 @@ export default function Neighborhoods() {
           <Layer
             id="hood-line"
             type="line"
+            slot="middle"
             paint={{ 'line-color': '#ffffff', 'line-width': 1.5 }}
           />
         </Source>
