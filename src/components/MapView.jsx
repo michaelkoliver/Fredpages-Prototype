@@ -137,7 +137,11 @@ export default function MapView({ rows, cat, hoverId, onOpen, shown = true }) {
         const map = e.target;
         // Standard basemap config: keep roads/places, hide Mapbox's own POI
         // icons so they don't compete with our business pins.
-        try { map.setConfigProperty('basemap', 'showPointOfInterestLabels', false); }
+        try {
+          map.setConfigProperty('basemap', 'showPointOfInterestLabels', false);
+          // hide Standard's own pedestrian paths so they don't duplicate our trail overlay
+          map.setConfigProperty('basemap', 'showPedestrianRoads', false);
+        }
         catch { /* non-Standard style: config not supported */ }
         fitVisible(map);
       }}
