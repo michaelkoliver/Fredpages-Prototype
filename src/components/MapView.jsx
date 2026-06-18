@@ -1,51 +1,7 @@
 import { useRef, useCallback, useEffect, useMemo } from 'react';
-import Map, { Marker, Popup, NavigationControl, Source, Layer } from 'react-map-gl/mapbox';
-import { tone, TRAIL_PATHS, TRAIL_PATH_IDS } from '../data';
+import Map, { Marker, Popup, NavigationControl } from 'react-map-gl/mapbox';
+import { tone } from '../data';
 import 'mapbox-gl/dist/mapbox-gl.css';
-
-const TRAIL_CASING = {
-  id: 'trails-casing',
-  type: 'line',
-  slot: 'middle',
-  layout: { 'line-cap': 'round', 'line-join': 'round' },
-  paint: { 'line-color': '#ffffff', 'line-width': 8, 'line-opacity': 0.55 },
-};
-
-const TRAIL_MULTIUSE = {
-  id: 'trails-multiuse',
-  type: 'line',
-  slot: 'middle',
-  filter: ['==', ['get', 'kind'], 'multi-use'],
-  layout: { 'line-cap': 'round', 'line-join': 'round' },
-  paint: { 'line-color': ['get', 'color'], 'line-width': 4.5, 'line-opacity': 0.9 },
-};
-
-const TRAIL_NATURE = {
-  id: 'trails-nature',
-  type: 'line',
-  slot: 'middle',
-  filter: ['==', ['get', 'kind'], 'nature'],
-  layout: { 'line-cap': 'round', 'line-join': 'round' },
-  paint: { 'line-color': ['get', 'color'], 'line-width': 3, 'line-opacity': 0.9, 'line-dasharray': [3, 2] },
-};
-
-const TRAIL_CROSSWALK_MASK = {
-  id: 'trails-crosswalk-mask',
-  type: 'line',
-  slot: 'middle',
-  filter: ['==', ['get', 'kind'], 'crosswalk'],
-  layout: { 'line-cap': 'butt', 'line-join': 'round' },
-  paint: { 'line-color': '#ffffff', 'line-width': 8, 'line-opacity': 1 },
-};
-
-const TRAIL_CROSSWALK_DASH = {
-  id: 'trails-crosswalk-dash',
-  type: 'line',
-  slot: 'middle',
-  filter: ['==', ['get', 'kind'], 'crosswalk'],
-  layout: { 'line-cap': 'butt', 'line-join': 'round' },
-  paint: { 'line-color': ['get', 'color'], 'line-width': 5, 'line-opacity': 1, 'line-dasharray': [2, 1.5] },
-};
 
 const TOKEN = import.meta.env.VITE_MAPBOX_TOKEN;
 const CENTER = { longitude: -77.4605, latitude: 38.3016, zoom: 13, pitch: 48 };
@@ -75,19 +31,10 @@ export default function MapView({ rows, cat, hoverId, onOpen, shown = true }) {
     () => cat === 'All' ? rows : rows.filter(r => r.cat === cat),
     [rows, cat]
   );
+  // Trails are listings (markers) now; their routes are rendered by the
+  // basemap straight from OpenStreetMap, so we no longer draw geometry here.
   const mappable = visible.filter(r => r.coords);
-  const pinnable = mappable.filter(r => !TRAIL_PATH_IDS.has(r.id));
   const hovered  = hoverId != null ? rows.find(r => r.id === hoverId) : null;
-
-  // Filter trail GeoJSON to only the trails visible under current category
-  const visibleTrailIds = useMemo(() => new Set(
-    visible.filter(r => TRAIL_PATH_IDS.has(r.id)).map(r => r.id)
-  ), [visible]);
-
-  const trailData = useMemo(() => ({
-    ...TRAIL_PATHS,
-    features: TRAIL_PATHS.features.filter(f => visibleTrailIds.has(f.properties.id)),
-  }), [visibleTrailIds]);
 
   // fitBounds when category changes
   const fitVisible = useCallback((map) => {
@@ -145,16 +92,7 @@ export default function MapView({ rows, cat, hoverId, onOpen, shown = true }) {
     >
       <NavigationControl position="top-right" showCompass={false} />
 
-      {/* Trails rendered as line paths */}
-      <Source id="trails" type="geojson" data={trailData}>
-        <Layer {...TRAIL_CASING} />
-        <Layer {...TRAIL_MULTIUSE} />
-        <Layer {...TRAIL_NATURE} />
-        <Layer {...TRAIL_CROSSWALK_MASK} />
-        <Layer {...TRAIL_CROSSWALK_DASH} />
-      </Source>
-
-      {pinnable.map(row => (
+      {mappable.map(row => (
         <Pin
           key={row.id}
           row={row}
