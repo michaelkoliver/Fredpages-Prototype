@@ -679,14 +679,6 @@ export const DATA = [
     hours:[["Daily","Dawn – Dusk"]], todayIdx:0,
     offers:[], events:[] },
 
-  { id:28, name:"Spring Wood Trail", cat:"Trail", claimable:false, type:"public", hood:"Lafayette", color:"#7a5a2a",
-    rating:0, reviews:0, open:true, until:"Dusk", status:"auto",
-    coords:[38.2865,-77.4863],
-    about:"A short paved pathway connecting the northwest end of Spring Wood Drive to the Virginia Central Railway Trail.",
-    addr:"Spring Wood Dr, Fredericksburg", phone:"", web:"",
-    hours:[["Daily","Dawn – Dusk"]], todayIdx:0,
-    offers:[], events:[] },
-
   { id:27, name:"Trestle Lane Trail", cat:"Trail", claimable:false, type:"public", hood:"Lafayette", color:"#4a7a3a",
     rating:0, reviews:0, open:true, until:"Dusk", status:"auto",
     coords:[38.2893,-77.4769],
