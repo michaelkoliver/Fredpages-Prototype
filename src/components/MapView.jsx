@@ -86,18 +86,6 @@ export default function MapView({ rows, cat, hoverId, onOpen, shown = true }) {
         // icons so they don't compete with our business pins.
         try { map.setConfigProperty('basemap', 'showPointOfInterestLabels', false); }
         catch { /* non-Standard style: config not supported */ }
-        // TEMP TEST: can we override Standard's cycleway layer in place?
-        // If the green dashes turn red, in-place restyling works. Remove after.
-        ['road-path-cycleway-piste', 'bridge-path-cycleway-piste', 'tunnel-path-cycleway-piste'].forEach(id => {
-          try {
-            // eslint-disable-next-line no-console
-            console.log('[cycleway test] layer present?', id, !!map.getLayer(id));
-            map.setPaintProperty(id, 'line-color', '#ff0000');
-          } catch (err) {
-            // eslint-disable-next-line no-console
-            console.log('[cycleway test] override FAILED', id, err && err.message);
-          }
-        });
         fitVisible(map);
       }}
       cooperativeGestures={false}
