@@ -13,11 +13,11 @@ const COLORS = {
   'Fall Hill':                    '#3f6b4a',
   'Greenbrier':                   '#7a5230',
   'Hospital District':            '#3a6b8a',
-  'College Heights':              '#6a5a8a',
+  'Midtown':                      '#6a5a8a',
   'Canal Quarter':                '#b6802a',
   'South Dixon':                  '#996b35',
   'Braehead':                     '#8a4b3a',
-  'Lafayette / S. Route 1':       '#5a6b7a',
+  'The Fringe':                   '#5a6b7a',
 };
 
 export default function Neighborhoods() {
